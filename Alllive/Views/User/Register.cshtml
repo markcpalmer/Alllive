@@ -1,0 +1,120 @@
+﻿@model  Alllive.Models.UserModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<style type="text/css">
+    .register-form {
+        width: 640px;
+        margin: auto;
+        text-align: center;
+    }
+
+        .register-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        .register-form h2 {
+            margin: 0 0 15px;
+        }
+
+        .register-form .hint-text {
+            color: #777;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+    .form-control, .btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+
+    .login-btn {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .or-seperator {
+        margin: 20px 0 10px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+    }
+
+        .or-seperator i {
+            padding: 0 10px;
+            background: #f7f7f7;
+            position: relative;
+            top: -11px;
+            z-index: 1;
+        }
+
+    .social-btn .btn {
+        margin: 10px 0;
+        font-size: 15px;
+        text-align: left;
+        line-height: 24px;
+    }
+
+        .social-btn .btn i {
+            float: left;
+            margin: 4px 15px 0 5px;
+            min-width: 15px;
+        }
+
+    .input-group-addon .fa {
+        font-size: 18px;
+    }
+</style>
+<div class="container">
+    <div class="register-form">
+        <h2> Register</h2>
+        @using (Html.BeginForm("Register", "User", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
+        {
+
+            @Html.LabelFor(a => a.LastName)
+            @Html.TextBoxFor(a => a.LastName, new { @class = "form-control", @style = "display:inline-block" })
+            <br />
+            @Html.LabelFor(a => a.FirstName)
+            @Html.TextBoxFor(a => a.FirstName, new { @class = "form-control", @style = "display:inline-block" })
+            <br />
+            @Html.LabelFor(a => a.UserName)
+            @Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @style = "display:inline-block" })
+            <br />
+            @Html.LabelFor(a => a.Password)
+            @Html.PasswordFor(a => a.Password, new { @class = "form-control", @style = "display:inline-block" })
+
+            <p>
+                @Html.ValidationMessageFor(a => a.LastName, "", new { @style = "color:'red'" })<br />
+                @Html.ValidationMessageFor(a => a.FirstName, "", new { @style = "color:red" })<br />
+                @Html.ValidationMessageFor(a => a.UserName, "", new { @style = "color:red" })<br />
+                @Html.ValidationMessageFor(a => a.Password, "", new { @style = "color:red" })<br />
+                @Html.ValidationSummary();
+            </p>
+
+            <br />
+
+            <input type="submit" value="Submit" />
+
+        }
+    </div>
+</div>
+
+@*<div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success btn-block login-btn">Sign in</button>
+    </div>*@
