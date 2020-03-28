@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Alllive.Models.Schedule>
+@{
+    ViewBag.Title = "Schedule";
+}
+
+<h2>Schedule</h2>
+@foreach (var item in Model)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm col-md-4">
+                <div class="col-md-4">
+                    IMAGE
+                </div>
+                <div class="col-md-4">
+                    <b>@item.SessionID</b>
+                    <br />
+                    @item.DateTimeScheduledIn
+                </div>
+                <div class="col-md-4">
+                    @item.DateTimeScheduleOut
+                </div>
+                <div class="col-md-4">
+                    @item.SessionDescription
+                </div>
+               
+
+            </div>
+        </div>
+    </div>
+}

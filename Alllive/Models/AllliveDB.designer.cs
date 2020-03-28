@@ -36,6 +36,9 @@ namespace Alllive.Models
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertSchedule(Schedule instance);
+    partial void UpdateSchedule(Schedule instance);
+    partial void DeleteSchedule(Schedule instance);
     #endregion
 		
 		public AllliveDBDataContext() : 
@@ -76,19 +79,19 @@ namespace Alllive.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Schedule> Schedules
-		{
-			get
-			{
-				return this.GetTable<Schedule>();
-			}
-		}
-		
 		public System.Data.Linq.Table<User> Users
 		{
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Schedule> Schedules
+		{
+			get
+			{
+				return this.GetTable<Schedule>();
 			}
 		}
 		
@@ -210,87 +213,6 @@ namespace Alllive.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedule")]
-	public partial class Schedule
-	{
-		
-		private int _SessionID;
-		
-		private System.Nullable<System.DateTime> _DateTimeScheduledIn;
-		
-		private System.Nullable<System.DateTime> _DateTimeScheduleOut;
-		
-		private int _UserID;
-		
-		public Schedule()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionID", DbType="Int NOT NULL")]
-		public int SessionID
-		{
-			get
-			{
-				return this._SessionID;
-			}
-			set
-			{
-				if ((this._SessionID != value))
-				{
-					this._SessionID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeScheduledIn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateTimeScheduledIn
-		{
-			get
-			{
-				return this._DateTimeScheduledIn;
-			}
-			set
-			{
-				if ((this._DateTimeScheduledIn != value))
-				{
-					this._DateTimeScheduledIn = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeScheduleOut", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateTimeScheduleOut
-		{
-			get
-			{
-				return this._DateTimeScheduleOut;
-			}
-			set
-			{
-				if ((this._DateTimeScheduleOut != value))
-				{
-					this._DateTimeScheduleOut = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
-		public int UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					this._UserID = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Users")]
 	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -400,6 +322,237 @@ namespace Alllive.Models
 					this._FirstName = value;
 					this.SendPropertyChanged("FirstName");
 					this.OnFirstNameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedule")]
+	public partial class Schedule : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _SessionID;
+		
+		private System.Nullable<System.DateTime> _DateTimeScheduledIn;
+		
+		private System.Nullable<System.DateTime> _DateTimeScheduleOut;
+		
+		private int _UserID;
+		
+		private string _SessionDescription;
+		
+		private EntityRef<Schedule> _Schedule2;
+		
+		private EntityRef<Schedule> _Schedule1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSessionIDChanging(int value);
+    partial void OnSessionIDChanged();
+    partial void OnDateTimeScheduledInChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateTimeScheduledInChanged();
+    partial void OnDateTimeScheduleOutChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateTimeScheduleOutChanged();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
+    partial void OnSessionDescriptionChanging(string value);
+    partial void OnSessionDescriptionChanged();
+    #endregion
+		
+		public Schedule()
+		{
+			this._Schedule2 = default(EntityRef<Schedule>);
+			this._Schedule1 = default(EntityRef<Schedule>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int SessionID
+		{
+			get
+			{
+				return this._SessionID;
+			}
+			set
+			{
+				if ((this._SessionID != value))
+				{
+					if (this._Schedule1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSessionIDChanging(value);
+					this.SendPropertyChanging();
+					this._SessionID = value;
+					this.SendPropertyChanged("SessionID");
+					this.OnSessionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeScheduledIn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateTimeScheduledIn
+		{
+			get
+			{
+				return this._DateTimeScheduledIn;
+			}
+			set
+			{
+				if ((this._DateTimeScheduledIn != value))
+				{
+					this.OnDateTimeScheduledInChanging(value);
+					this.SendPropertyChanging();
+					this._DateTimeScheduledIn = value;
+					this.SendPropertyChanged("DateTimeScheduledIn");
+					this.OnDateTimeScheduledInChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeScheduleOut", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateTimeScheduleOut
+		{
+			get
+			{
+				return this._DateTimeScheduleOut;
+			}
+			set
+			{
+				if ((this._DateTimeScheduleOut != value))
+				{
+					this.OnDateTimeScheduleOutChanging(value);
+					this.SendPropertyChanging();
+					this._DateTimeScheduleOut = value;
+					this.SendPropertyChanged("DateTimeScheduleOut");
+					this.OnDateTimeScheduleOutChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
+		public int UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionDescription", DbType="NVarChar(50)")]
+		public string SessionDescription
+		{
+			get
+			{
+				return this._SessionDescription;
+			}
+			set
+			{
+				if ((this._SessionDescription != value))
+				{
+					this.OnSessionDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._SessionDescription = value;
+					this.SendPropertyChanged("SessionDescription");
+					this.OnSessionDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Schedule_Schedule", Storage="_Schedule2", ThisKey="SessionID", OtherKey="SessionID", IsUnique=true, IsForeignKey=false)]
+		public Schedule Schedule2
+		{
+			get
+			{
+				return this._Schedule2.Entity;
+			}
+			set
+			{
+				Schedule previousValue = this._Schedule2.Entity;
+				if (((previousValue != value) 
+							|| (this._Schedule2.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Schedule2.Entity = null;
+						previousValue.Schedule1 = null;
+					}
+					this._Schedule2.Entity = value;
+					if ((value != null))
+					{
+						value.Schedule1 = this;
+					}
+					this.SendPropertyChanged("Schedule2");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Schedule_Schedule", Storage="_Schedule1", ThisKey="SessionID", OtherKey="SessionID", IsForeignKey=true)]
+		public Schedule Schedule1
+		{
+			get
+			{
+				return this._Schedule1.Entity;
+			}
+			set
+			{
+				Schedule previousValue = this._Schedule1.Entity;
+				if (((previousValue != value) 
+							|| (this._Schedule1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Schedule1.Entity = null;
+						previousValue.Schedule2 = null;
+					}
+					this._Schedule1.Entity = value;
+					if ((value != null))
+					{
+						value.Schedule2 = this;
+						this._SessionID = value.SessionID;
+					}
+					else
+					{
+						this._SessionID = default(int);
+					}
+					this.SendPropertyChanged("Schedule1");
 				}
 			}
 		}
