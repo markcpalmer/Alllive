@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Alllive.Models;
+using System.Web.Security;
 
 
 namespace Alllive.Controllers
@@ -77,8 +78,55 @@ namespace Alllive.Controllers
 
         }
         #endregion
-        #region Schedule
+        #region Login
+        public ActionResult Login(UserModel Login) //Nullable Int Type 
+        {
+            var userExists = Dc.Users.Where(a => a.UserName == Login.UserName).FirstOrDefault();//defaults to null and doesn't error out
 
+            if (userExists != null)
+            {
+                try
+                {
+                    //FormsAuthentication common Windows/Microsoft Method. This tells your server to whitelist the cookie.
+                    FormsAuthentication.SetAuthCookie(Login.UserName, true); //True is for Remember ME
+                    PrepareUserSession(Login);
+                    
+                    return RedirectToAction("Schedule", "User", new { ID = userExists.UserID });//redirects user to different action"                    
+                }
+                catch { }
+
+                return View();
+            }
+            else
+            {
+                return View();
+            }
+
+
+        }
+        #endregion Login
+        public void PrepareUserSession(UserModel model)
+        {
+            // Assigning variables from the model parameter into the Session
+            Session["AllliveUser"] = new UserModel()
+            {
+                UserId = model.UserId,
+                UserName = model.UserName,
+                Password = model.Password
+            };
+
+            /// Assigning the session variables (password/username) into the UserModel 
+            /// to reference valid user within each controller of the project.
+            /// AUTHENTICATION.  the website knows who the user is at all times
+            UserModel usermng = (UserModel)(Session["AllliveUser"]);
+        }
+
+
+        #region Schedule
+        public ActionResult Schedule(int? ID)
+        {
+            return View();
+        }
         #endregion
 
     }
