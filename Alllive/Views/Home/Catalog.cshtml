@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Catalog";
+}
+
+<h2>Catalog</h2>
+<header>
+    <!--Schedule a Meeting-->
+    <!--Join a meeting-->
+    <!--Host a meeting-->
+
+
+    <!--Phyiscal Therapy-->
+    <!--Yoga-->
+
+    <!--K12 Education-->
+    <!-- Reading-->
+    <!--Math-->
+    <!--Science-->
+</header>
+<!-- We need to add this to your Layout page, specifing if the user is looking at the catalog page-->
+<div class="navbar navbar-inverse navbar-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Alllive", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Schedule Meeting", "ScheduleMeeting", "Navigation")</li>
+                <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
+                <li>@Html.ActionLink("Host Meeting", "HostMeeting", "Navigation")</li>
+
+            </ul>
+            @*<div class="loginButton">
+                @Html.ActionLink("Login", "Login", "Home", false, new { style = "position:absolute; right:10px; top:10px;" })
+            </div>*@
+        </div>
+    </div>
+</div>

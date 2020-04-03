@@ -30,12 +30,12 @@ namespace Alllive.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertSchedule(Schedule instance);
-    partial void UpdateSchedule(Schedule instance);
-    partial void DeleteSchedule(Schedule instance);
     partial void Insertpassword(password instance);
     partial void Updatepassword(password instance);
     partial void Deletepassword(password instance);
+    partial void InsertSchedule(Schedule instance);
+    partial void UpdateSchedule(Schedule instance);
+    partial void DeleteSchedule(Schedule instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
@@ -71,19 +71,19 @@ namespace Alllive.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Schedule> Schedules
-		{
-			get
-			{
-				return this.GetTable<Schedule>();
-			}
-		}
-		
 		public System.Data.Linq.Table<password> passwords
 		{
 			get
 			{
 				return this.GetTable<password>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Schedule> Schedules
+		{
+			get
+			{
+				return this.GetTable<Schedule>();
 			}
 		}
 		
@@ -103,6 +103,157 @@ namespace Alllive.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.password")]
+	public partial class password : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _passwordID;
+		
+		private string _password1;
+		
+		private System.Nullable<int> _UserID;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnpasswordIDChanging(int value);
+    partial void OnpasswordIDChanged();
+    partial void Onpassword1Changing(string value);
+    partial void Onpassword1Changed();
+    partial void OnUserIDChanging(System.Nullable<int> value);
+    partial void OnUserIDChanged();
+    #endregion
+		
+		public password()
+		{
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_passwordID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int passwordID
+		{
+			get
+			{
+				return this._passwordID;
+			}
+			set
+			{
+				if ((this._passwordID != value))
+				{
+					this.OnpasswordIDChanging(value);
+					this.SendPropertyChanging();
+					this._passwordID = value;
+					this.SendPropertyChanged("passwordID");
+					this.OnpasswordIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="password", Storage="_password1", DbType="VarChar(16)")]
+		public string password1
+		{
+			get
+			{
+				return this._password1;
+			}
+			set
+			{
+				if ((this._password1 != value))
+				{
+					this.Onpassword1Changing(value);
+					this.SendPropertyChanging();
+					this._password1 = value;
+					this.SendPropertyChanged("password1");
+					this.Onpassword1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
+		public System.Nullable<int> UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_password", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.passwords.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.passwords.Add(this);
+						this._UserID = value.UserID;
+					}
+					else
+					{
+						this._UserID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedule")]
 	public partial class Schedule : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -119,9 +270,7 @@ namespace Alllive.Models
 		
 		private string _SessionDescription;
 		
-		private EntityRef<Schedule> _Schedule2;
-		
-		private EntityRef<Schedule> _Schedule1;
+		private EntityRef<User> _User;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -141,8 +290,7 @@ namespace Alllive.Models
 		
 		public Schedule()
 		{
-			this._Schedule2 = default(EntityRef<Schedule>);
-			this._Schedule1 = default(EntityRef<Schedule>);
+			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -157,10 +305,6 @@ namespace Alllive.Models
 			{
 				if ((this._SessionID != value))
 				{
-					if (this._Schedule1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnSessionIDChanging(value);
 					this.SendPropertyChanging();
 					this._SessionID = value;
@@ -221,6 +365,10 @@ namespace Alllive.Models
 			{
 				if ((this._UserID != value))
 				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnUserIDChanging(value);
 					this.SendPropertyChanging();
 					this._UserID = value;
@@ -250,175 +398,36 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Schedule_Schedule", Storage="_Schedule2", ThisKey="SessionID", OtherKey="SessionID", IsUnique=true, IsForeignKey=false)]
-		public Schedule Schedule2
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Schedule", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
+		public User User
 		{
 			get
 			{
-				return this._Schedule2.Entity;
+				return this._User.Entity;
 			}
 			set
 			{
-				Schedule previousValue = this._Schedule2.Entity;
+				User previousValue = this._User.Entity;
 				if (((previousValue != value) 
-							|| (this._Schedule2.HasLoadedOrAssignedValue == false)))
+							|| (this._User.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Schedule2.Entity = null;
-						previousValue.Schedule1 = null;
+						this._User.Entity = null;
+						previousValue.Schedules.Remove(this);
 					}
-					this._Schedule2.Entity = value;
+					this._User.Entity = value;
 					if ((value != null))
 					{
-						value.Schedule1 = this;
-					}
-					this.SendPropertyChanged("Schedule2");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Schedule_Schedule", Storage="_Schedule1", ThisKey="SessionID", OtherKey="SessionID", IsForeignKey=true)]
-		public Schedule Schedule1
-		{
-			get
-			{
-				return this._Schedule1.Entity;
-			}
-			set
-			{
-				Schedule previousValue = this._Schedule1.Entity;
-				if (((previousValue != value) 
-							|| (this._Schedule1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Schedule1.Entity = null;
-						previousValue.Schedule2 = null;
-					}
-					this._Schedule1.Entity = value;
-					if ((value != null))
-					{
-						value.Schedule2 = this;
-						this._SessionID = value.SessionID;
+						value.Schedules.Add(this);
+						this._UserID = value.UserID;
 					}
 					else
 					{
-						this._SessionID = default(int);
+						this._UserID = default(int);
 					}
-					this.SendPropertyChanged("Schedule1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.password")]
-	public partial class password : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _passwordID;
-		
-		private string _password1;
-		
-		private System.Nullable<int> _UserID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnpasswordIDChanging(int value);
-    partial void OnpasswordIDChanged();
-    partial void Onpassword1Changing(string value);
-    partial void Onpassword1Changed();
-    partial void OnUserIDChanging(System.Nullable<int> value);
-    partial void OnUserIDChanged();
-    #endregion
-		
-		public password()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_passwordID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int passwordID
-		{
-			get
-			{
-				return this._passwordID;
-			}
-			set
-			{
-				if ((this._passwordID != value))
-				{
-					this.OnpasswordIDChanging(value);
-					this.SendPropertyChanging();
-					this._passwordID = value;
-					this.SendPropertyChanged("passwordID");
-					this.OnpasswordIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="password", Storage="_password1", DbType="VarChar(16)")]
-		public string password1
-		{
-			get
-			{
-				return this._password1;
-			}
-			set
-			{
-				if ((this._password1 != value))
-				{
-					this.Onpassword1Changing(value);
-					this.SendPropertyChanging();
-					this._password1 = value;
-					this.SendPropertyChanged("password1");
-					this.Onpassword1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
-		public System.Nullable<int> UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
+					this.SendPropertyChanged("User");
 				}
 			}
 		}
@@ -458,6 +467,10 @@ namespace Alllive.Models
 		
 		private string _FirstName;
 		
+		private EntitySet<password> _passwords;
+		
+		private EntitySet<Schedule> _Schedules;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -474,6 +487,8 @@ namespace Alllive.Models
 		
 		public User()
 		{
+			this._passwords = new EntitySet<password>(new Action<password>(this.attach_passwords), new Action<password>(this.detach_passwords));
+			this._Schedules = new EntitySet<Schedule>(new Action<Schedule>(this.attach_Schedules), new Action<Schedule>(this.detach_Schedules));
 			OnCreated();
 		}
 		
@@ -557,6 +572,32 @@ namespace Alllive.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_password", Storage="_passwords", ThisKey="UserID", OtherKey="UserID")]
+		public EntitySet<password> passwords
+		{
+			get
+			{
+				return this._passwords;
+			}
+			set
+			{
+				this._passwords.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Schedule", Storage="_Schedules", ThisKey="UserID", OtherKey="UserID")]
+		public EntitySet<Schedule> Schedules
+		{
+			get
+			{
+				return this._Schedules;
+			}
+			set
+			{
+				this._Schedules.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -575,6 +616,30 @@ namespace Alllive.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_passwords(password entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_passwords(password entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_Schedules(Schedule entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_Schedules(Schedule entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
 		}
 	}
 }

@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AllliveDB" Class="AllliveDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=LAPTOP-5P9JLMHT\SQLEXPRESS;Initial Catalog=AllliveDB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AllliveDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.password" Member="passwords">
+    <Type Name="password">
+      <Column Name="passwordID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="password" Member="password1" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_password" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Schedule" Member="Schedules">
     <Type Name="Schedule">
       <Column Name="SessionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -7,15 +15,7 @@
       <Column Name="DateTimeScheduleOut" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="SessionDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="Schedule_Schedule" Member="Schedule2" ThisKey="SessionID" OtherKey="SessionID" Type="Schedule" Cardinality="One" />
-      <Association Name="Schedule_Schedule" Member="Schedule1" ThisKey="SessionID" OtherKey="SessionID" Type="Schedule" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.password" Member="passwords">
-    <Type Name="password">
-      <Column Name="passwordID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="password" Member="password1" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
-      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_Schedule" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -24,6 +24,8 @@
       <Column Name="UserName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="LastName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="FirstName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="User_password" Member="passwords" ThisKey="UserID" OtherKey="UserID" Type="password" />
+      <Association Name="User_Schedule" Member="Schedules" ThisKey="UserID" OtherKey="UserID" Type="Schedule" />
     </Type>
   </Table>
   <Function Name="dbo.insertregistereduser" Method="insertregistereduser">

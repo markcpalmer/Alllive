@@ -1,0 +1,47 @@
+﻿@model  Alllive.Models.ScheduleModel
+@{
+    ViewBag.Title = "ScheduleMeeting";
+}
+
+<h2>Schedule Meeting</h2>
+@using (Html.BeginForm("ScheduleMeeting", "Navigation", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
+{
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.Label("Session Name")
+        </div>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.Label("Start Time")
+        </div>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(a => a.DateTimeScheduledIn, new { @class = "form-control", @style = "display:inline-block" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.Label("End Time")
+        </div>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(a => a.DateTimeScheduledOut, new { @class = "form-control", @style = "display:inline-block" })
+        </div>
+    </div>
+</div>
+    <p>
+        @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })<br />
+        @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })<br />
+        @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })<br />
+        @Html.ValidationSummary()
+    </p>
+
+    <br />
+
+    <input type="submit" value="Submit" />
+
+    }
+

@@ -108,7 +108,7 @@ namespace Alllive.Controllers
         public void PrepareUserSession(UserModel model)
         {
             // Assigning variables from the model parameter into the Session
-            Session["AllliveUser"] = new UserModel()
+            Session["AllLiveUser"] = new UserModel()
             {
                 UserId = model.UserId,
                 UserName = model.UserName,
@@ -121,6 +121,12 @@ namespace Alllive.Controllers
             UserModel usermng = (UserModel)(Session["AllliveUser"]);
         }
 
+        public ActionResult Logoff()
+        {
+            FormsAuthentication.SignOut();
+            Session["AllLiveUser"] = null;//Clear cookie
+            return RedirectToAction("Index", "Home");
+        }
 
         #region Schedule
         public ActionResult Schedule(int? ID)

@@ -122,6 +122,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -183,6 +184,10 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Schedule.cshtml" />
+    <Content Include="Views\Home\Catalog.cshtml" />
+    <Content Include="Views\Navigation\ScheduleMeeting.cshtml" />
+    <Content Include="Views\Navigation\JoinMeeting.cshtml" />
+    <Content Include="Views\Navigation\StartMeeting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

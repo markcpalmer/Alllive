@@ -10,6 +10,7 @@ namespace Alllive.Models
         public int UserID { get; set; }
         public DateTime DateTimeScheduledIn { get; set; }
         public DateTime DateTimeScheduledOut { get; set; }
+        public string SessionName { get; set; }
         public int SessionID { get; set; }
 
     }

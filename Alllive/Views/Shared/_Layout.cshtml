@@ -18,14 +18,42 @@
                 </button>
                 @Html.ActionLink("Alllive", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Catalog", "Catalog", "Home")</li>
+
+                    @* turn on login button if user is null turn it off if user is not null *@
+                    @if (Session["AllLiveUser"] == null)
+                    {
+                        <li>@Html.ActionLink("Schedule Meeting", "Login", "Home")</li>
+                        <li>@Html.ActionLink("Join Meeting", "Login", "Home")</li>
+                        <li>@Html.ActionLink("Start Meeting", "Login", "Home")</li>
+
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Schedule Meeting", "ScheduleMeeting", "Navigation")</li>
+                        <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
+                        <li>@Html.ActionLink("Start Meeting", "StartMeeting", "Navigation")</li>
+
+                    }
+
+
                 </ul>
                 <div class="loginButton">
-                    @Html.ActionLink("Login", "Login", "Home", false, new { style = "position:absolute; right:10px; top:10px;" })
+                    @* turn on login button if user is null turn it off if user is not null *@
+                    @if (Session["AllLiveUser"] == null)
+                    {
+                        @Html.ActionLink("Login", "Login", "Home", false, new { style = "position:absolute; right:10px; top:10px;" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Sign Out", "Logoff", "User", false, new { style = "position: absolute; right:10px; top:10px;" })
+                    }
                 </div>
             </div>
         </div>
