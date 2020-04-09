@@ -25,5 +25,13 @@ namespace Alllive.Controllers
         {
             return View();
         }
+        public ActionResult DistanceLearning()
+        {
+            return View();
+        }
+        public ActionResult SearchTutor()
+        {
+            return View();
+        }
     }
 }

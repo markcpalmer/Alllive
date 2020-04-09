@@ -21,17 +21,16 @@
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Catalog", "Catalog", "Home")</li>
 
-                    @* turn on login button if user is null turn it off if user is not null *@
+
+                    @* if user is null turn send users to login page when they click schedule,join or start*@
                     @if (Session["AllLiveUser"] == null)
                     {
                         <li>@Html.ActionLink("Schedule Meeting", "Login", "Home")</li>
                         <li>@Html.ActionLink("Join Meeting", "Login", "Home")</li>
                         <li>@Html.ActionLink("Start Meeting", "Login", "Home")</li>
+                        <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
+
 
                     }
                     else
@@ -39,6 +38,8 @@
                         <li>@Html.ActionLink("Schedule Meeting", "ScheduleMeeting", "Navigation")</li>
                         <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
                         <li>@Html.ActionLink("Start Meeting", "StartMeeting", "Navigation")</li>
+                        <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
+
 
                     }
 
@@ -49,6 +50,8 @@
                     @if (Session["AllLiveUser"] == null)
                     {
                         @Html.ActionLink("Login", "Login", "Home", false, new { style = "position:absolute; right:10px; top:10px;" })
+                        @Html.ActionLink("Register", "Register", "User", false, new { style = "position:absolute; right:60px; top:10px;" })
+
                     }
                     else
                     {
@@ -62,6 +65,16 @@
         @RenderBody()
         <hr />
         <footer>
+            <div style="left: 20px; text-align: left; background-color: #ffffff;">
+                <ul>
+
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Catalog", "Catalog", "Home")</li>
+                </ul>
+            </div>
+            <br />
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>

@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-
-
-
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alllive.Models
 {
@@ -26,5 +23,47 @@ namespace Alllive.Models
 
         [Required(ErrorMessage = "Password Required")]
         public string Password { get; set; }
+
+        [NotMapped]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
+
+        public bool RegisterAsTutor { get; set; }
+
+        // This will be advance MVC/SQL
+        // You will need a seperate Table that stores "LOCATION/FILE/EXT" of the image, that way you don't blow through your DB storage
+        // For location, store the image in the IIS server
+        public string Photo { get; set; } 
+
+        public bool MathSubject { get; set; }
+
+        public bool ReadingSubject { get; set; }
+
+        public bool ScienceSubject { get; set; }
+
+        public string Bio { get; set; } //Be best to set character limit and display it in View
+
+        /// You don't want any of these required
+        public bool MondayStart { get; set; }
+        public DateTime MonStart { get; set; }
+        public DateTime MonEnd { get; set; }
+
+        public bool Tuesday { get; set; }
+        public string TueStart { get; set; }
+        public string TueEnd { get; set; }
+
+        public bool Wednesday { get; set; }
+        public string WedStart { get; set; }
+        public string WedEnd { get; set; }
+
+        public bool Thursday { get; set; }
+        public string ThuStart { get; set; }
+        public string ThuEnd { get; set; }
+
+        public bool Friday { get; set; }
+        public string FriStart { get; set; }
+        public string FriEnd { get; set; }
+
+
     }
 }

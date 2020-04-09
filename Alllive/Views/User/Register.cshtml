@@ -4,9 +4,9 @@
     ViewBag.Title = "Register";
 }
 
-<style type="text/css">
+<!-- <style type="text/css">
     .register-form {
-        width: 640px;
+        width: ;
         margin: auto;
         text-align: center;
     }
@@ -68,36 +68,153 @@
     .input-group-addon .fa {
         font-size: 18px;
     }
-</style>
+</style> -->
+
+<!-- CONVERT GRID INTO TABLE-->
 <div class="container">
     <div class="register-form">
         <h2> Register</h2>
         @using (Html.BeginForm("Register", "User", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
         {
+        
+        <p>
+            <div class="row">
+                <div class="col-sm-1">
+                    @Html.LabelFor(a => a.FirstName, new { @style="align:center" })
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(a => a.FirstName, new { @class = "form-control", @style = "display:inline-block" })
+                </div>
+                <div class="col-sm-1">
+                    @Html.LabelFor(a => a.LastName)
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(a => a.LastName, new { @class = "form-control", @style = "display:inline-block" })
+                </div>
+            </div>
+        </p>
 
-            @Html.LabelFor(a => a.LastName)
-            @Html.TextBoxFor(a => a.LastName, new { @class = "form-control", @style = "display:inline-block" })
-            <br />
-            @Html.LabelFor(a => a.FirstName)
-            @Html.TextBoxFor(a => a.FirstName, new { @class = "form-control", @style = "display:inline-block" })
-            <br />
-            @Html.LabelFor(a => a.UserName)
-            @Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @style = "display:inline-block" })
-            <br />
-            @Html.LabelFor(a => a.Password)
-            @Html.PasswordFor(a => a.Password, new { @class = "form-control", @style = "display:inline-block" })
+        <p>
+            <div class="row">
+                <div class="col-sm-1">
+                    @Html.Label("Email")
+                </div>
+                <div class="col-8">
+                    @Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @style = "display:inline-block", @placeholder = "your@email.com" })
+                </div>
+            </div>
+        </p>
 
-            <p>
-                @Html.ValidationMessageFor(a => a.LastName, "", new { @style = "color:'red'" })<br />
-                @Html.ValidationMessageFor(a => a.FirstName, "", new { @style = "color:red" })<br />
-                @Html.ValidationMessageFor(a => a.UserName, "", new { @style = "color:red" })<br />
-                @Html.ValidationMessageFor(a => a.Password, "", new { @style = "color:red" })<br />
-                @Html.ValidationSummary();
-            </p>
 
-            <br />
+        <p>
+            <div class="row">
+                <div class="col-sm-1">
+                    @Html.LabelFor(a => a.Password)
+                </div>
+                <div class="col-sm-3">
+                    @Html.PasswordFor(a => a.Password, new { @class = "form-control", @style = "display:inline-block" })
+                </div>
+                <div class="col-sm-1">
+                    @Html.LabelFor(a => a.ConfirmPassword)                    
+                </div>
+                <div class="col-sm-3">
+                    @Html.PasswordFor(a => a.ConfirmPassword, new { @class = "form-control", @style = "display:inline-block" })
+                </div>
+            </div>
+        </p>
 
-            <input type="submit" value="Submit" />
+
+
+
+
+        <p>
+            @Html.ValidationMessageFor(a => a.LastName, "", new { @style = "color:'red'" })<br />
+            @Html.ValidationMessageFor(a => a.FirstName, "", new { @style = "color:red" })<br />
+            @Html.ValidationMessageFor(a => a.UserName, "", new { @style = "color:red" })<br />
+            @Html.ValidationMessageFor(a => a.Password, "", new { @style = "color:red" })<br />
+            @Html.ValidationSummary();
+        </p>
+        <p>
+            <span>Register as a Tutor</span>
+            @Html.CheckBox("RegisterAsTutor",false)
+        </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <span>Upload Photo</span>
+
+                    @Html.TextBox("Photo")
+                    <button>Browse</button>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="contaner">
+            <div class="row">
+                <div class="col-md-3">
+                    <p>
+                        <h4>Tutoring Subjects</h4>
+                        <span>Maths</span>
+                        @Html.CheckBox("MathSubject", false)
+                        <span>Reading</span>
+                        @Html.CheckBox("ReadingSubject", false)
+                        <span>Science</span>
+                        @Html.CheckBox("ScienceSubject", false)
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h4>Bio</h4>
+                    @Html.TextArea("Bio")
+                </div>
+
+             </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Availability</h4>
+                    <ul style="list-style-type:none;">
+
+                        <li>Monday</li>
+                        <li>Tuesday</li>
+                        <li>Wednesday</li>
+                        <li>Thursday</li>
+                        <li>Friday</li>
+                        <li>Saturday</li>
+                        <li>Sunday</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6>Start Time</h6>
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+
+
+                </div>
+                <div class="col-md-2">
+                    <h6>End Time</h6>
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                    <input type="time" id="myTime">
+                </div>
+            </div>
+        </div>
+
+        <p>
+            <span></span>
+        </p>
+        <br />
+
+        <input type="submit" value="Submit" />
 
         }
     </div>

@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "DistanceLearning";
+}
+
+<h2>Distance Learning</h2>
+<div class="row">
+    <div class="col"style="padding-bottom: 20px">
+        <span style="padding-right: 10px; margin-left:20px;">Schedule a Class</span>
+        
+        @*<button onclick="window.location.href='<%= Url.Action("SearchTutor", "NavigationController") %>'" > Schedule</button>*@
+        <button onClick='redirectOnClick()'>Schedule</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4" style="margin-right:10px">
+        orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum. At auctor urna nunc id cursus metus aliquam. Morbi leo urna molestie at elementum eu facilisis. Enim lobortis scelerisque fermentum dui faucibus in ornare. Sit amet facilisis magna etiam tempor orci eu. Viverra adipiscing at in tellus integer feugiat. Et netus et malesuada fames ac turpis egestas. Auctor elit sed vulputate mi sit. Non enim praesent elementum facilisis leo vel fringilla est.
+
+    </div>
+    <div class="col-md-4">
+        <div style="background-image: url('../../Images/laptopboy.jpg'); margin-left :10px; background-size: cover; width: 300px; height: 300px;">
+
+        </div>
+</div>
+</div>
+<script>
+    function redirectOnClick() {
+        document.location = 'SearchTutor';
+    }
+</script>

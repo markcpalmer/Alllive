@@ -188,6 +188,8 @@
     <Content Include="Views\Navigation\ScheduleMeeting.cshtml" />
     <Content Include="Views\Navigation\JoinMeeting.cshtml" />
     <Content Include="Views\Navigation\StartMeeting.cshtml" />
+    <Content Include="Views\Navigation\DistanceLearning.cshtml" />
+    <Content Include="Views\Navigation\SearchTutor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
