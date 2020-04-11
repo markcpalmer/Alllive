@@ -6,139 +6,318 @@
 <h2>Schedule Meeting</h2>
 @using (Html.BeginForm("ScheduleMeeting", "Navigation", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
 {
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Session Name")
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Session Name")
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block" })
+            </div>
         </div>
-        <div class="col-sm-2">
-            @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block" })
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Description")
+            </div>
+            <div class="col-sm-2">
+                @Html.TextArea("Description")
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Description")
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Date")
+            </div>
+            <div class="col-sm-2">
+                <input type="date" />
+            </div>
         </div>
-        <div class="col-sm-2">
-            @Html.TextArea("Description")
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Start Time")
+            </div>
+            <div class="col-sm-2">
+                @*@Html.TextBoxFor(a => a.DateTimeScheduledIn, new { @class = "form-control", @style = "display:inline-block" })*@
+                <input type="time" id="myTime">
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Date")
-        </div>
-        <div class="col-sm-2">
-            <input type="date" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Start Time")
-        </div>
-        <div class="col-sm-2">
-            @*@Html.TextBoxFor(a => a.DateTimeScheduledIn, new { @class = "form-control", @style = "display:inline-block" })*@
-            <input type="time" id="myTime">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("End Time")
-        </div>
-        <div class="col-sm-2">
-            @*@Html.TextBoxFor(a => a.DateTimeScheduledOut, new { @class = "form-control", @style = "display:inline-block" })*@
-            <input type="time" id="myTime">
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("End Time")
+            </div>
+            <div class="col-sm-2">
+                @*@Html.TextBoxFor(a => a.DateTimeScheduledOut, new { @class = "form-control", @style = "display:inline-block" })*@
+                <input type="time" id="myTime">
 
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Time Zone")
-        </div>
-        <div class="col-sm-2">
-            <select name="timezone_offset" id="timezone-offset" class="span5">
-                <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
-                <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
-                <option value="-10:00">(GMT -10:00) Hawaii</option>
-                <option value="-09:50">(GMT -9:30) Taiohae</option>
-                <option value="-09:00">(GMT -9:00) Alaska</option>
-                <option value="-08:00">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
-                <option value="-07:00">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
-                <option value="-06:00">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
-                <option value="-05:00" selected="selected">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
-                <option value="-04:50">(GMT -4:30) Caracas</option>
-                <option value="-04:00">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
-                <option value="-03:50">(GMT -3:30) Newfoundland</option>
-                <option value="-03:00">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
-                <option value="-02:00">(GMT -2:00) Mid-Atlantic</option>
-                <option value="-01:00">(GMT -1:00) Azores, Cape Verde Islands</option>
-                <option value="+00:00">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
-                <option value="+01:00">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
-                <option value="+02:00">(GMT +2:00) Kaliningrad, South Africa</option>
-                <option value="+03:00">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
-                <option value="+03:50">(GMT +3:30) Tehran</option>
-                <option value="+04:00">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
-                <option value="+04:50">(GMT +4:30) Kabul</option>
-                <option value="+05:00">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
-                <option value="+05:50">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
-                <option value="+05:75">(GMT +5:45) Kathmandu, Pokhara</option>
-                <option value="+06:00">(GMT +6:00) Almaty, Dhaka, Colombo</option>
-                <option value="+06:50">(GMT +6:30) Yangon, Mandalay</option>
-                <option value="+07:00">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
-                <option value="+08:00">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
-                <option value="+08:75">(GMT +8:45) Eucla</option>
-                <option value="+09:00">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
-                <option value="+09:50">(GMT +9:30) Adelaide, Darwin</option>
-                <option value="+10:00">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
-                <option value="+10:50">(GMT +10:30) Lord Howe Island</option>
-                <option value="+11:00">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
-                <option value="+11:50">(GMT +11:30) Norfolk Island</option>
-                <option value="+12:00">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
-                <option value="+12:75">(GMT +12:45) Chatham Islands</option>
-                <option value="+13:00">(GMT +13:00) Apia, Nukualofa</option>
-                <option value="+14:00">(GMT +14:00) Line Islands, Tokelau</option>
-            </select>
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Time Zone")
+            </div>
+            <div class="col-sm-2">
+                <select name="timezone_offset" id="timezone-offset" class="span5">
+                    <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
+                    <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
+                    <option value="-10:00">(GMT -10:00) Hawaii</option>
+                    <option value="-09:50">(GMT -9:30) Taiohae</option>
+                    <option value="-09:00">(GMT -9:00) Alaska</option>
+                    <option value="-08:00">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+                    <option value="-07:00">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+                    <option value="-06:00">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+                    <option value="-05:00" selected="selected">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                    <option value="-04:50">(GMT -4:30) Caracas</option>
+                    <option value="-04:00">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+                    <option value="-03:50">(GMT -3:30) Newfoundland</option>
+                    <option value="-03:00">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+                    <option value="-02:00">(GMT -2:00) Mid-Atlantic</option>
+                    <option value="-01:00">(GMT -1:00) Azores, Cape Verde Islands</option>
+                    <option value="+00:00">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                    <option value="+01:00">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
+                    <option value="+02:00">(GMT +2:00) Kaliningrad, South Africa</option>
+                    <option value="+03:00">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+                    <option value="+03:50">(GMT +3:30) Tehran</option>
+                    <option value="+04:00">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+                    <option value="+04:50">(GMT +4:30) Kabul</option>
+                    <option value="+05:00">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                    <option value="+05:50">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+                    <option value="+05:75">(GMT +5:45) Kathmandu, Pokhara</option>
+                    <option value="+06:00">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+                    <option value="+06:50">(GMT +6:30) Yangon, Mandalay</option>
+                    <option value="+07:00">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+                    <option value="+08:00">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+                    <option value="+08:75">(GMT +8:45) Eucla</option>
+                    <option value="+09:00">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+                    <option value="+09:50">(GMT +9:30) Adelaide, Darwin</option>
+                    <option value="+10:00">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+                    <option value="+10:50">(GMT +10:30) Lord Howe Island</option>
+                    <option value="+11:00">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+                    <option value="+11:50">(GMT +11:30) Norfolk Island</option>
+                    <option value="+12:00">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+                    <option value="+12:75">(GMT +12:45) Chatham Islands</option>
+                    <option value="+13:00">(GMT +13:00) Apia, Nukualofa</option>
+                    <option value="+14:00">(GMT +14:00) Line Islands, Tokelau</option>
+                </select>
 
+            </div>
         </div>
-    </div>
-    @*<div>
-        @html.dropdownlistfor(a => a.timezone, timezoneinfo.getsystemtimezones().select(b => New selectlistitem{ text = b.displayname,value = b.id}))
-    </div>*@
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Recurr")
-        </div>
-        <div class="col-sm-2">
-            @Html.CheckBox("Recurr", false)
 
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Recurr")
+            </div>
+            <div class="col-sm-2">
+                @Html.CheckBox("Recurr",false)
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
+        <div class="RecurrOptions" ID="RecurrOptions" style="display:none">
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-2">
+                    <select id="myList">
+                        <option value="1">Daily</option>
+                        <option value="2">Weekly</option>
+                        <option value="3">Monthly</option>
+                    </select>
+                </div>
+            </div>
 
-        </div>
-        <div class="col-sm-2">
-            <select id="myList">
-                <option value="1">Daily</option>
-                <option value="2">Weekly</option>
-                <option value="3">Monthly</option>
-            </select>
+            <div class="daily row" style="display:none">
+                <div class="col-sm-2">
+                    Repeat every
+                </div>
+                <di class="col-sm-2">
+                    <select id="myList">
+                        <option class="Day" value="1">1</option>
+                        <option class="Day" value="2">2</option>
+                        <option class="Day" value="3">3</option>
+                        <option class="Day" value="4">4</option>
+                        <option class="Day" value="5">5</option>
+                        <option class="Day" value="6">6</option>
+                        <option class="Day" value="7">7</option>
+                        <option class="Day" value="8">8</option>
+                        <option class="Day" value="9">9</option>
+                        <option class="Day" value="10">10</option>
+                        <option class="Day" value="11">11</option>
+                        <option class="Day" value="12">12</option>
+                        <option class="Day" value="13">13</option>
+                        <option class="Day" value="14">14</option>
+                        <option class="Day" value="15">15</option>
+                        <option class="Week" value="1">1</option>
+                        <option class="Week" value="2">2</option>
+                        <option class="Week" value="3">3</option>
+                        <option class="Week" value="4">4</option>
+                        <option class="Week" value="5">5</option>
+                        <option class="Week" value="6">6</option>
+                        <option class="Week" value="7">7</option>
+                        <option class="Week" value="8">8</option>
+                        <option class="Week" value="9">9</option>
+                        <option class="Week" value="10">10</option>
+                        <option class="Week" value="11">11</option>
+                        <option class="Week" value="12">12</option>
+                        <option class="Month" value="1">1</option>
+                        <option class="Month" value="2">2</option>
+                        <option class="Month" value="3">3</option>
+                    </select>
+                    <div class="Day">
 
-        </div>
-    </div>
+                        &nbsp; Day
+                    </div>
+                    <div class="Week">
 
+                        &nbsp; Week
+                    </div>
 
 
 </div>
-    <p>
-        @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })<br />
-        @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })<br />
-        @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })<br />
-        @Html.ValidationSummary()
-    </p>
+            <div class="Week row" style="display:none">
+                <div class="col-sm-2">
+                    Occurs on
+                </div>
+                <div class="col-sm-8">
+                    @Html.CheckBox("Sun")
+                    @Html.Label("Sun")
+                    @Html.CheckBox("Mon")
+                    @Html.Label("Mon")
+                    @Html.CheckBox("Tue")
+                    @Html.Label("Tue")
+                    @Html.CheckBox("Wed")
+                    @Html.Label("Wed")
+                    @Html.CheckBox("Thu")
+                    @Html.Label("Thu")
+                    @Html.CheckBox("Fri")
+                    @Html.Label("Fri")
+                    @Html.CheckBox("Sat")
+                    @Html.Label("Sat")
+                </div>
+            </div>
+            <div class="Month row" style="display:none">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    @Html.RadioButton("Type1", 1)
+                    @Html.Label("Day")
+                    @*need to change this class to something*@
+                    <select id="myList">
+                        <option class="Day" value="1">1</option>
+                        <option class="Day" value="2">2</option>
+                        <option class="Day" value="3">3</option>
+                        <option class="Day" value="4">4</option>
+                        <option class="Day" value="5">5</option>
+                        <option class="Day" value="6">6</option>
+                        <option class="Day" value="7">7</option>
+                        <option class="Day" value="8">8</option>
+                        <option class="Day" value="9">9</option>
+                        <option class="Day" value="10">10</option>
+                        <option class="Day" value="11">11</option>
+                        <option class="Day" value="12">12</option>
+                        <option class="Day" value="13">13</option>
+                        <option class="Day" value="14">14</option>
+                        <option class="Day" value="15">15</option>
+                        <option class="Week" value="16">16</option>
+                        <option class="Week" value="17">17</option>
+                        <option class="Week" value="18">18</option>
+                        <option class="Week" value="19">19</option>
+                        <option class="Week" value="20">20</option>
+                        <option class="Week" value="21">21</option>
+                        <option class="Week" value="22">22</option>
+                        <option class="Week" value="23">23</option>
+                        <option class="Week" value="24">24</option>
+                        <option class="Week" value="25">25</option>
+                        <option class="Week" value="26">26</option>
+                        <option class="Week" value="27">27</option>
+                        <option class="Month" value="28">28</option>
+                        <option class="Month" value="29">29</option>
+                        <option class="Month" value="30">30</option>
+                        <option class="Month" value="31">31</option>
+                    </select>
+                    @Html.Label("Of the Month")
+                </div>
+            </div>
+            <div class="Month row" style="display:none">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    @Html.RadioButton("Type2", 2)
+                    <select>
+                        <option value="1">First</option>
+                        <option value="2">Second</option>
+                        <option value="3">Third</option>
+                        <option value="4">Fourth</option>
+                        <option value="5">Last</option>
+                    </select>
+                    <select>
+                        <option value="1">Sunday</option>
+                        <option value="2">Monday</option>
+                        <option value="3">Tuesday</option>
+                        <option value="4">Wednesday</option>
+                        <option value="5">Thursday</option>
+                        <option value="6">Friday</option>
+                        <option value="7">Saturday</option>
 
-    <br />
+                    </select>
+                    @Html.Label("Of the Month")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    End date
+                </div>
+                <div class="col-sm-8">
+                    <div>
+                        @Html.RadioButton("Type2", 2)
+                        @Html.Label("By")
+                        @Html.TextBox("Enter Date","MM/DD/YYYY")    
+                        @Html.RadioButton("Type2", 2)
+                        @Html.Label("After")
+                        <select>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                </div>            
+            </div>
+        </div>
 
-    <input type="submit" value="Submit" />
+        <p>
+            @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })<br />
+            @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })<br />
+            @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })<br />
+            @Html.ValidationSummary()
+        </p>
 
+        <br />
+
+        <input type="submit" value="Submit" />
+    </div>
     }
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script>
+    $(function () {
+    $("#Recurr").click(function () {
+            if ($(this).is(':checked')) {
+                $("#RecurrOptions").show();
+            }
+            else {
+                $("#RecurrOptions").hide();
+            }
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $("#myList").change(function () {
+            if ($(this).val()== 1) {
+                $("#Day").show();
+            }
+            else {
+                $("#Day").hide();
+            }
+        });
+    });
+</script>
