@@ -106,7 +106,7 @@
                 @Html.Label("Recurr")
             </div>
             <div class="col-sm-2">
-                @Html.CheckBox("Recurr",false)
+                @Html.CheckBox("Recurr", false)
             </div>
         </div>
         <div class="RecurrOptions" ID="RecurrOptions" style="display:none">
@@ -122,55 +122,50 @@
                 </div>
             </div>
 
-            <div class="daily row" style="display:none">
-                <div class="col-sm-2">
-                    Repeat every
+            <div class="Daily" ID="Daily" style="display:none">
+                <div class="row">
+                    <div class="col-sm-2">
+                        Repeat every
+                    </div>
+                    <div class="col-sm-4">
+                        <select>
+                            <option class="Day" ID="Day" style="display:none" value="1">1</option>
+                            <option class="Day" ID="Day" style="display:none" value="2">2</option>
+                            <option class="Day" ID="Day" style="display:none" value="3">3</option>
+                            <option class="Day" ID="Day" style="display:none" value="4">4</option>
+                            <option class="Day" ID="Day" style="display:none" value="5">5</option>
+                            <option class="Day" ID="Day" style="display:none" value="6">6</option>
+                            <option class="Day" ID="Day" style="display:none" value="7">7</option>
+                            <option class="Day" ID="Day" style="display:none" value="8">8</option>                            
+                            <option class="Day" ID="Day" style="display:none" value="9">9</option>
+                            <option class="Day" ID="Day" style="display:none" value="10">10</option>
+                            <option class="Day" ID="Day" style="display:none" value="11">11</option>
+                            <option class="Day" ID="Day" style="display:none" value="12">12</option>
+                            <option class="Day" ID="Day" style="display:none" value="13">13</option>
+                            <option class="Day" ID="Day" style="display:none" value="14">14</option>
+                            <option class="Day" ID="Day" style="display:none" value="15">15</option>
+                            <option class="Week" ID="Week" style="display:none" value="1">1</option>
+                            <option class="Week" ID="Week" style="display:none" value="2">2</option>
+                            <option class="Week" ID="Week" style="display:none" value="3">3</option>
+                            <option class="Week" ID="Week" style="display:none" value="4">4</option>
+                            <option class="Week" ID="Week" style="display:none" value="5">5</option>
+                            <option class="Week" ID="Week" style="display:none" value="6">6</option>
+                            <option class="Week" ID="Week" style="display:none" value="7">7</option>
+                            <option class="Week" ID="Week" style="display:none" value="8">8</option>
+                            <option class="Week" ID="Week" style="display:none" value="9">9</option>
+                            <option class="Week" ID="Week" style="display:none" value="10">10</option>
+                            <option class="Week" ID="Week" style="display:none" value="11">11</option>
+                            <option class="Week" ID="Week" style="display:none" value="12">12</option>
+                            <option class="Month" ID="Month" style="display:none" value="1">1</option>
+                            <option class="Month" ID="Month" style="display:none" value="2">2</option>
+                            <option class="Month" ID="Month" style="display:none" value="3">3</option>
+                        </select>
+                        <label ID="Frequency">Day</label>
+                    </div>                    
                 </div>
-                <di class="col-sm-2">
-                    <select id="myList">
-                        <option class="Day" value="1">1</option>
-                        <option class="Day" value="2">2</option>
-                        <option class="Day" value="3">3</option>
-                        <option class="Day" value="4">4</option>
-                        <option class="Day" value="5">5</option>
-                        <option class="Day" value="6">6</option>
-                        <option class="Day" value="7">7</option>
-                        <option class="Day" value="8">8</option>
-                        <option class="Day" value="9">9</option>
-                        <option class="Day" value="10">10</option>
-                        <option class="Day" value="11">11</option>
-                        <option class="Day" value="12">12</option>
-                        <option class="Day" value="13">13</option>
-                        <option class="Day" value="14">14</option>
-                        <option class="Day" value="15">15</option>
-                        <option class="Week" value="1">1</option>
-                        <option class="Week" value="2">2</option>
-                        <option class="Week" value="3">3</option>
-                        <option class="Week" value="4">4</option>
-                        <option class="Week" value="5">5</option>
-                        <option class="Week" value="6">6</option>
-                        <option class="Week" value="7">7</option>
-                        <option class="Week" value="8">8</option>
-                        <option class="Week" value="9">9</option>
-                        <option class="Week" value="10">10</option>
-                        <option class="Week" value="11">11</option>
-                        <option class="Week" value="12">12</option>
-                        <option class="Month" value="1">1</option>
-                        <option class="Month" value="2">2</option>
-                        <option class="Month" value="3">3</option>
-                    </select>
-                    <div class="Day">
+            </div>
 
-                        &nbsp; Day
-                    </div>
-                    <div class="Week">
-
-                        &nbsp; Week
-                    </div>
-
-
-</div>
-            <div class="Week row" style="display:none">
+            <div class="row" ID="Week" style="display:none">
                 <div class="col-sm-2">
                     Occurs on
                 </div>
@@ -191,49 +186,48 @@
                     @Html.Label("Sat")
                 </div>
             </div>
-            <div class="Month row" style="display:none">
+            <div class="row" ID="Month" style="display:none">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
                     @Html.RadioButton("Type1", 1)
                     @Html.Label("Day")
-                    @*need to change this class to something*@
-                    <select id="myList">
-                        <option class="Day" value="1">1</option>
-                        <option class="Day" value="2">2</option>
-                        <option class="Day" value="3">3</option>
-                        <option class="Day" value="4">4</option>
-                        <option class="Day" value="5">5</option>
-                        <option class="Day" value="6">6</option>
-                        <option class="Day" value="7">7</option>
-                        <option class="Day" value="8">8</option>
-                        <option class="Day" value="9">9</option>
-                        <option class="Day" value="10">10</option>
-                        <option class="Day" value="11">11</option>
-                        <option class="Day" value="12">12</option>
-                        <option class="Day" value="13">13</option>
-                        <option class="Day" value="14">14</option>
-                        <option class="Day" value="15">15</option>
-                        <option class="Week" value="16">16</option>
-                        <option class="Week" value="17">17</option>
-                        <option class="Week" value="18">18</option>
-                        <option class="Week" value="19">19</option>
-                        <option class="Week" value="20">20</option>
-                        <option class="Week" value="21">21</option>
-                        <option class="Week" value="22">22</option>
-                        <option class="Week" value="23">23</option>
-                        <option class="Week" value="24">24</option>
-                        <option class="Week" value="25">25</option>
-                        <option class="Week" value="26">26</option>
-                        <option class="Week" value="27">27</option>
-                        <option class="Month" value="28">28</option>
-                        <option class="Month" value="29">29</option>
-                        <option class="Month" value="30">30</option>
-                        <option class="Month" value="31">31</option>
+                    <select>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
                     </select>
                     @Html.Label("Of the Month")
                 </div>
             </div>
-            <div class="Month row" style="display:none">
+            <div class="row" ID="Month" style="display:none">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
                     @Html.RadioButton("Type2", 2)
@@ -265,7 +259,7 @@
                     <div>
                         @Html.RadioButton("Type2", 2)
                         @Html.Label("By")
-                        @Html.TextBox("Enter Date","MM/DD/YYYY")    
+                        @Html.TextBox("Enter Date", "MM/DD/YYYY")
                         @Html.RadioButton("Type2", 2)
                         @Html.Label("After")
                         <select>
@@ -277,8 +271,10 @@
                             <option value="6">6</option>
                             <option value="7">7</option>
                         </select>
+                        @Html.Label("Occurances of meeting").
+
                     </div>
-                </div>            
+                </div>
             </div>
         </div>
 
@@ -293,31 +289,65 @@
 
         <input type="submit" value="Submit" />
     </div>
-    }
+}
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
+<!-- This handles Reoccurring opttions -->
 <script>
-    $(function () {
-    $("#Recurr").click(function () {
+    $(document).ready(function () {
+        $("#Recurr").click(function () {
             if ($(this).is(':checked')) {
                 $("#RecurrOptions").show();
+                $("#Daily").show();
+                $("#Day").show();
             }
             else {
                 $("#RecurrOptions").hide();
+                $("#Daily").hide();
+                $("#Day").hide();
             }
         });
     });
 </script>
+
+<!-- This handles the Frequency options -->
 <script>
-    $(function () {
+    $(document).ready(function () {
         $("#myList").change(function () {
-            if ($(this).val()== 1) {
-                $("#Day").show();
-            }
-            else {
+            if ($(this).val() === "2") {                
+                $("#Frequency").text("Week");
                 $("#Day").hide();
+                $("#Week").show();                
+                $("#Month").hide();
+            }
+            else if($(this).val() === "1") {
+                $("#Frequency").text("Day");
+                $("#Day").show();
+                $("#Week").hide();
+                $("#Month").hide();
+            }
+            else if ($(this).val() === "3") {
+                $("#Frequency").text("Month");
+                $("#Day").hide();
+                $("#Week").hide();
+                $("#Month").show();
             }
         });
+    });
+</script>
+
+<!-- This handles Frequency types (D/W/M) -->
+<script>
+    $(document).ready(function () {
+        $()
+        // $("#myList").change(function(){
+        //     if ($(this).val() === 1) {
+        //         $("#Day").show();
+        //     }
+        //     else {
+        //         $("#Day").hide();
+        //     }
+        // });
     });
 </script>

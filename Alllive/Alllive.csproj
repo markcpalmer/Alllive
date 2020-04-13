@@ -145,7 +145,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Amy.png" />
     <Content Include="Images\laptopboy.jpg" />
+    <Content Include="Images\yogakid.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\AllliveDB.dbml">
@@ -190,6 +192,7 @@
     <Content Include="Views\Navigation\StartMeeting.cshtml" />
     <Content Include="Views\Navigation\DistanceLearning.cshtml" />
     <Content Include="Views\Navigation\SearchTutor.cshtml" />
+    <Content Include="Views\Navigation\OnlineYoga.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

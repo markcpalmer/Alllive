@@ -33,5 +33,9 @@ namespace Alllive.Controllers
         {
             return View();
         }
+        public ActionResult OnlineYoga()
+        {
+            return View();
+        }
     }
 }
