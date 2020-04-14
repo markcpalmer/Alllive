@@ -101,6 +101,36 @@ namespace Alllive.Models
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username, lastName, firstName, password);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.insertscheduledmeeting")]
+		public int insertscheduledmeeting(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="SessionName", DbType="VarChar(100)")] string sessionName, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Description", DbType="VarChar(250)")] string description, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Date", DbType="Date")] System.Nullable<System.DateTime> date, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StartTime", DbType="Time")] System.Nullable<System.TimeSpan> startTime, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndTime", DbType="Time")] System.Nullable<System.TimeSpan> endTime, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="TimeZone", DbType="Int")] System.Nullable<int> timeZone, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Recurr", DbType="Bit")] System.Nullable<bool> recurr, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Frequency", DbType="Int")] System.Nullable<int> frequency, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatEvery", DbType="Int")] System.Nullable<int> repeatEvery, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatFrequency", DbType="Int")] System.Nullable<int> repeatFrequency, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sunday", DbType="Bit")] System.Nullable<bool> sunday, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Monday", DbType="Bit")] System.Nullable<bool> monday, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tuesday", DbType="Bit")] System.Nullable<bool> tuesday, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Wednesday", DbType="Bit")] System.Nullable<bool> wednesday, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Thursday", DbType="Bit")] System.Nullable<bool> thursday, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Friday", DbType="Bit")] System.Nullable<bool> friday, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Saturday", DbType="Bit")] System.Nullable<bool> saturday, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatMonthRadio1", DbType="Bit")] System.Nullable<bool> repeatMonthRadio1, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatMonthRadio2", DbType="Bit")] System.Nullable<bool> repeatMonthRadio2, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Radio2List1", DbType="Int")] System.Nullable<int> radio2List1, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Radio2List2", DbType="Int")] System.Nullable<int> radio2List2, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndDateBy", DbType="Date")] System.Nullable<System.DateTime> endDateBy, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndDateAfter", DbType="Date")] System.Nullable<System.DateTime> endDateAfter)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionName, description, date, startTime, endTime, timeZone, recurr, frequency, repeatEvery, repeatFrequency, sunday, monday, tuesday, wednesday, thursday, friday, saturday, repeatMonthRadio1, repeatMonthRadio2, radio2List1, radio2List2, endDateBy, endDateAfter);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.password")]

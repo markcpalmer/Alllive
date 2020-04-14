@@ -27,7 +27,7 @@
                     @if (Session["AllLiveUser"] == null)
                     {
                         <li>@Html.ActionLink("Schedule Meeting", "Login", "Home")</li>
-                        <li>@Html.ActionLink("Join Meeting", "Login", "Home")</li>
+                        <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
                         <li>@Html.ActionLink("Start Meeting", "Login", "Home")</li>
                         <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
                         <li>@Html.ActionLink("Online Childrens Yoga", "OnlineYoga", "Navigation")</li>
@@ -40,7 +40,7 @@
                         <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
                         <li>@Html.ActionLink("Start Meeting", "StartMeeting", "Navigation")</li>
                         <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
-
+                        <li>@Html.ActionLink("Online Childrens Yoga", "OnlineYoga", "Navigation")</li>
 
                     }
 
