@@ -10,9 +10,10 @@
     <div class="row">
         <div class="col-sm-2">
             @Html.Label("Session Name")
-           
+            @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })
+
         </div>
-        
+
         <div class="col-sm-2">
             @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block; border-radius: 3rem;" })
         </div>
@@ -24,14 +25,14 @@
         <div class="col-sm-2">
             @Html.TextAreaFor(a => a.Description, new { @style = "border-radius: 3rem;" })
         </div>
-      
+
     </div>
     <div class="row">
         <div class="col-sm-2">
             @Html.Label("Date")
         </div>
         <div class="col-sm-2">
-            @Html.TextBoxFor(a => a.Date, new {@style="border-radius:3rem;" })
+            @Html.TextBoxFor(a => a.Date, new {@style="border-radius:3rem;", @ID = "datepicker" })
         </div>
     </div>
     <div class="row">
@@ -58,49 +59,49 @@
             @Html.Label("Time Zone")
         </div>
         <div class="col-sm-2">
-            <select name="timezone_offset" id="timezone-offset" class="span5"; style="border-radius: 3rem";>
-                <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
-                <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
-                <option value="-10:00">(GMT -10:00) Hawaii</option>
-                <option value="-09:50">(GMT -9:30) Taiohae</option>
-                <option value="-09:00">(GMT -9:00) Alaska</option>
-                <option value="-08:00">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
-                <option value="-07:00">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
-                <option value="-06:00">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
-                <option value="-05:00" selected="selected">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
-                <option value="-04:50">(GMT -4:30) Caracas</option>
-                <option value="-04:00">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
-                <option value="-03:50">(GMT -3:30) Newfoundland</option>
-                <option value="-03:00">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
-                <option value="-02:00">(GMT -2:00) Mid-Atlantic</option>
-                <option value="-01:00">(GMT -1:00) Azores, Cape Verde Islands</option>
-                <option value="+00:00">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
-                <option value="+01:00">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
-                <option value="+02:00">(GMT +2:00) Kaliningrad, South Africa</option>
-                <option value="+03:00">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
-                <option value="+03:50">(GMT +3:30) Tehran</option>
-                <option value="+04:00">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
-                <option value="+04:50">(GMT +4:30) Kabul</option>
-                <option value="+05:00">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
-                <option value="+05:50">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
-                <option value="+05:75">(GMT +5:45) Kathmandu, Pokhara</option>
-                <option value="+06:00">(GMT +6:00) Almaty, Dhaka, Colombo</option>
-                <option value="+06:50">(GMT +6:30) Yangon, Mandalay</option>
-                <option value="+07:00">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
-                <option value="+08:00">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
-                <option value="+08:75">(GMT +8:45) Eucla</option>
-                <option value="+09:00">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
-                <option value="+09:50">(GMT +9:30) Adelaide, Darwin</option>
-                <option value="+10:00">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
-                <option value="+10:50">(GMT +10:30) Lord Howe Island</option>
-                <option value="+11:00">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
-                <option value="+11:50">(GMT +11:30) Norfolk Island</option>
-                <option value="+12:00">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
-                <option value="+12:75">(GMT +12:45) Chatham Islands</option>
-                <option value="+13:00">(GMT +13:00) Apia, Nukualofa</option>
-                <option value="+14:00">(GMT +14:00) Line Islands, Tokelau</option>
-            </select>
-
+            @Html.DropDownListFor(a => a.TimeZone, new List<SelectListItem>
+               {
+                   new SelectListItem{ Text="(GMT -12:00) Eniwetok, Kwajalein", Value = "-12:00" },
+                   new SelectListItem{ Text="(GMT -11:00) Midway Island, Samoa", Value = "-11:00" },
+                   new SelectListItem{ Text="(GMT -10:00) Hawaii", Value = "-10:00" },
+                   new SelectListItem{ Text="(GMT -9:30) Taiohae", Value = "-9:50" },
+                   new SelectListItem{ Text="(GMT -9:00) Alaska", Value = "-9:00" },
+                   new SelectListItem{ Text="(GMT -8:00) Pacific Time (US &amp; Canada)", Value = "-8:00" },
+                   new SelectListItem{ Text="(GMT -7:00) Mountain Time (US &amp; Canada)", Value = "-7:00" },
+                   new SelectListItem{ Text="(GMT -6:00) Central Time (US &amp; Canada), Mexico City", Value = "-6:00" },
+                   new SelectListItem{ Text="(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima", Value = "-5:00" },
+                   new SelectListItem{ Text="(GMT -4:30) Caracas", Value = "-4:50" },
+                   new SelectListItem{ Text="(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz", Value = "-4:00" },
+                   new SelectListItem{ Text="(GMT -3:30) Newfoundland", Value = "-3:50" },
+                   new SelectListItem{ Text="(GMT -3:00) Brazil, Buenos Aires, Georgetown", Value = "-3:00" },
+                   new SelectListItem{ Text="(GMT -2:00) Mid-Atlantic", Value = "-2:00" },
+                   new SelectListItem{ Text="(GMT -1:00) Azores, Cape Verde Islands", Value = "-1:00" },
+                   new SelectListItem{ Text="(GMT) Western Europe Time, London, Lisbon, Casablanca", Value = "+00:00" },
+                   new SelectListItem{ Text="(GMT +1:00) Brussels, Copenhagen, Madrid, Paris", Value = "+1:00" },
+                   new SelectListItem{ Text="(GMT +2:00) Kaliningrad, South Africa", Value = "+2:00" },
+                   new SelectListItem{ Text="(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg", Value = "+3:00" },
+                   new SelectListItem{ Text="(GMT +3:30) Tehran", Value = "+3:50" },
+                   new SelectListItem{ Text="(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi", Value = "+4:00" },
+                   new SelectListItem{ Text="(GMT +4:30) Kabul", Value = "+4:50" },
+                   new SelectListItem{ Text="(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent", Value = "+5:00" },
+                   new SelectListItem{ Text="(GMT +5:30) Bombay, Calcutta, Madras, New Delhi", Value = "+5:50" },
+                   new SelectListItem{ Text="(GMT +5:45) Kathmandu, Pokhara", Value = "+5:75" },
+                   new SelectListItem{ Text="(GMT +6:00) Almaty, Dhaka, Colombo", Value = "+6:00" },
+                   new SelectListItem{ Text="(GMT +6:30) Yangon, Mandalay", Value = "+6:50" },
+                   new SelectListItem{ Text="(GMT +7:00) Bangkok, Hanoi, Jakarta", Value = "+7:00" },
+                   new SelectListItem{ Text="(GMT +8:00) Beijing, Perth, Singapore, Hong Kong", Value = "+8:00" },
+                   new SelectListItem{ Text="(GMT +8:45) Eucla", Value = "+8:75" },
+                   new SelectListItem{ Text="(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk", Value = "+9:00" },
+                   new SelectListItem{ Text="(GMT +9:30) Adelaide, Darwin", Value = "+9:50" },
+                   new SelectListItem{ Text="(GMT +10:00) Eastern Australia, Guam, Vladivostok", Value = "+10:00" },
+                   new SelectListItem{ Text="(GMT +10:30) Lord Howe Island", Value = "+10:50" },
+                   new SelectListItem{ Text="(GMT +11:00) Magadan, Solomon Islands, New Caledonia", Value = "+11:00" },
+                   new SelectListItem{ Text="(GMT +11:30) Norfolk Island", Value = "+11:50" },
+                   new SelectListItem{ Text="(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka", Value = "+12:00" },
+                   new SelectListItem{ Text="(GMT +12:45) Chatham Islands", Value = "+12:75" },
+                   new SelectListItem{ Text="(GMT +13:00) Apia, Nukualofa", Value = "+13:00" },
+                   new SelectListItem{ Text="(GMT +14:00) Line Islands, Tokelau", Value = "+14:00" }
+                }, new { @style = "border-radius:3rem" })
         </div>
     </div>
 
@@ -124,7 +125,7 @@
                     new SelectListItem{ Text="Daily", Value = "1" },
                     new SelectListItem{ Text="Weekly", Value = "2" },
                     new SelectListItem{ Text="Monthly", Value = "3" },
-                 }, new { @ID = "myList" });
+                 }, new { @ID = "myList", @style="border-radius:3rem" })
             </div>
         </div>
 
@@ -135,7 +136,7 @@
                     Repeat every
                 </div>
                 <div class="col-sm-4">
-                    @Html.DropDownListFor(a => a.Frequency, new List<SelectListItem>{},new {@style="border-radius:3rem;" })
+                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem>{},new {@style="border-radius:3rem;" })
                     <label ID="Frequency">Day</label>
                 </div>
             </div>
@@ -171,9 +172,10 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, "Day")
-                    @Html.DropDownListFor(a => a.Frequency, new List<SelectListItem>
+                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, "0", new { @ID = "rbtn1" })
+                    @Html.DropDownListFor(a => a.RepeatMonthly, new List<SelectListItem>
                     {
+                        new SelectListItem{ Text="Select a Value", Value = "0" },
                         new SelectListItem{ Text="1", Value = "1" },
                         new SelectListItem{ Text="2", Value = "2" },
                         new SelectListItem{ Text="3", Value = "3" },
@@ -205,32 +207,34 @@
                         new SelectListItem{ Text="29", Value = "29" },
                         new SelectListItem{ Text="30", Value = "30" },
                         new SelectListItem{ Text="31", Value = "31" }
-                    })
+                    },new { @ID="MonthlyFrequency", @style="border-radius:3rem;" })
                     @Html.Label("Of the Month")
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, "")
-                    @Html.DropDownListFor(a => a.Frequency, new List<SelectListItem>
+                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, "1", new { @ID = "rbtn2",})
+                    @Html.DropDownListFor(a => a.Radio2List1, new List<SelectListItem>
                     {
+                        new SelectListItem{ Text="Select a time of Month", Value = "0" },
                         new SelectListItem{ Text="First", Value = "1" },
                         new SelectListItem{ Text="Second", Value = "2" },
                         new SelectListItem{ Text="Third", Value = "3" },
-                        new SelectListItem{Text="Fourth", Value="4" },
-                        new SelectListItem{Text="Last",Value="5" }
-                    },new {@style="border-radius:3rem;" })
-                    @Html.DropDownListFor(a => a.Frequency, new List<SelectListItem>
+                        new SelectListItem{ Text="Fourth", Value="4" },
+                        new SelectListItem{ Text="Last",Value="5" }
+                    },new { @style="border-radius:3rem;" })
+                    @Html.DropDownListFor(a => a.Radio2List2, new List<SelectListItem>
                     {
+                        new SelectListItem{ Text="Select a Day", Value = "0" },
                         new SelectListItem{ Text="Sunday", Value = "1" },
                         new SelectListItem{ Text="Monday", Value = "2" },
                         new SelectListItem{ Text="Tuesday", Value = "3" },
                         new SelectListItem{ Text="Wednesday", Value = "4" },
                         new SelectListItem{ Text="Thursday", Value = "5" },
                         new SelectListItem{ Text="Friday", Value = "6" },
-                        new SelectListItem{Text="Saturday", Value="7"}
-                    },new {@style="border-radius:3rem;" })
+                        new SelectListItem{ Text="Saturday", Value="7"}
+                    },new { @style="border-radius:3rem;" })
                     @Html.Label("Of the Month")
                 </div>
             </div>
@@ -242,14 +246,15 @@
             </div>
             <div class="col-sm-8">
                 <div>
-                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,"By")
-                    @*@Html.Label("By")*@
-                    @Html.TextBoxFor(a=>a.Radio2List1, new { @placeholder = "MM/DD/YYYY" })
+                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,"0", new { @ID = "rbtn3" })
+                    @Html.Label("By")
+                    @Html.TextBoxFor(a=>a.EndDateBy, new { @placeholder = "MM/DD/YYYY", @style="border-radius:3rem"})
 
-                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,"After")
-                    @*@Html.Label("After")*@
-                    @Html.DropDownListFor(a=>a.Radio2List2,new List<SelectListItem>
+                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,"1", new { @ID = "rbtn4" })
+                    @Html.Label("After")
+                    @Html.DropDownListFor(a=>a.EndDateAfter,new List<SelectListItem>
                     {
+                        new SelectListItem{ Text="Select a Value", Value = "0" },
                         new SelectListItem{ Text="1", Value = "1" },
                         new SelectListItem{ Text="2", Value = "2" },
                         new SelectListItem{ Text="3", Value = "3" },
@@ -267,18 +272,18 @@
     </div>
 
     <!-- Validation Messages for Form-->
-    @*<p>
+    <p>
             @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })
         <p>
-        <p>
+        @*<p>
             @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })
         </p>
         <p>
             @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
-        </p>
-        <p>
-            @Html.ValidationSummary()
         </p>*@
+        @*<p>*@
+            @Html.ValidationSummary()
+        </p>
     <input type="submit" value="Submit" />
 </div>
 }
@@ -293,19 +298,18 @@
                 $("#RecurrOptions").show();
                 $("#Daily").show();
                 $("#Day").show();
-                $("#selectFrequency").children('option').hide();
-                $("#selectFrequency").children("option[id^=Day]").show()
+                $("#RepeatDaily").children('option').hide();
+                $("#RepeatDaily").children("option[id^=Day]").show()
 
                 //Populates the Frequency default (Day)
                 for (var j = 0; j <= 15 ; j++) {
-                    $("#Frequency").append($('<option></option>').val(j).text(j));
+                    $("#RepeatDaily").append($('<option></option>').val(j).text(j));
                 }
             }
             else {
                 $("#RecurrOptions").hide();
                 $("#Daily").hide();
                 $("#Day").hide();
-                //Also include clearing out EVERY value for Reoccur Options
             }
         });
     });
@@ -315,15 +319,41 @@
 <script>
     $(document).ready(function () {
         $("#myList").change(function () {
+
+            function cleanup(val) {
+                if(val === 3) { //Monthly
+                    $("#MonthlyFrequency1 option:selected").text("1");
+                    $("#MonthlyFrequency2 option:selected").text("First");
+                    $("#MonthlyFrequency3 option:selected").text("Sunday");
+                    $("#rbtn1").prop("checked", false);
+                    $("#rbtn2").prop("checked", false);
+                    $("#rbtn3").prop("checked", false);
+                    $("#rbtn4").prop("checked", false);
+                }
+                else if(val === 2) {
+                    $("#Sunday").prop("checked", false);
+                    $("#Monday").prop("checked", false);
+                    $("#Tuesday").prop("checked", false);
+                    $("#Wednesday").prop("checked", false);
+                    $("#Thursday").prop("checked", false);
+                    $("#Friday").prop("checked", false);
+                    $("#Saturday").prop("checked", false);
+                }
+            }
+
             if ($(this).val() === "2") {
                 $("#Frequency").text("Week");
                 $("#Day").hide();
                 $("#Weekly").show();
                 $("#Monthly").hide();
 
-                // Populates the # in selectFrequency based off of ID
-                $("#selectFrequency").children('option').hide();
-                $("#selectFrequency").children("option[id^=Week]").show()
+                // Populates the # in RepeatDaily based off of ID
+                $("#RepeatDaily").children('option').hide();
+                $("#RepeatDaily").children("option[id^=Week]").show()
+                $("#RepeatDaily").val(0);
+
+                //Remove Monthly
+                cleanup(3);
             }
             else if ($(this).val() === "1") {
                 $("#Frequency").text("Day");
@@ -331,17 +361,24 @@
                 $("#Weekly").hide();
                 $("#Monthly").hide();
 
-                $("#selectFrequency").children('option').hide();
-                $("#selectFrequency").children("option[id^=Day]").show()
+                $("#RepeatDaily").children('option').hide();
+                $("#RepeatDaily").children("option[id^=Day]").show();
+                $("#RepeatDaily").val(0);
+
+                cleanup(3); //Remove Monthly
+                cleanup(2);//Remove Weekly
             }
             else if ($(this).val() === "3") {
                 $("#Frequency").text("Month");
                 $("#Day").hide();
                 $("#Weekly").hide();
                 $("#Monthly").show();
+                $("#RepeatDaily").val(0);
 
-                $("#selectFrequency").children('option').hide();
-                $("#selectFrequency").children("option[id^=Month]").show()
+                $("#RepeatDaily").children('option').hide();
+                $("#RepeatDaily").children("option[id^=Month]").show()
+
+                cleanup(2); //Remove Weekly
             }
         });
     });
@@ -355,21 +392,27 @@
             const Week = 12;
             const Month = 3;
 
-            if ($(this).val() === "2") {                
+            if ($(this).val() === "2") {
                 for (var j = 0; j <= Week ; j++) {
-                   $("#Frequency").append($('<option></option>').val(j).text(j));
+                   $("#RepeatDaily").append($('<option></option>').val(j).text(j));
                 }
             }
             else if ($(this).val() === "3") {
                 for (var j = 0; j <= Month ; j++) {
-                   $("#Frequency").append($('<option></option>').val(j).text(j));
+                   $("#RepeatDaily").append($('<option></option>').val(j).text(j));
                 }
             }
             else if ($(this).val() === "1") {
                 for (var j = 0; j <= Day ; j++) {
-                    $("#Frequency").append($('<option></option>').val(j).text(j));
+                    $("#RepeatDaily").append($('<option></option>').val(j).text(j));
                 }
             }
         })
     });
+</script>
+
+<script>
+$(function () {
+    $(".datefield").datepicker();
+});
 </script>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="AllliveDB">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 12.75" name="AllliveDB">
   <DataContextMoniker Name="/AllliveDBDataContext" />
   <nestedChildShapes>
     <classShape Id="79596312-d2b8-4f15-9188-7864598c8c90" absoluteBounds="1.125, 2.375, 2, 1.3862939453125">
@@ -8,30 +8,36 @@
         <elementListCompartment Id="266bbe6e-9860-4094-91ea-286bc1b5aa1d" absoluteBounds="1.1400000000000001, 2.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="336e1fa8-89c3-4cd8-a9c1-8cda37368609" absoluteBounds="2.375, 4.625, 2, 1.7708968098958331">
-      <DataClassMoniker Name="/AllliveDBDataContext/Schedule" />
-      <nestedChildShapes>
-        <elementListCompartment Id="1f3eb89b-52cf-4807-a455-275ebc093998" absoluteBounds="2.39, 5.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="da905d39-bd49-40d8-853c-4f0e198ba05c" absoluteBounds="4.75, 3.125, 2, 1.5785953776041666">
       <DataClassMoniker Name="/AllliveDBDataContext/User" />
       <nestedChildShapes>
         <elementListCompartment Id="b670d3e5-129d-49bf-8a1d-ac1ce5f18482" absoluteBounds="4.765, 3.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.75 : 3.44314697265625); (3.125 : 3.44314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.75 : 3.44314697265625); (3.125 : 3.44314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/AllliveDBDataContext/User/User_password" />
       <nodes>
         <classShapeMoniker Id="da905d39-bd49-40d8-853c-4f0e198ba05c" />
         <classShapeMoniker Id="79596312-d2b8-4f15-9188-7864598c8c90" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.75 : 4.06532498632813); (3.375 : 4.06532498632813); (3.375 : 4.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <classShape Id="bcfa3ec5-d32b-4085-a10a-779231cd24ec" absoluteBounds="1.375, 6.75, 2, 5.8092268880208326">
+      <DataClassMoniker Name="/AllliveDBDataContext/ScheduleMeeting" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2b2696fb-b978-4400-8b19-b027c35ce86c" absoluteBounds="1.3900000000000001, 7.2100000000000009, 1.9700000000000002, 5.249226888020833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="29555bc0-00fe-435e-bd0d-d8106922c88c" absoluteBounds="1.25, 4.625, 2, 1.9631982421875">
+      <DataClassMoniker Name="/AllliveDBDataContext/Schedule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b70cc137-e118-4d6d-92bb-214c5e852446" absoluteBounds="1.2650000000000001, 5.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.75 : 4.22439647265625); (3.21875 : 4.22439647265625); (3.21875 : 4.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/AllliveDBDataContext/User/User_Schedule" />
       <nodes>
         <classShapeMoniker Id="da905d39-bd49-40d8-853c-4f0e198ba05c" />
-        <classShapeMoniker Id="336e1fa8-89c3-4cd8-a9c1-8cda37368609" />
+        <classShapeMoniker Id="29555bc0-00fe-435e-bd0d-d8106922c88c" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

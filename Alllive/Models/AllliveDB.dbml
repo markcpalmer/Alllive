@@ -8,16 +8,6 @@
       <Association Name="User_password" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Schedule" Member="Schedules">
-    <Type Name="Schedule">
-      <Column Name="SessionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="DateTimeScheduledIn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DateTimeScheduleOut" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SessionDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="User_Schedule" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -26,6 +16,47 @@
       <Column Name="FirstName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Association Name="User_password" Member="passwords" ThisKey="UserID" OtherKey="UserID" Type="password" />
       <Association Name="User_Schedule" Member="Schedules" ThisKey="UserID" OtherKey="UserID" Type="Schedule" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ScheduleMeeting" Member="ScheduleMeetings">
+    <Type Name="ScheduleMeeting">
+      <Column Name="SessionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SessionName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="TimeZone" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="Recurr" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Frequency" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RepeatEvery" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RepeatDaily" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RepeatWeekly" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RepeatMonthly" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sunday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Monday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Tuesday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Wednesday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Thursday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Friday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Saturday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RepeatMonthRadio1" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RepeatMonthRadio2" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Radio2List1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Radio2List2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EndDateBy" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="EndDateAfter" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Schedule" Member="Schedules">
+    <Type Name="Schedule">
+      <Column Name="SessionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DateTimeScheduledIn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateTimeScheduleOut" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SessionName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SessionDescription" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="User_Schedule" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.insertregistereduser" Method="insertregistereduser">
@@ -41,11 +72,13 @@
     <Parameter Name="Date" Parameter="date" Type="System.DateTime" DbType="Date" />
     <Parameter Name="StartTime" Parameter="startTime" Type="System.TimeSpan" DbType="Time" />
     <Parameter Name="EndTime" Parameter="endTime" Type="System.TimeSpan" DbType="Time" />
-    <Parameter Name="TimeZone" Parameter="timeZone" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TimeZone" Parameter="timeZone" Type="System.String" DbType="NVarChar(7)" />
     <Parameter Name="Recurr" Parameter="recurr" Type="System.Boolean" DbType="Bit" />
     <Parameter Name="Frequency" Parameter="frequency" Type="System.Int32" DbType="Int" />
     <Parameter Name="RepeatEvery" Parameter="repeatEvery" Type="System.Int32" DbType="Int" />
-    <Parameter Name="RepeatFrequency" Parameter="repeatFrequency" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RepeatDaily" Parameter="repeatDaily" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RepeatWeekly" Parameter="repeatWeekly" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RepeatMonthly" Parameter="repeatMonthly" Type="System.Int32" DbType="Int" />
     <Parameter Name="Sunday" Parameter="sunday" Type="System.Boolean" DbType="Bit" />
     <Parameter Name="Monday" Parameter="monday" Type="System.Boolean" DbType="Bit" />
     <Parameter Name="Tuesday" Parameter="tuesday" Type="System.Boolean" DbType="Bit" />

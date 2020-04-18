@@ -33,12 +33,15 @@ namespace Alllive.Models
     partial void Insertpassword(password instance);
     partial void Updatepassword(password instance);
     partial void Deletepassword(password instance);
-    partial void InsertSchedule(Schedule instance);
-    partial void UpdateSchedule(Schedule instance);
-    partial void DeleteSchedule(Schedule instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertScheduleMeeting(ScheduleMeeting instance);
+    partial void UpdateScheduleMeeting(ScheduleMeeting instance);
+    partial void DeleteScheduleMeeting(ScheduleMeeting instance);
+    partial void InsertSchedule(Schedule instance);
+    partial void UpdateSchedule(Schedule instance);
+    partial void DeleteSchedule(Schedule instance);
     #endregion
 		
 		public AllliveDBDataContext() : 
@@ -79,19 +82,27 @@ namespace Alllive.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Schedule> Schedules
-		{
-			get
-			{
-				return this.GetTable<Schedule>();
-			}
-		}
-		
 		public System.Data.Linq.Table<User> Users
 		{
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ScheduleMeeting> ScheduleMeetings
+		{
+			get
+			{
+				return this.GetTable<ScheduleMeeting>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Schedule> Schedules
+		{
+			get
+			{
+				return this.GetTable<Schedule>();
 			}
 		}
 		
@@ -109,11 +120,13 @@ namespace Alllive.Models
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Date", DbType="Date")] System.Nullable<System.DateTime> date, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="StartTime", DbType="Time")] System.Nullable<System.TimeSpan> startTime, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndTime", DbType="Time")] System.Nullable<System.TimeSpan> endTime, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="TimeZone", DbType="Int")] System.Nullable<int> timeZone, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="TimeZone", DbType="NVarChar(7)")] string timeZone, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Recurr", DbType="Bit")] System.Nullable<bool> recurr, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Frequency", DbType="Int")] System.Nullable<int> frequency, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatEvery", DbType="Int")] System.Nullable<int> repeatEvery, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatFrequency", DbType="Int")] System.Nullable<int> repeatFrequency, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatDaily", DbType="Int")] System.Nullable<int> repeatDaily, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatWeekly", DbType="Int")] System.Nullable<int> repeatWeekly, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RepeatMonthly", DbType="Int")] System.Nullable<int> repeatMonthly, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sunday", DbType="Bit")] System.Nullable<bool> sunday, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Monday", DbType="Bit")] System.Nullable<bool> monday, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tuesday", DbType="Bit")] System.Nullable<bool> tuesday, 
@@ -128,7 +141,7 @@ namespace Alllive.Models
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndDateBy", DbType="Date")] System.Nullable<System.DateTime> endDateBy, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndDateAfter", DbType="Date")] System.Nullable<System.DateTime> endDateAfter)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionName, description, date, startTime, endTime, timeZone, recurr, frequency, repeatEvery, repeatFrequency, sunday, monday, tuesday, wednesday, thursday, friday, saturday, repeatMonthRadio1, repeatMonthRadio2, radio2List1, radio2List2, endDateBy, endDateAfter);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionName, description, date, startTime, endTime, timeZone, recurr, frequency, repeatEvery, repeatDaily, repeatWeekly, repeatMonthly, sunday, monday, tuesday, wednesday, thursday, friday, saturday, repeatMonthRadio1, repeatMonthRadio2, radio2List1, radio2List2, endDateBy, endDateAfter);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -257,205 +270,6 @@ namespace Alllive.Models
 					else
 					{
 						this._UserID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedule")]
-	public partial class Schedule : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _SessionID;
-		
-		private System.Nullable<System.DateTime> _DateTimeScheduledIn;
-		
-		private System.Nullable<System.DateTime> _DateTimeScheduleOut;
-		
-		private int _UserID;
-		
-		private string _SessionDescription;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSessionIDChanging(int value);
-    partial void OnSessionIDChanged();
-    partial void OnDateTimeScheduledInChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateTimeScheduledInChanged();
-    partial void OnDateTimeScheduleOutChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateTimeScheduleOutChanged();
-    partial void OnUserIDChanging(int value);
-    partial void OnUserIDChanged();
-    partial void OnSessionDescriptionChanging(string value);
-    partial void OnSessionDescriptionChanged();
-    #endregion
-		
-		public Schedule()
-		{
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int SessionID
-		{
-			get
-			{
-				return this._SessionID;
-			}
-			set
-			{
-				if ((this._SessionID != value))
-				{
-					this.OnSessionIDChanging(value);
-					this.SendPropertyChanging();
-					this._SessionID = value;
-					this.SendPropertyChanged("SessionID");
-					this.OnSessionIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeScheduledIn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateTimeScheduledIn
-		{
-			get
-			{
-				return this._DateTimeScheduledIn;
-			}
-			set
-			{
-				if ((this._DateTimeScheduledIn != value))
-				{
-					this.OnDateTimeScheduledInChanging(value);
-					this.SendPropertyChanging();
-					this._DateTimeScheduledIn = value;
-					this.SendPropertyChanged("DateTimeScheduledIn");
-					this.OnDateTimeScheduledInChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeScheduleOut", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateTimeScheduleOut
-		{
-			get
-			{
-				return this._DateTimeScheduleOut;
-			}
-			set
-			{
-				if ((this._DateTimeScheduleOut != value))
-				{
-					this.OnDateTimeScheduleOutChanging(value);
-					this.SendPropertyChanging();
-					this._DateTimeScheduleOut = value;
-					this.SendPropertyChanged("DateTimeScheduleOut");
-					this.OnDateTimeScheduleOutChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionDescription", DbType="NVarChar(50)")]
-		public string SessionDescription
-		{
-			get
-			{
-				return this._SessionDescription;
-			}
-			set
-			{
-				if ((this._SessionDescription != value))
-				{
-					this.OnSessionDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._SessionDescription = value;
-					this.SendPropertyChanged("SessionDescription");
-					this.OnSessionDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Schedule", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Schedules.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Schedules.Add(this);
-						this._UserID = value.UserID;
-					}
-					else
-					{
-						this._UserID = default(int);
 					}
 					this.SendPropertyChanged("User");
 				}
@@ -670,6 +484,891 @@ namespace Alllive.Models
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ScheduleMeeting")]
+	public partial class ScheduleMeeting : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _SessionID;
+		
+		private string _SessionName;
+		
+		private string _Description;
+		
+		private System.DateTime _Date;
+		
+		private System.TimeSpan _StartTime;
+		
+		private System.TimeSpan _EndTime;
+		
+		private string _TimeZone;
+		
+		private bool _Recurr;
+		
+		private int _Frequency;
+		
+		private int _RepeatEvery;
+		
+		private int _RepeatDaily;
+		
+		private int _RepeatWeekly;
+		
+		private int _RepeatMonthly;
+		
+		private bool _Sunday;
+		
+		private bool _Monday;
+		
+		private bool _Tuesday;
+		
+		private bool _Wednesday;
+		
+		private bool _Thursday;
+		
+		private bool _Friday;
+		
+		private bool _Saturday;
+		
+		private bool _RepeatMonthRadio1;
+		
+		private bool _RepeatMonthRadio2;
+		
+		private int _Radio2List1;
+		
+		private int _Radio2List2;
+		
+		private System.DateTime _EndDateBy;
+		
+		private System.DateTime _EndDateAfter;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSessionIDChanging(int value);
+    partial void OnSessionIDChanged();
+    partial void OnSessionNameChanging(string value);
+    partial void OnSessionNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
+    partial void OnStartTimeChanging(System.TimeSpan value);
+    partial void OnStartTimeChanged();
+    partial void OnEndTimeChanging(System.TimeSpan value);
+    partial void OnEndTimeChanged();
+    partial void OnTimeZoneChanging(string value);
+    partial void OnTimeZoneChanged();
+    partial void OnRecurrChanging(bool value);
+    partial void OnRecurrChanged();
+    partial void OnFrequencyChanging(int value);
+    partial void OnFrequencyChanged();
+    partial void OnRepeatEveryChanging(int value);
+    partial void OnRepeatEveryChanged();
+    partial void OnRepeatDailyChanging(int value);
+    partial void OnRepeatDailyChanged();
+    partial void OnRepeatWeeklyChanging(int value);
+    partial void OnRepeatWeeklyChanged();
+    partial void OnRepeatMonthlyChanging(int value);
+    partial void OnRepeatMonthlyChanged();
+    partial void OnSundayChanging(bool value);
+    partial void OnSundayChanged();
+    partial void OnMondayChanging(bool value);
+    partial void OnMondayChanged();
+    partial void OnTuesdayChanging(bool value);
+    partial void OnTuesdayChanged();
+    partial void OnWednesdayChanging(bool value);
+    partial void OnWednesdayChanged();
+    partial void OnThursdayChanging(bool value);
+    partial void OnThursdayChanged();
+    partial void OnFridayChanging(bool value);
+    partial void OnFridayChanged();
+    partial void OnSaturdayChanging(bool value);
+    partial void OnSaturdayChanged();
+    partial void OnRepeatMonthRadio1Changing(bool value);
+    partial void OnRepeatMonthRadio1Changed();
+    partial void OnRepeatMonthRadio2Changing(bool value);
+    partial void OnRepeatMonthRadio2Changed();
+    partial void OnRadio2List1Changing(int value);
+    partial void OnRadio2List1Changed();
+    partial void OnRadio2List2Changing(int value);
+    partial void OnRadio2List2Changed();
+    partial void OnEndDateByChanging(System.DateTime value);
+    partial void OnEndDateByChanged();
+    partial void OnEndDateAfterChanging(System.DateTime value);
+    partial void OnEndDateAfterChanged();
+    #endregion
+		
+		public ScheduleMeeting()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int SessionID
+		{
+			get
+			{
+				return this._SessionID;
+			}
+			set
+			{
+				if ((this._SessionID != value))
+				{
+					this.OnSessionIDChanging(value);
+					this.SendPropertyChanging();
+					this._SessionID = value;
+					this.SendPropertyChanged("SessionID");
+					this.OnSessionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionName", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string SessionName
+		{
+			get
+			{
+				return this._SessionName;
+			}
+			set
+			{
+				if ((this._SessionName != value))
+				{
+					this.OnSessionNameChanging(value);
+					this.SendPropertyChanging();
+					this._SessionName = value;
+					this.SendPropertyChanged("SessionName");
+					this.OnSessionNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date NOT NULL")]
+		public System.DateTime Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="Time NOT NULL")]
+		public System.TimeSpan StartTime
+		{
+			get
+			{
+				return this._StartTime;
+			}
+			set
+			{
+				if ((this._StartTime != value))
+				{
+					this.OnStartTimeChanging(value);
+					this.SendPropertyChanging();
+					this._StartTime = value;
+					this.SendPropertyChanged("StartTime");
+					this.OnStartTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="Time NOT NULL")]
+		public System.TimeSpan EndTime
+		{
+			get
+			{
+				return this._EndTime;
+			}
+			set
+			{
+				if ((this._EndTime != value))
+				{
+					this.OnEndTimeChanging(value);
+					this.SendPropertyChanging();
+					this._EndTime = value;
+					this.SendPropertyChanged("EndTime");
+					this.OnEndTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeZone", DbType="NVarChar(7) NOT NULL", CanBeNull=false)]
+		public string TimeZone
+		{
+			get
+			{
+				return this._TimeZone;
+			}
+			set
+			{
+				if ((this._TimeZone != value))
+				{
+					this.OnTimeZoneChanging(value);
+					this.SendPropertyChanging();
+					this._TimeZone = value;
+					this.SendPropertyChanged("TimeZone");
+					this.OnTimeZoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Recurr", DbType="Bit NOT NULL")]
+		public bool Recurr
+		{
+			get
+			{
+				return this._Recurr;
+			}
+			set
+			{
+				if ((this._Recurr != value))
+				{
+					this.OnRecurrChanging(value);
+					this.SendPropertyChanging();
+					this._Recurr = value;
+					this.SendPropertyChanged("Recurr");
+					this.OnRecurrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Frequency", DbType="Int NOT NULL")]
+		public int Frequency
+		{
+			get
+			{
+				return this._Frequency;
+			}
+			set
+			{
+				if ((this._Frequency != value))
+				{
+					this.OnFrequencyChanging(value);
+					this.SendPropertyChanging();
+					this._Frequency = value;
+					this.SendPropertyChanged("Frequency");
+					this.OnFrequencyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepeatEvery", DbType="Int NOT NULL")]
+		public int RepeatEvery
+		{
+			get
+			{
+				return this._RepeatEvery;
+			}
+			set
+			{
+				if ((this._RepeatEvery != value))
+				{
+					this.OnRepeatEveryChanging(value);
+					this.SendPropertyChanging();
+					this._RepeatEvery = value;
+					this.SendPropertyChanged("RepeatEvery");
+					this.OnRepeatEveryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepeatDaily", DbType="Int NOT NULL")]
+		public int RepeatDaily
+		{
+			get
+			{
+				return this._RepeatDaily;
+			}
+			set
+			{
+				if ((this._RepeatDaily != value))
+				{
+					this.OnRepeatDailyChanging(value);
+					this.SendPropertyChanging();
+					this._RepeatDaily = value;
+					this.SendPropertyChanged("RepeatDaily");
+					this.OnRepeatDailyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepeatWeekly", DbType="Int NOT NULL")]
+		public int RepeatWeekly
+		{
+			get
+			{
+				return this._RepeatWeekly;
+			}
+			set
+			{
+				if ((this._RepeatWeekly != value))
+				{
+					this.OnRepeatWeeklyChanging(value);
+					this.SendPropertyChanging();
+					this._RepeatWeekly = value;
+					this.SendPropertyChanged("RepeatWeekly");
+					this.OnRepeatWeeklyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepeatMonthly", DbType="Int NOT NULL")]
+		public int RepeatMonthly
+		{
+			get
+			{
+				return this._RepeatMonthly;
+			}
+			set
+			{
+				if ((this._RepeatMonthly != value))
+				{
+					this.OnRepeatMonthlyChanging(value);
+					this.SendPropertyChanging();
+					this._RepeatMonthly = value;
+					this.SendPropertyChanged("RepeatMonthly");
+					this.OnRepeatMonthlyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sunday", DbType="Bit NOT NULL")]
+		public bool Sunday
+		{
+			get
+			{
+				return this._Sunday;
+			}
+			set
+			{
+				if ((this._Sunday != value))
+				{
+					this.OnSundayChanging(value);
+					this.SendPropertyChanging();
+					this._Sunday = value;
+					this.SendPropertyChanged("Sunday");
+					this.OnSundayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Monday", DbType="Bit NOT NULL")]
+		public bool Monday
+		{
+			get
+			{
+				return this._Monday;
+			}
+			set
+			{
+				if ((this._Monday != value))
+				{
+					this.OnMondayChanging(value);
+					this.SendPropertyChanging();
+					this._Monday = value;
+					this.SendPropertyChanged("Monday");
+					this.OnMondayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuesday", DbType="Bit NOT NULL")]
+		public bool Tuesday
+		{
+			get
+			{
+				return this._Tuesday;
+			}
+			set
+			{
+				if ((this._Tuesday != value))
+				{
+					this.OnTuesdayChanging(value);
+					this.SendPropertyChanging();
+					this._Tuesday = value;
+					this.SendPropertyChanged("Tuesday");
+					this.OnTuesdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wednesday", DbType="Bit NOT NULL")]
+		public bool Wednesday
+		{
+			get
+			{
+				return this._Wednesday;
+			}
+			set
+			{
+				if ((this._Wednesday != value))
+				{
+					this.OnWednesdayChanging(value);
+					this.SendPropertyChanging();
+					this._Wednesday = value;
+					this.SendPropertyChanged("Wednesday");
+					this.OnWednesdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thursday", DbType="Bit NOT NULL")]
+		public bool Thursday
+		{
+			get
+			{
+				return this._Thursday;
+			}
+			set
+			{
+				if ((this._Thursday != value))
+				{
+					this.OnThursdayChanging(value);
+					this.SendPropertyChanging();
+					this._Thursday = value;
+					this.SendPropertyChanged("Thursday");
+					this.OnThursdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Friday", DbType="Bit NOT NULL")]
+		public bool Friday
+		{
+			get
+			{
+				return this._Friday;
+			}
+			set
+			{
+				if ((this._Friday != value))
+				{
+					this.OnFridayChanging(value);
+					this.SendPropertyChanging();
+					this._Friday = value;
+					this.SendPropertyChanged("Friday");
+					this.OnFridayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Saturday", DbType="Bit NOT NULL")]
+		public bool Saturday
+		{
+			get
+			{
+				return this._Saturday;
+			}
+			set
+			{
+				if ((this._Saturday != value))
+				{
+					this.OnSaturdayChanging(value);
+					this.SendPropertyChanging();
+					this._Saturday = value;
+					this.SendPropertyChanged("Saturday");
+					this.OnSaturdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepeatMonthRadio1", DbType="Bit NOT NULL")]
+		public bool RepeatMonthRadio1
+		{
+			get
+			{
+				return this._RepeatMonthRadio1;
+			}
+			set
+			{
+				if ((this._RepeatMonthRadio1 != value))
+				{
+					this.OnRepeatMonthRadio1Changing(value);
+					this.SendPropertyChanging();
+					this._RepeatMonthRadio1 = value;
+					this.SendPropertyChanged("RepeatMonthRadio1");
+					this.OnRepeatMonthRadio1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepeatMonthRadio2", DbType="Bit NOT NULL")]
+		public bool RepeatMonthRadio2
+		{
+			get
+			{
+				return this._RepeatMonthRadio2;
+			}
+			set
+			{
+				if ((this._RepeatMonthRadio2 != value))
+				{
+					this.OnRepeatMonthRadio2Changing(value);
+					this.SendPropertyChanging();
+					this._RepeatMonthRadio2 = value;
+					this.SendPropertyChanged("RepeatMonthRadio2");
+					this.OnRepeatMonthRadio2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Radio2List1", DbType="Int NOT NULL")]
+		public int Radio2List1
+		{
+			get
+			{
+				return this._Radio2List1;
+			}
+			set
+			{
+				if ((this._Radio2List1 != value))
+				{
+					this.OnRadio2List1Changing(value);
+					this.SendPropertyChanging();
+					this._Radio2List1 = value;
+					this.SendPropertyChanged("Radio2List1");
+					this.OnRadio2List1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Radio2List2", DbType="Int NOT NULL")]
+		public int Radio2List2
+		{
+			get
+			{
+				return this._Radio2List2;
+			}
+			set
+			{
+				if ((this._Radio2List2 != value))
+				{
+					this.OnRadio2List2Changing(value);
+					this.SendPropertyChanging();
+					this._Radio2List2 = value;
+					this.SendPropertyChanged("Radio2List2");
+					this.OnRadio2List2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDateBy", DbType="Date NOT NULL")]
+		public System.DateTime EndDateBy
+		{
+			get
+			{
+				return this._EndDateBy;
+			}
+			set
+			{
+				if ((this._EndDateBy != value))
+				{
+					this.OnEndDateByChanging(value);
+					this.SendPropertyChanging();
+					this._EndDateBy = value;
+					this.SendPropertyChanged("EndDateBy");
+					this.OnEndDateByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDateAfter", DbType="Date NOT NULL")]
+		public System.DateTime EndDateAfter
+		{
+			get
+			{
+				return this._EndDateAfter;
+			}
+			set
+			{
+				if ((this._EndDateAfter != value))
+				{
+					this.OnEndDateAfterChanging(value);
+					this.SendPropertyChanging();
+					this._EndDateAfter = value;
+					this.SendPropertyChanged("EndDateAfter");
+					this.OnEndDateAfterChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedule")]
+	public partial class Schedule : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _SessionID;
+		
+		private System.Nullable<System.DateTime> _DateTimeScheduledIn;
+		
+		private System.Nullable<System.DateTime> _DateTimeScheduleOut;
+		
+		private int _UserID;
+		
+		private string _SessionName;
+		
+		private string _SessionDescription;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSessionIDChanging(int value);
+    partial void OnSessionIDChanged();
+    partial void OnDateTimeScheduledInChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateTimeScheduledInChanged();
+    partial void OnDateTimeScheduleOutChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateTimeScheduleOutChanged();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
+    partial void OnSessionNameChanging(string value);
+    partial void OnSessionNameChanged();
+    partial void OnSessionDescriptionChanging(string value);
+    partial void OnSessionDescriptionChanged();
+    #endregion
+		
+		public Schedule()
+		{
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int SessionID
+		{
+			get
+			{
+				return this._SessionID;
+			}
+			set
+			{
+				if ((this._SessionID != value))
+				{
+					this.OnSessionIDChanging(value);
+					this.SendPropertyChanging();
+					this._SessionID = value;
+					this.SendPropertyChanged("SessionID");
+					this.OnSessionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeScheduledIn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateTimeScheduledIn
+		{
+			get
+			{
+				return this._DateTimeScheduledIn;
+			}
+			set
+			{
+				if ((this._DateTimeScheduledIn != value))
+				{
+					this.OnDateTimeScheduledInChanging(value);
+					this.SendPropertyChanging();
+					this._DateTimeScheduledIn = value;
+					this.SendPropertyChanged("DateTimeScheduledIn");
+					this.OnDateTimeScheduledInChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeScheduleOut", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateTimeScheduleOut
+		{
+			get
+			{
+				return this._DateTimeScheduleOut;
+			}
+			set
+			{
+				if ((this._DateTimeScheduleOut != value))
+				{
+					this.OnDateTimeScheduleOutChanging(value);
+					this.SendPropertyChanging();
+					this._DateTimeScheduleOut = value;
+					this.SendPropertyChanged("DateTimeScheduleOut");
+					this.OnDateTimeScheduleOutChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionName", DbType="NVarChar(50)")]
+		public string SessionName
+		{
+			get
+			{
+				return this._SessionName;
+			}
+			set
+			{
+				if ((this._SessionName != value))
+				{
+					this.OnSessionNameChanging(value);
+					this.SendPropertyChanging();
+					this._SessionName = value;
+					this.SendPropertyChanged("SessionName");
+					this.OnSessionNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionDescription", DbType="NVarChar(250)")]
+		public string SessionDescription
+		{
+			get
+			{
+				return this._SessionDescription;
+			}
+			set
+			{
+				if ((this._SessionDescription != value))
+				{
+					this.OnSessionDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._SessionDescription = value;
+					this.SendPropertyChanged("SessionDescription");
+					this.OnSessionDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Schedule", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Schedules.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Schedules.Add(this);
+						this._UserID = value.UserID;
+					}
+					else
+					{
+						this._UserID = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
