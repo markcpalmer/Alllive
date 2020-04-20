@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 12.75" name="AllliveDB">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 13.875" name="AllliveDB">
   <DataContextMoniker Name="/AllliveDBDataContext" />
   <nestedChildShapes>
     <classShape Id="79596312-d2b8-4f15-9188-7864598c8c90" absoluteBounds="1.125, 2.375, 2, 1.3862939453125">
@@ -21,12 +21,6 @@
         <classShapeMoniker Id="79596312-d2b8-4f15-9188-7864598c8c90" />
       </nodes>
     </associationConnector>
-    <classShape Id="bcfa3ec5-d32b-4085-a10a-779231cd24ec" absoluteBounds="1.375, 6.75, 2, 5.8092268880208326">
-      <DataClassMoniker Name="/AllliveDBDataContext/ScheduleMeeting" />
-      <nestedChildShapes>
-        <elementListCompartment Id="2b2696fb-b978-4400-8b19-b027c35ce86c" absoluteBounds="1.3900000000000001, 7.2100000000000009, 1.9700000000000002, 5.249226888020833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="29555bc0-00fe-435e-bd0d-d8106922c88c" absoluteBounds="1.25, 4.625, 2, 1.9631982421875">
       <DataClassMoniker Name="/AllliveDBDataContext/Schedule" />
       <nestedChildShapes>
@@ -40,5 +34,11 @@
         <classShapeMoniker Id="29555bc0-00fe-435e-bd0d-d8106922c88c" />
       </nodes>
     </associationConnector>
+    <classShape Id="1c40ff1b-e3bb-4330-bccd-f8bfbf780efb" absoluteBounds="1.625, 8, 2, 5.6169254557291657">
+      <DataClassMoniker Name="/AllliveDBDataContext/ScheduleMeeting" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f6bad800-2a95-4993-b1c5-bcb8aebe598f" absoluteBounds="1.6400000000000001, 8.46, 1.9700000000000002, 5.0569254557291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-sm-2">
-            @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block; border-radius: 3rem;" })
+            @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block; border-radius: 3rem; " })
         </div>
     </div>
     <div class="row">
@@ -32,7 +32,7 @@
             @Html.Label("Date")
         </div>
         <div class="col-sm-2">
-            @Html.TextBoxFor(a => a.Date, new {@style="border-radius:3rem;", @ID = "datepicker" })
+            @Html.TextBoxFor(a => a.Date, new { @style = "border-radius:3rem;", @ID = "datepicker", @class = "form-control" })
         </div>
     </div>
     <div class="row">
@@ -41,7 +41,7 @@
         </div>
         <div class="col-sm-2">
             @*@Html.TextBoxFor(a => a.DateTimeScheduledIn, new { @class = "form-control", @style = "display:inline-block" })*@
-            @Html.TextBoxFor(a => a.StartTime,new {@style="border-radius:3rem;" })
+            @Html.TextBoxFor(a => a.StartTime, new { @style = "border-radius:3rem;", @class = "form-control" })
         </div>
     </div>
     <div class="row">
@@ -49,8 +49,8 @@
             @Html.Label("End Time")
         </div>
         <div class="col-sm-2">
-            @*@Html.TextBoxFor(a => a.DateTimeScheduledOut, new { @class = "form-control", @style = "display:inline-block" })*@
-            @Html.TextBoxFor(a => a.EndTime, new {@style="border-radius:3rem;" })
+            @*@Html.TextBoxFor(a => a.DateTi}meScheduledOut, new { @class = "form-control", @style = "display:inline-block" })*@
+            @Html.TextBoxFor(a => a.EndTime, new { @style = "border-radius:3rem;", @class = "form-control" })
 
         </div>
     </div>
@@ -101,7 +101,7 @@
                    new SelectListItem{ Text="(GMT +12:45) Chatham Islands", Value = "+12:75" },
                    new SelectListItem{ Text="(GMT +13:00) Apia, Nukualofa", Value = "+13:00" },
                    new SelectListItem{ Text="(GMT +14:00) Line Islands, Tokelau", Value = "+14:00" }
-                }, new { @style = "border-radius:3rem" })
+                }, new { @style = "border-radius:3rem", @class = "form-control" })
         </div>
     </div>
 
@@ -110,7 +110,7 @@
             @Html.Label("Recurr")
         </div>
         <div class="col-sm-2">
-            @Html.CheckBoxFor(a => a.Recurr)
+            @Html.CheckBoxFor(a => a.Recurr, new { @class = "form-check-input" })
         </div>
     </div>
 
@@ -125,7 +125,7 @@
                     new SelectListItem{ Text="Daily", Value = "1" },
                     new SelectListItem{ Text="Weekly", Value = "2" },
                     new SelectListItem{ Text="Monthly", Value = "3" },
-                 }, new { @ID = "myList", @style="border-radius:3rem" })
+                 }, new { @ID = "myList", @style = "border-radius:3rem", @class = "form-control" })
             </div>
         </div>
 
@@ -136,7 +136,7 @@
                     Repeat every
                 </div>
                 <div class="col-sm-4">
-                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem>{},new {@style="border-radius:3rem;" })
+                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem> { }, new { @style = "border-radius:3rem;", @class = "form-control" })
                     <label ID="Frequency">Day</label>
                 </div>
             </div>
@@ -172,7 +172,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, "0", new { @ID = "rbtn1" })
+                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn1", @class = "form-check-input" })
                     @Html.DropDownListFor(a => a.RepeatMonthly, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a Value", Value = "0" },
@@ -207,14 +207,14 @@
                         new SelectListItem{ Text="29", Value = "29" },
                         new SelectListItem{ Text="30", Value = "30" },
                         new SelectListItem{ Text="31", Value = "31" }
-                    },new { @ID="MonthlyFrequency", @style="border-radius:3rem;" })
+                    }, new { @ID = "MonthlyFrequency", @style = "border-radius:3rem;", @class = "form-control" })
                     @Html.Label("Of the Month")
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, "1", new { @ID = "rbtn2",})
+                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn2", })
                     @Html.DropDownListFor(a => a.Radio2List1, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a time of Month", Value = "0" },
@@ -223,7 +223,7 @@
                         new SelectListItem{ Text="Third", Value = "3" },
                         new SelectListItem{ Text="Fourth", Value="4" },
                         new SelectListItem{ Text="Last",Value="5" }
-                    },new { @style="border-radius:3rem;" })
+                    }, new { @style = "border-radius:3rem;", @class = "form-control" })
                     @Html.DropDownListFor(a => a.Radio2List2, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a Day", Value = "0" },
@@ -234,7 +234,7 @@
                         new SelectListItem{ Text="Thursday", Value = "5" },
                         new SelectListItem{ Text="Friday", Value = "6" },
                         new SelectListItem{ Text="Saturday", Value="7"}
-                    },new { @style="border-radius:3rem;" })
+                    },new { @style="border-radius:3rem;" , @class="form-control" })
                     @Html.Label("Of the Month")
                 </div>
             </div>
@@ -246,11 +246,11 @@
             </div>
             <div class="col-sm-8">
                 <div>
-                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,"0", new { @ID = "rbtn3" })
+                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn3" , @class="form-control" })
                     @Html.Label("By")
-                    @Html.TextBoxFor(a=>a.EndDateBy, new { @placeholder = "MM/DD/YYYY", @style="border-radius:3rem"})
+                    @Html.TextBoxFor(a=>a.EndDateBy, new { @placeholder = "MM/DD/YYYY", @style="border-radius:3rem", @class="form-control"})
 
-                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,"1", new { @ID = "rbtn4" })
+                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn4" , @class="form-control"})
                     @Html.Label("After")
                     @Html.DropDownListFor(a=>a.EndDateAfter,new List<SelectListItem>
                     {
@@ -262,7 +262,7 @@
                         new SelectListItem{ Text="5", Value = "5" },
                         new SelectListItem{ Text="6", Value = "6" },
                         new SelectListItem{Text="7", Value="7"}
-                    }, new {@style="border-radius:3rem;" })
+                    }, new {@style="border-radius:3rem;" , @class="form-control"})
 
                     @Html.Label("Occurances of meeting").
                 </div>
@@ -273,7 +273,7 @@
 
     <!-- Validation Messages for Form-->
     <p>
-            @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })
+            @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'"})
         <p>
         @*<p>
             @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })
@@ -281,7 +281,7 @@
         <p>
             @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
         </p>*@
-        @*<p>*@
+        <p>
             @Html.ValidationSummary()
         </p>
     <input type="submit" value="Submit" />
