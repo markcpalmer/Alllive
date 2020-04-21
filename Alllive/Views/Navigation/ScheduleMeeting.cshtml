@@ -58,7 +58,7 @@
         <div class="col-sm-2">
             @Html.Label("Time Zone")
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-8">
             @Html.DropDownListFor(a => a.TimeZone, new List<SelectListItem>
                {
                    new SelectListItem{ Text="(GMT -12:00) Eniwetok, Kwajalein", Value = "-12:00" },
@@ -101,7 +101,7 @@
                    new SelectListItem{ Text="(GMT +12:45) Chatham Islands", Value = "+12:75" },
                    new SelectListItem{ Text="(GMT +13:00) Apia, Nukualofa", Value = "+13:00" },
                    new SelectListItem{ Text="(GMT +14:00) Line Islands, Tokelau", Value = "+14:00" }
-                }, new { @style = "border-radius:3rem", @class = "form-control" })
+                }, new { @style = "border-radius:3rem;width: 90%", @class = "form-control" })
         </div>
     </div>
 
@@ -125,7 +125,7 @@
                     new SelectListItem{ Text="Daily", Value = "1" },
                     new SelectListItem{ Text="Weekly", Value = "2" },
                     new SelectListItem{ Text="Monthly", Value = "3" },
-                 }, new { @ID = "myList", @style = "border-radius:3rem", @class = "form-control" })
+                 }, new { @ID = "myList", @style = "border-radius:3rem;width: 60%", @class = "form-control" })
             </div>
         </div>
 
@@ -136,7 +136,7 @@
                     Repeat every
                 </div>
                 <div class="col-sm-4">
-                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem> { }, new { @style = "border-radius:3rem;", @class = "form-control" })
+                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem> { }, new { @style = "border-radius:3rem;width: 50%", @class = "form-control" })
                     <label ID="Frequency">Day</label>
                 </div>
             </div>
@@ -207,7 +207,7 @@
                         new SelectListItem{ Text="29", Value = "29" },
                         new SelectListItem{ Text="30", Value = "30" },
                         new SelectListItem{ Text="31", Value = "31" }
-                    }, new { @ID = "MonthlyFrequency", @style = "border-radius:3rem;", @class = "form-control" })
+                    }, new { @ID = "MonthlyFrequency", @style = "border-radius:3rem;display:inline; width:40%", @class = "form-control" })
                     @Html.Label("Of the Month")
                 </div>
             </div>
@@ -223,7 +223,7 @@
                         new SelectListItem{ Text="Third", Value = "3" },
                         new SelectListItem{ Text="Fourth", Value="4" },
                         new SelectListItem{ Text="Last",Value="5" }
-                    }, new { @style = "border-radius:3rem;", @class = "form-control" })
+                    }, new { @style = "border-radius:3rem;display:inline", @class = "form-control" })
                     @Html.DropDownListFor(a => a.Radio2List2, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a Day", Value = "0" },
@@ -234,7 +234,7 @@
                         new SelectListItem{ Text="Thursday", Value = "5" },
                         new SelectListItem{ Text="Friday", Value = "6" },
                         new SelectListItem{ Text="Saturday", Value="7"}
-                    },new { @style="border-radius:3rem;" , @class="form-control" })
+                    },new { @style= "border-radius:3rem;display:inline", @class="form-control" })
                     @Html.Label("Of the Month")
                 </div>
             </div>
@@ -246,12 +246,12 @@
             </div>
             <div class="col-sm-8">
                 <div>
-                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn3" , @class="form-control" })
-                    @Html.Label("By")
-                    @Html.TextBoxFor(a=>a.EndDateBy, new { @placeholder = "MM/DD/YYYY", @style="border-radius:3rem", @class="form-control"})
-
-                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn4" , @class="form-control"})
-                    @Html.Label("After")
+                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn3" , @class="form-check-input" })
+                    @Html.Label("By", new { @class = "form-check-label" })
+                    @Html.TextBoxFor(a=>a.EndDateBy, new { @placeholder = "MM/DD/YYYY", @style= "border-radius:3rem;display:inline", @class = "form-control" })
+                    <br />
+                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn4" , @class= "form-check-input" })
+                    @Html.Label("After", new { @class = "form-check-label" })
                     @Html.DropDownListFor(a=>a.EndDateAfter,new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a Value", Value = "0" },
@@ -262,7 +262,7 @@
                         new SelectListItem{ Text="5", Value = "5" },
                         new SelectListItem{ Text="6", Value = "6" },
                         new SelectListItem{Text="7", Value="7"}
-                    }, new {@style="border-radius:3rem;" , @class="form-control"})
+                    }, new {@style="border-radius:3rem;display:inline;width: 20%" , @class="form-control"})
 
                     @Html.Label("Occurances of meeting").
                 </div>
