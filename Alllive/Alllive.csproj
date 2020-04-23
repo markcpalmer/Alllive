@@ -133,6 +133,8 @@
       <DependentUpon>AllliveDB.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\ScheduleModel.cs" />
+    <Compile Include="Models\SearchTutorModel.cs" />
+    <Compile Include="Models\TutorViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -615,6 +617,7 @@
     <Content Include="Views\Navigation\OnlineYoga.cshtml" />
     <Content Include="Scripts\jquery-3.5.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.0.min.map" />
+    <Content Include="Views\Navigation\SearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

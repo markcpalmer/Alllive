@@ -64,6 +64,34 @@ namespace Alllive.Models
         public string FriStart { get; set; }
         public string FriEnd { get; set; }
 
+        public UserModel GetUser(UserModel logon, bool cookie)
+        {
+            AllliveDBDataContext Dc = new AllliveDBDataContext();
+            User user = new User();
 
+            // Determine if the cookie exists
+            if (cookie == false)
+            {
+                /// assign login password what is currently stored in logon.password.  
+                /// because there is a cookie being stored.  
+                /// If someone hacks password then the passord wouldn't match backend?
+
+                logon.Password = logon.Password;
+            }
+
+            // Determine if user exists
+            try
+            {
+                user = Dc.Users.Single(a => a.UserName == logon.UserName); //Gets UserName and Password
+
+            }
+            catch
+            {
+                logon = null;
+                return logon;
+            }
+
+            return logon;
+        }
     }
 }

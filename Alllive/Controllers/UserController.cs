@@ -89,7 +89,7 @@ namespace Alllive.Controllers
                 {
                     //FormsAuthentication common Windows/Microsoft Method. This tells your server to whitelist the cookie.
                     FormsAuthentication.SetAuthCookie(Login.UserName, true); //True is for Remember ME
-                    PrepareUserSession(Login);
+                    PrepareUserSession(userExists);
                     
                     return RedirectToAction("Schedule", "User", new { ID = userExists.UserID });//redirects user to different action"                    
                 }
@@ -105,14 +105,14 @@ namespace Alllive.Controllers
 
         }
         #endregion Login
-        public void PrepareUserSession(UserModel model)
+        public void PrepareUserSession(User model)
         {
             // Assigning variables from the model parameter into the Session
             Session["AllLiveUser"] = new UserModel()
             {
-                UserId = model.UserId,
+                UserId = model.UserID,
                 UserName = model.UserName,
-                Password = model.Password
+                Password = model.passwords.ToString()
             };
 
             /// Assigning the session variables (password/username) into the UserModel 
@@ -131,7 +131,8 @@ namespace Alllive.Controllers
         #region Schedule
         public ActionResult Schedule(int? ID)
         {
-            return View();
+            var DisplaySchedule = Dc.UserSchedule(ID);
+            return View(DisplaySchedule);
         }
         #endregion
 

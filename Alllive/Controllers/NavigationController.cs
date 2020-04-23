@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,6 +23,8 @@ namespace Alllive.Controllers
         [HttpPost]
         public ActionResult ScheduleMeeting(ScheduleModel m)
         {
+            UserModel getUser = (UserModel)(Session["AllliveUser"]);
+
             AllliveDBDataContext db = new AllliveDBDataContext();
             if (ModelState.IsValid)
             {
@@ -52,7 +55,7 @@ namespace Alllive.Controllers
                 //Inserts the values
                 db.insertscheduledmeeting(m.SessionName, m.Description, m.Date, Start, End, m.TimeZone, m.Recurr, m.Frequency,
                      m.RepeatDaily, m.RepeatWeekly, m.RepeatMonthly, m.Sunday, m.Monday, m.Tuesday, m.Wednesday, m.Thursday, m.Friday, m.Saturday, m.RepeatMonthRadio1,
-                    m.RepeatMonthRadio2, m.Radio2List1, m.Radio2List2, m.EndDateBy, m.EndDateAfter);
+                    m.RepeatMonthRadio2, m.Radio2List1, m.Radio2List2, m.EndDateBy, m.EndDateAfter,getUser.UserId);
 
                 
                 //This needs to change (Either Success view or take user to "Add to Calendar Page/Review Meeting Page"
@@ -79,6 +82,26 @@ namespace Alllive.Controllers
         public ActionResult SearchTutor()
         {
             return View();
+        }
+        public ActionResult SearchResults(SearchTutorModel m)
+        {
+            AllliveDBDataContext db = new AllliveDBDataContext();
+            var results = db.TutorProfiles.Join(db.Users,
+                    tp=>tp.UserID,
+                    u=>u.UserID,
+                    (tp,u)=>new { tp, u }
+                ).Where(a =>
+                (a.tp.Sunday && m.Sunday)||
+                (a.tp.Monday && m.Monday)||
+                (a.tp.Tuesday && m.Tuesday) ||
+                (a.tp.Wednesday && m.Wednesday) ||
+                (a.tp.Thursday && m.Thursday) ||
+                (a.tp.Friday && m.Friday) ||
+                (a.tp.Saturday && m.Saturday)
+                ).Select(a=>new TutorViewModel(a.tp,a.u));
+
+
+            return PartialView(results);
         }
         public ActionResult OnlineYoga()
         {

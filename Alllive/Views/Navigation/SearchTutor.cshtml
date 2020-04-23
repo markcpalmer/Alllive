@@ -1,7 +1,96 @@
-﻿
+﻿@model  Alllive.Models.SearchTutorModel
+@*@model IEnumerable<Alllive.Models.>*@
 @{
     ViewBag.Title = "SearchTutor";
 }
 
 <h2>SearchTutor</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form id="FilterForm" onsubmit="ApplyFilter(event)">
+                @Html.Label("Filters")
+                <div>
+                    <input name="Range" id="RangeControl1" class="form-control" type="range" min="0" max="200" step="5" />
+                    <input onchange="RangeChanged()" name="Range" id="RangeControl2" class="form-control" type="range" min="0" max="200" step="5" />
+                </div>
+                <div>
+                    @Html.Label("Availability")
+                    <br />
+                    @Html.CheckBoxFor(a => a.Sunday)
+                    @Html.Label("Sunday")
+                    <br />
+
+
+                    @Html.CheckBoxFor(a => a.Monday)
+                    @Html.Label("Monday")
+                    <br />
+
+                    @Html.CheckBoxFor(a => a.Tuesday)
+                    @Html.Label("Tuesday")
+                    <br />
+
+
+
+                    @Html.CheckBoxFor(a => a.Wednesday)
+                    @Html.Label("Wednesday")
+                    <br />
+
+
+                    @Html.CheckBoxFor(a => a.Thursday)
+                    @Html.Label("Thursday")
+                    <br />
+
+                    @Html.CheckBoxFor(a => a.Friday)
+                    @Html.Label("Friday")
+                    <br />
+
+                    @Html.CheckBoxFor(a => a.Saturday)
+                    @Html.Label("Saturday")
+                </div>
+                <div>
+                    <button class="btn btn-default" type="submit">Apply Filter</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-group col-md-7">
+            <form>
+                <div class="input-group">
+                    <input id="subjectSearch" type="text" class="form-control mr-100" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">Search </button>
+                    </div>
+
+                </div>
+
+            </form>
+            // search results go here
+           <div id="SearchResults">
+
+           </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        function RangeChanged(){
+
+        }
+        function ApplyFilter(e) {
+            e.preventDefault();
+            var m = $("#FilterForm").serialize();
+            $.ajax({
+                url: '@Url.Action("SearchResults")',
+                method: "GET",
+                data: m,
+                success: function (Result) {
+                    $("#SearchResults").html(Result);
+                }
+            })
+        }
+    </script>
+
+}
+
 

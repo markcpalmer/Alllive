@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Alllive.Models.TutorViewModel>
+
+<div class="list-group">
+    @foreach (var tp in Model)
+    {
+        <div class="list-group-item">
+            <h3>@tp.FirstName @tp.LastName</h3>
+            <p>@tp.Description</p>
+        </div>
+    }
+</div>

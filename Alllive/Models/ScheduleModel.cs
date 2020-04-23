@@ -36,7 +36,7 @@ namespace Alllive.Models
         public bool RepeatMonthRadio2 { get; set; }
         public int Radio2List1 { get; set; }
         public int Radio2List2 { get; set; }
-        public DateTime EndDateBy { get; set; }
+        public DateTime? EndDateBy { get; set; }
         public int EndDateAfter { get; set; }
 
 
