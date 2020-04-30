@@ -35,6 +35,8 @@ namespace Alllive.Controllers
 
                 //TimeZone
 
+                m.MeetingLink = "";
+
                 //Radio button logic
                 //You MUST get ALL the values for Recurr
                 if (m.Recurr == true)
@@ -50,12 +52,13 @@ namespace Alllive.Controllers
                     m.Frequency = 0;  m.RepeatDaily = 0; m.RepeatWeekly = 0; m.RepeatMonthly = 0; m.Sunday = false; m.Monday = false; m.Tuesday = false;
                     m.Wednesday = false; m.Thursday = false; m.Friday = false; m.Saturday = false; m.RepeatMonthRadio1 = false;
                     m.RepeatMonthRadio2 = false; m.Radio2List1 = 0; m.Radio2List2 = 0; m.EndDateBy = new DateTime(); m.EndDateAfter = 0;
+                    
                 }
 
                 //Inserts the values
                 db.insertscheduledmeeting(m.SessionName, m.Description, m.Date, Start, End, m.TimeZone, m.Recurr, m.Frequency,
                      m.RepeatDaily, m.RepeatWeekly, m.RepeatMonthly, m.Sunday, m.Monday, m.Tuesday, m.Wednesday, m.Thursday, m.Friday, m.Saturday, m.RepeatMonthRadio1,
-                    m.RepeatMonthRadio2, m.Radio2List1, m.Radio2List2, m.EndDateBy, m.EndDateAfter,getUser.UserId);
+                    m.RepeatMonthRadio2, m.Radio2List1, m.Radio2List2, m.EndDateBy, m.EndDateAfter,getUser.UserId,m.MeetingLink);
 
                 
                 //This needs to change (Either Success view or take user to "Add to Calendar Page/Review Meeting Page"

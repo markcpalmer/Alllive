@@ -1,39 +1,54 @@
 ﻿@model IEnumerable<Alllive.Models.UserScheduleResult>
-@{
+    @{
     ViewBag.Title = "Schedule";
-}
+    }
 
-<h2>Schedule</h2>
-@if (Model != null)
-{
+    <h2>Schedule</h2>
+    @if (Model != null)
+    {
     foreach (var item in Model)
     {
-        <div class="container">
-            <div class="row">
-                <div class="col-sm col-md-4">
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-4">
-                        <b>@item.SessionID</b>
-                        <br />
-                        @*@item.DateTimeScheduledIn*@
-                    </div>
-                    <div class="col-md-4">
-                        @*@item.DateTimeScheduleOut*@
-                    </div>
-                    <div class="col-md-4">
-                        @*@item.SessionDescription*@
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!--<b>@item.SessionID</b>-->
+                <b>@item.Date.ToString("MM/dd/yyyy")</b>
+            </div>
+            <div class="col">
+                <b>@item.SessionName</b>
+            </div>
+            <div class="col">
 
-
-                </div>
+            </div>
+            <div class="col">
+                
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <b>@item.Description</b>
+            </div>
+            <div class="col-sm-4">
+                @*@item.StartTime.Value.ToShortDateString()
+                -
+                @item.EndTime.Value.ToShortDateString()*@
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col">
+                <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
+            </div>
+            <div class="col">
+                <button type="button" onclick="location.href='@Url.Action("CancelMeeting","User", new { ID = item.SessionID })'">Cancel Meeting</button>
+            </div>
+        </div>
+    </div>
+    <hr />
     }
 }
 else
 {
     <div>You have nothing scheduled yet</div>
-    
+
 
 }

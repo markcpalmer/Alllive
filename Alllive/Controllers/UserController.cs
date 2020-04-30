@@ -71,7 +71,26 @@ namespace Alllive.Controllers
             else
             {
 
-                Dc.insertregistereduser(RegisteredUser.UserName, RegisteredUser.LastName, RegisteredUser.FirstName, RegisteredUser.Password);
+                RegisteredUser.UserId= Dc.insertregistereduser(RegisteredUser.UserName, RegisteredUser.LastName, RegisteredUser.FirstName, RegisteredUser.Password);
+                Dc.SubmitChanges();
+                //how do we get the UserID from the EF
+                // sp looks like we are supposed to get the UserId back but its not returning.
+                if (RegisteredUser.RegisterAsTutor)
+                {
+                    var tutor = new TutorProfile()
+                    {
+                        UserID = RegisteredUser.UserId,
+                        Monday = RegisteredUser.MondayStart,
+                        Tuesday = RegisteredUser.Tuesday,
+                        Wednesday = RegisteredUser.Wednesday,
+                        Thursday = RegisteredUser.Thursday,
+                        Friday = RegisteredUser.Friday,
+                        Saturday = RegisteredUser.Saturday,
+                        Sunday = RegisteredUser.Sunday
+                    };
+                    Dc.TutorProfiles.InsertOnSubmit(tutor);
+                    Dc.SubmitChanges();
+                }
                 return RedirectToAction("Login", "Home");
 
             }
@@ -134,7 +153,66 @@ namespace Alllive.Controllers
             var DisplaySchedule = Dc.UserSchedule(ID);
             return View(DisplaySchedule);
         }
+        public ActionResult CancelMeeting(int ID)
+        {
+            Dc.CancelMeeting(ID);
+            var getUser = Dc.Schedules.Where(a => a.SessionID == ID).FirstOrDefault();
+            return RedirectToAction("Schedule","User",new { ID = getUser.UserID });
+        }
         #endregion
+
+        public ActionResult SaveTutor(TutorProfile tp)
+        {
+            if (tp.TutorProfileID == 0)
+            {
+                Dc.TutorProfiles.InsertOnSubmit(tp);
+            }
+            else
+            {
+                Dc.TutorProfiles.Attach(tp);
+            }
+            Dc.SubmitChanges();
+            return RedirectToAction("Schedule");
+        }
+        public ActionResult TutorRegistration(int? tutorProfileId)
+        {
+            //UserModel usermng = (UserModel)(Session["AllliveUser"]);
+            //var findTutor = Dc.TutorProfiles.FirstOrDefault(tp => tp.UserID == usermng.UserId);
+            //var m = new TutorProfile();
+            //if (tutorProfileId.HasValue)
+            //{
+            //    findTutor = Dc.TutorProfiles.FirstOrDefault(tp => tp.TutorProfileID == tutorProfileId.Value);
+            //}
+            //if (findTutor != null)
+            //{
+            //    m = findTutor;
+            //}
+            //else
+            //{
+            //    m.UserID = usermng.UserId;
+            //}
+            //return View(m);
+            return View();//delete when you uncomment the above
+        }
+        public ActionResult ViewProfile()
+        {
+            UserModel usermng = (UserModel)(Session["AllliveUser"]);
+            AllliveDBDataContext db = new AllliveDBDataContext();
+            var tutorVM = db.TutorProfiles.Join(db.Users,
+                    tp => tp.UserID,
+                    u => u.UserID,
+                    (tp, u) => new { tp, u }
+                ).Where(a => a.u.UserID == usermng.UserId
+
+                ).Select(a => new TutorViewModel(a.tp, a.u))
+                .FirstOrDefault();
+            if (tutorVM == null)
+            {
+                tutorVM = new TutorViewModel();
+            }
+            return View(tutorVM);
+
+        }
 
     }
 }

@@ -69,169 +69,255 @@
         font-size: 18px;
     }
 </style> -->
-
 <!-- CONVERT GRID INTO TABLE-->
 <div class="container">
     <div class="register-form">
         <h2> Register</h2>
         @using (Html.BeginForm("Register", "User", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
         {
-        
-        <p>
-            <div class="row">
-                <div class="col-sm-1">
-                    @Html.LabelFor(a => a.FirstName, new { @style="align:center" })
-                </div>
-                <div class="col-sm-3">
-                    @Html.TextBoxFor(a => a.FirstName, new { @class = "form-control", @style = "display:inline-block" })
-                </div>
-                <div class="col-sm-1">
-                    @Html.LabelFor(a => a.LastName)
-                </div>
-                <div class="col-sm-3">
-                    @Html.TextBoxFor(a => a.LastName, new { @class = "form-control", @style = "display:inline-block" })
-                </div>
-            </div>
-        </p>
 
-        <p>
-            <div class="row">
-                <div class="col-sm-1">
-                    @Html.Label("Email")
+           
+                <div class="row">
+                    <div class="col-sm-1">
+                        @Html.LabelFor(a => a.FirstName, new { @style = "align:center" })
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(a => a.FirstName, new { @class = "form-control", @style = "display:inline-block" })
+                    </div>
+                    <div class="col-sm-1">
+                        @Html.LabelFor(a => a.LastName)
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(a => a.LastName, new { @class = "form-control", @style = "display:inline-block" })
+                    </div>
                 </div>
-                <div class="col-8">
-                    @Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @style = "display:inline-block", @placeholder = "your@email.com" })
-                </div>
-            </div>
-        </p>
+            
 
-
-        <p>
-            <div class="row">
-                <div class="col-sm-1">
-                    @Html.LabelFor(a => a.Password)
+            
+                <div class="row">
+                    <div class="col-sm-1">
+                        @Html.Label("Email")
+                    </div>
+                    <div class="col-8">
+                        @Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @style = "display:inline-block", @placeholder = "your@email.com" })
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                    @Html.PasswordFor(a => a.Password, new { @class = "form-control", @style = "display:inline-block" })
-                </div>
-                <div class="col-sm-1">
-                    @Html.LabelFor(a => a.ConfirmPassword)                    
-                </div>
-                <div class="col-sm-3">
-                    @Html.PasswordFor(a => a.ConfirmPassword, new { @class = "form-control", @style = "display:inline-block" })
-                </div>
-            </div>
-        </p>
+            
 
 
+            
+                <div class="row">
+                    <div class="col-sm-1">
+                        @Html.LabelFor(a => a.Password)
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.PasswordFor(a => a.Password, new { @class = "form-control", @style = "display:inline-block" })
+                    </div>
+                    <div class="col-sm-1">
+                        @Html.LabelFor(a => a.ConfirmPassword)
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.PasswordFor(a => a.ConfirmPassword, new { @class = "form-control", @style = "display:inline-block" })
+                    </div>
 
-
-
-        <p>
-            @Html.ValidationMessageFor(a => a.LastName, "", new { @style = "color:'red'" })<br />
-            @Html.ValidationMessageFor(a => a.FirstName, "", new { @style = "color:red" })<br />
-            @Html.ValidationMessageFor(a => a.UserName, "", new { @style = "color:red" })<br />
-            @Html.ValidationMessageFor(a => a.Password, "", new { @style = "color:red" })<br />
-            @Html.ValidationSummary();
-        </p>
-        <p>
-            <span>Register as a Tutor</span>
-            @Html.CheckBox("RegisterAsTutor",false)
-        </p>
-        <div class="container">
-            <div class="row">
-                <div class="col-8">
-                    <span>Upload Photo</span>
-
-                    @Html.TextBox("Photo")
-                    <button>Browse</button>
-                    
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>
+                            @Html.CheckBoxFor(a => a.RegisterAsTutor, new { @onclick = "TutorCheck()" })
+                            Register as tutor 
+
+                        </label>
+                    </div>
+                </div>
+    <div id="tutor-section" style="display:none">          
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-8">
+                            <span>Upload Photo</span>
+
+                            @Html.TextBox("Photo")
+                            <button>Browse</button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>
+                                <h4>Tutoring Subjects</h4>
+                                <span>Maths</span>
+                                @Html.CheckBox("MathSubject", false)
+                                <span>Reading</span>
+                                @Html.CheckBox("ReadingSubject", false)
+                                <span>Science</span>
+                                @Html.CheckBox("ScienceSubject", false)
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>Bio</h4>
+                            @Html.TextArea("Bio")
+                        </div>
+
+                    </div>
+                 </div>
+
+              
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4>Availability</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>Start Time</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>End Time</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                @Html.CheckBoxFor(a => a.MondayStart)
+                                Monday
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.MonStart)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.MonEnd)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                @Html.CheckBoxFor(a => a.Tuesday)
+                                Tuesday
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.TueStart)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.TueEnd)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                @Html.CheckBoxFor(a => a.Wednesday)
+                                Wednesday
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.WedStart)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.WedEnd)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                @Html.CheckBoxFor(a => a.Thursday)
+                                Thursday
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.ThuStart)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.ThuEnd)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                @Html.CheckBoxFor(a => a.Friday)
+                                Friday
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.FriStart)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.FriEnd)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                @Html.CheckBoxFor(a => a.Saturday)
+                                Saturday
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.SatStart)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.SatEnd)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                @Html.CheckBoxFor(a => a.Sunday)
+                                Sunday
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.SunStart)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(a => a.SunEnd)
+                        </div>
+                    </div>
+
+
+                </div>
+    </div>
+       
+    
+
+
+
+
+
+    <p>
+        @Html.ValidationMessageFor(a => a.LastName, "", new { @style = "color:'red'" })<br />
+        @Html.ValidationMessageFor(a => a.FirstName, "", new { @style = "color:red" })<br />
+        @Html.ValidationMessageFor(a => a.UserName, "", new { @style = "color:red" })<br />
+        @Html.ValidationMessageFor(a => a.Password, "", new { @style = "color:red" })<br />
+        @Html.ValidationSummary();
+    </p>
+    <input type="submit" value="Submit" />
+}
         </div>
-        <div class="contaner">
-            <div class="row">
-                <div class="col-md-3">
-                    <p>
-                        <h4>Tutoring Subjects</h4>
-                        <span>Maths</span>
-                        @Html.CheckBox("MathSubject", false)
-                        <span>Reading</span>
-                        @Html.CheckBox("ReadingSubject", false)
-                        <span>Science</span>
-                        @Html.CheckBox("ScienceSubject", false)
-                    </p>
-                </div>
-                <div class="col-md-3">
-                    <h4>Bio</h4>
-                    @Html.TextArea("Bio")
-                </div>
 
-             </div>
+
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h4>Availability</h4>
-                    <ul style="list-style-type:none;">
-
-                        <li>Monday</li>
-                        <li>Tuesday</li>
-                        <li>Wednesday</li>
-                        <li>Thursday</li>
-                        <li>Friday</li>
-                        <li>Saturday</li>
-                        <li>Sunday</li>
-                    </ul>
-                </div>
-                <div class="col-md-2">
-                    <h6>Start Time</h6>
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-
-
-                </div>
-                <div class="col-md-2">
-                    <h6>End Time</h6>
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                    <input type="time" id="myTime">
-                </div>
-            </div>
-        </div>
-
-        <p>
-            <span></span>
-        </p>
-        <br />
-
-        <input type="submit" value="Submit" />
-
+@section scripts{
+    <script>
+        function TutorCheck() {
+            $("#tutor-section").toggle();
         }
-    </div>
-</div>
-
-@*<div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-            <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-        </div>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-success btn-block login-btn">Sign in</button>
-    </div>*@
+    </script>
+    }
+        @*<div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block login-btn">Sign in</button>
+            </div>*@

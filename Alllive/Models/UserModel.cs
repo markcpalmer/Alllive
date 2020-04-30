@@ -63,6 +63,14 @@ namespace Alllive.Models
         public bool Friday { get; set; }
         public string FriStart { get; set; }
         public string FriEnd { get; set; }
+        public bool Saturday { get; set; }
+        public string SatStart { get; set; }
+        public string SatEnd { get; set; }
+        public bool Sunday { get; set; }
+        public string SunStart { get; set; }
+        public string SunEnd { get; set; }
+
+
 
         public UserModel GetUser(UserModel logon, bool cookie)
         {

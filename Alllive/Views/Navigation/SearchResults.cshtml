@@ -3,9 +3,54 @@
 <div class="list-group">
     @foreach (var tp in Model)
     {
-        <div class="list-group-item">
-            <h3>@tp.FirstName @tp.LastName</h3>
-            <p>@tp.Description</p>
-        </div>
+    <div class="list-group-item">
+        <img />
+        <h3>@tp.FirstName @tp.LastName</h3>
+        <p>@tp.Bio</p>
+        <h3>Availability</h3>
+        @Html.Label("Sunday:")
+        @if (tp.Sunday)
+        {
+            @tp.SundayStart
+            @tp.SundayEnd
+        }
+        @Html.Label("Monday:")
+        @if (tp.Monday)
+        {
+            @tp.MondayStart
+            @tp.MondayEnd
+        }
+        @Html.Label("Tuesday:")
+        @if (tp.Tuesday)
+        {
+            @tp.TuesdayStart
+            @tp.TuesdayEnd
+        }
+        @Html.Label("Wednesday:")
+        @if (tp.Wednesday)
+        {
+            @tp.WednesdayStart
+            @tp.WednesdayEnd
+        }
+        @Html.Label("Thursday:")
+        @if (tp.Thursday)
+        {
+            @tp.ThursdayStart
+            @tp.ThursdayEnd
+        }
+        @Html.Label("Friday:")
+        @if (tp.Friday)
+        {
+            @tp.FridayStart
+            @tp.FridayEnd
+        }
+        @Html.Label("Saturday:")
+        @if (tp.Saturday)
+        {
+            @tp.SaturdayStart
+            @tp.SaturdayEnd
+        }
+    </div>
     }
+   
 </div>

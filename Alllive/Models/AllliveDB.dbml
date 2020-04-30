@@ -18,6 +18,27 @@
       <Association Name="User_Schedule" Member="Schedules" ThisKey="UserID" OtherKey="UserID" Type="Schedule" />
     </Type>
   </Table>
+  <Table Name="dbo.SearchTutor" Member="SearchTutors">
+    <Type Name="SearchTutor">
+      <Column Name="SearchText" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="HourlyRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Sunday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Monday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Tuesday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Wednesday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Thursday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Friday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Saturday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="StudentLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Schedule" Member="Schedules">
+    <Type Name="Schedule">
+      <Column Name="SessionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Schedule" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.ScheduleMeeting" Member="ScheduleMeetings">
     <Type Name="ScheduleMeeting">
       <Column Name="SessionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -44,35 +65,16 @@
       <Column Name="Radio2List1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Radio2List2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="EndDateBy" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="EndDateAfter" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SearchTutor" Member="SearchTutors">
-    <Type Name="SearchTutor">
-      <Column Name="SearchText" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="HourlyRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Sunday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Monday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Tuesday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Wednesday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Thursday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Friday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Saturday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="StudentLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Schedule" Member="Schedules">
-    <Type Name="Schedule">
-      <Column Name="SessionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="User_Schedule" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+      <Column Name="EndDateAfter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MeetingLink" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.TutorProfile" Member="TutorProfiles">
     <Type Name="TutorProfile">
-      <Column Name="TutorProfileID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TutorProfileID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Bio" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Rate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Sunday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Monday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
@@ -82,6 +84,23 @@
       <Column Name="Friday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Saturday" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="StudentLevel" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Math" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Reading" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Science" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="SundayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="SundayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="MondayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="MondayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="TuesdayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="TuesdayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="WednesdayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="WednesdayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="ThursdayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="ThursdayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="FridayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="SaturdayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="SaturdayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.insertregistereduser" Method="insertregistereduser">
@@ -117,6 +136,7 @@
     <Parameter Name="EndDateBy" Parameter="endDateBy" Type="System.DateTime" DbType="Date" />
     <Parameter Name="EndDateAfter" Parameter="endDateAfter" Type="System.Int32" DbType="Int" />
     <Parameter Name="UserID" Parameter="userID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MeetingLink" Parameter="meetingLink" Type="System.String" DbType="VarChar(200)" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.UserSchedule" Method="UserSchedule">
@@ -147,7 +167,12 @@
       <Column Name="Radio2List1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Radio2List2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="EndDateBy" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="EndDateAfter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EndDateAfter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MeetingLink" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.CancelMeeting" Method="CancelMeeting">
+    <Parameter Name="SessionID" Parameter="sessionID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

@@ -38,6 +38,7 @@ namespace Alllive.Models
         public int Radio2List2 { get; set; }
         public DateTime? EndDateBy { get; set; }
         public int EndDateAfter { get; set; }
+        public string MeetingLink { get; set; }
 
 
 

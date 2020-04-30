@@ -1,0 +1,20 @@
+﻿@model Alllive.Models.TutorViewModel
+
+
+
+<div class="container">
+    @if (Model.TutorProfileId > 0)
+    {
+        <p>
+            <img />PHOTO
+        </p>
+        <p>
+            @Model.Bio;
+        </p>
+        <a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfileId })">Edit</a>
+    }
+    else
+    {
+        <a class="btn btn-primary" href="@Url.Action("TutorRegistration")">Add a Tutor Profile</a>
+    }
+</div>

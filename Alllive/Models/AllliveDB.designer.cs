@@ -36,12 +36,12 @@ namespace Alllive.Models
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
-    partial void InsertScheduleMeeting(ScheduleMeeting instance);
-    partial void UpdateScheduleMeeting(ScheduleMeeting instance);
-    partial void DeleteScheduleMeeting(ScheduleMeeting instance);
     partial void InsertSchedule(Schedule instance);
     partial void UpdateSchedule(Schedule instance);
     partial void DeleteSchedule(Schedule instance);
+    partial void InsertScheduleMeeting(ScheduleMeeting instance);
+    partial void UpdateScheduleMeeting(ScheduleMeeting instance);
+    partial void DeleteScheduleMeeting(ScheduleMeeting instance);
     partial void InsertTutorProfile(TutorProfile instance);
     partial void UpdateTutorProfile(TutorProfile instance);
     partial void DeleteTutorProfile(TutorProfile instance);
@@ -93,14 +93,6 @@ namespace Alllive.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<ScheduleMeeting> ScheduleMeetings
-		{
-			get
-			{
-				return this.GetTable<ScheduleMeeting>();
-			}
-		}
-		
 		public System.Data.Linq.Table<SearchTutor> SearchTutors
 		{
 			get
@@ -114,6 +106,14 @@ namespace Alllive.Models
 			get
 			{
 				return this.GetTable<Schedule>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ScheduleMeeting> ScheduleMeetings
+		{
+			get
+			{
+				return this.GetTable<ScheduleMeeting>();
 			}
 		}
 		
@@ -158,9 +158,10 @@ namespace Alllive.Models
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Radio2List2", DbType="Int")] System.Nullable<int> radio2List2, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndDateBy", DbType="Date")] System.Nullable<System.DateTime> endDateBy, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndDateAfter", DbType="Int")] System.Nullable<int> endDateAfter, 
-					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserID", DbType="Int")] System.Nullable<int> userID)
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserID", DbType="Int")] System.Nullable<int> userID, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="MeetingLink", DbType="VarChar(200)")] string meetingLink)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionName, description, date, startTime, endTime, timeZone, recurr, frequency, repeatDaily, repeatWeekly, repeatMonthly, sunday, monday, tuesday, wednesday, thursday, friday, saturday, repeatMonthRadio1, repeatMonthRadio2, radio2List1, radio2List2, endDateBy, endDateAfter, userID);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionName, description, date, startTime, endTime, timeZone, recurr, frequency, repeatDaily, repeatWeekly, repeatMonthly, sunday, monday, tuesday, wednesday, thursday, friday, saturday, repeatMonthRadio1, repeatMonthRadio2, radio2List1, radio2List2, endDateBy, endDateAfter, userID, meetingLink);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -169,6 +170,13 @@ namespace Alllive.Models
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userID);
 			return ((ISingleResult<UserScheduleResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CancelMeeting")]
+		public int CancelMeeting([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SessionID", DbType="Int")] System.Nullable<int> sessionID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), sessionID);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -513,6 +521,322 @@ namespace Alllive.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SearchTutor")]
+	public partial class SearchTutor
+	{
+		
+		private string _SearchText;
+		
+		private int _HourlyRate;
+		
+		private bool _Sunday;
+		
+		private bool _Monday;
+		
+		private bool _Tuesday;
+		
+		private bool _Wednesday;
+		
+		private bool _Thursday;
+		
+		private bool _Friday;
+		
+		private bool _Saturday;
+		
+		private int _StudentLevel;
+		
+		public SearchTutor()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SearchText", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string SearchText
+		{
+			get
+			{
+				return this._SearchText;
+			}
+			set
+			{
+				if ((this._SearchText != value))
+				{
+					this._SearchText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HourlyRate", DbType="Int NOT NULL")]
+		public int HourlyRate
+		{
+			get
+			{
+				return this._HourlyRate;
+			}
+			set
+			{
+				if ((this._HourlyRate != value))
+				{
+					this._HourlyRate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sunday", DbType="Bit NOT NULL")]
+		public bool Sunday
+		{
+			get
+			{
+				return this._Sunday;
+			}
+			set
+			{
+				if ((this._Sunday != value))
+				{
+					this._Sunday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Monday", DbType="Bit NOT NULL")]
+		public bool Monday
+		{
+			get
+			{
+				return this._Monday;
+			}
+			set
+			{
+				if ((this._Monday != value))
+				{
+					this._Monday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuesday", DbType="Bit NOT NULL")]
+		public bool Tuesday
+		{
+			get
+			{
+				return this._Tuesday;
+			}
+			set
+			{
+				if ((this._Tuesday != value))
+				{
+					this._Tuesday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wednesday", DbType="Bit NOT NULL")]
+		public bool Wednesday
+		{
+			get
+			{
+				return this._Wednesday;
+			}
+			set
+			{
+				if ((this._Wednesday != value))
+				{
+					this._Wednesday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thursday", DbType="Bit NOT NULL")]
+		public bool Thursday
+		{
+			get
+			{
+				return this._Thursday;
+			}
+			set
+			{
+				if ((this._Thursday != value))
+				{
+					this._Thursday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Friday", DbType="Bit NOT NULL")]
+		public bool Friday
+		{
+			get
+			{
+				return this._Friday;
+			}
+			set
+			{
+				if ((this._Friday != value))
+				{
+					this._Friday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Saturday", DbType="Bit NOT NULL")]
+		public bool Saturday
+		{
+			get
+			{
+				return this._Saturday;
+			}
+			set
+			{
+				if ((this._Saturday != value))
+				{
+					this._Saturday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentLevel", DbType="Int NOT NULL")]
+		public int StudentLevel
+		{
+			get
+			{
+				return this._StudentLevel;
+			}
+			set
+			{
+				if ((this._StudentLevel != value))
+				{
+					this._StudentLevel = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedule")]
+	public partial class Schedule : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _SessionID;
+		
+		private int _UserID;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSessionIDChanging(int value);
+    partial void OnSessionIDChanged();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
+    #endregion
+		
+		public Schedule()
+		{
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int SessionID
+		{
+			get
+			{
+				return this._SessionID;
+			}
+			set
+			{
+				if ((this._SessionID != value))
+				{
+					this.OnSessionIDChanging(value);
+					this.SendPropertyChanging();
+					this._SessionID = value;
+					this.SendPropertyChanged("SessionID");
+					this.OnSessionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
+		public int UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Schedule", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Schedules.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Schedules.Add(this);
+						this._UserID = value.UserID;
+					}
+					else
+					{
+						this._UserID = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ScheduleMeeting")]
 	public partial class ScheduleMeeting : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -567,7 +891,11 @@ namespace Alllive.Models
 		
 		private System.DateTime _EndDateBy;
 		
-		private System.Nullable<int> _EndDateAfter;
+		private int _EndDateAfter;
+		
+		private string _MeetingLink;
+		
+		private string _Active;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -621,8 +949,12 @@ namespace Alllive.Models
     partial void OnRadio2List2Changed();
     partial void OnEndDateByChanging(System.DateTime value);
     partial void OnEndDateByChanged();
-    partial void OnEndDateAfterChanging(System.Nullable<int> value);
+    partial void OnEndDateAfterChanging(int value);
     partial void OnEndDateAfterChanged();
+    partial void OnMeetingLinkChanging(string value);
+    partial void OnMeetingLinkChanged();
+    partial void OnActiveChanging(string value);
+    partial void OnActiveChanged();
     #endregion
 		
 		public ScheduleMeeting()
@@ -1110,8 +1442,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDateAfter", DbType="Int")]
-		public System.Nullable<int> EndDateAfter
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDateAfter", DbType="Int NOT NULL")]
+		public int EndDateAfter
 		{
 			get
 			{
@@ -1130,318 +1462,42 @@ namespace Alllive.Models
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SearchTutor")]
-	public partial class SearchTutor
-	{
-		
-		private string _SearchText;
-		
-		private int _HourlyRate;
-		
-		private bool _Sunday;
-		
-		private bool _Monday;
-		
-		private bool _Tuesday;
-		
-		private bool _Wednesday;
-		
-		private bool _Thursday;
-		
-		private bool _Friday;
-		
-		private bool _Saturday;
-		
-		private int _StudentLevel;
-		
-		public SearchTutor()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SearchText", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string SearchText
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MeetingLink", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string MeetingLink
 		{
 			get
 			{
-				return this._SearchText;
+				return this._MeetingLink;
 			}
 			set
 			{
-				if ((this._SearchText != value))
+				if ((this._MeetingLink != value))
 				{
-					this._SearchText = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HourlyRate", DbType="Int NOT NULL")]
-		public int HourlyRate
-		{
-			get
-			{
-				return this._HourlyRate;
-			}
-			set
-			{
-				if ((this._HourlyRate != value))
-				{
-					this._HourlyRate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sunday", DbType="Bit NOT NULL")]
-		public bool Sunday
-		{
-			get
-			{
-				return this._Sunday;
-			}
-			set
-			{
-				if ((this._Sunday != value))
-				{
-					this._Sunday = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Monday", DbType="Bit NOT NULL")]
-		public bool Monday
-		{
-			get
-			{
-				return this._Monday;
-			}
-			set
-			{
-				if ((this._Monday != value))
-				{
-					this._Monday = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuesday", DbType="Bit NOT NULL")]
-		public bool Tuesday
-		{
-			get
-			{
-				return this._Tuesday;
-			}
-			set
-			{
-				if ((this._Tuesday != value))
-				{
-					this._Tuesday = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wednesday", DbType="Bit NOT NULL")]
-		public bool Wednesday
-		{
-			get
-			{
-				return this._Wednesday;
-			}
-			set
-			{
-				if ((this._Wednesday != value))
-				{
-					this._Wednesday = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thursday", DbType="Bit NOT NULL")]
-		public bool Thursday
-		{
-			get
-			{
-				return this._Thursday;
-			}
-			set
-			{
-				if ((this._Thursday != value))
-				{
-					this._Thursday = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Friday", DbType="Bit NOT NULL")]
-		public bool Friday
-		{
-			get
-			{
-				return this._Friday;
-			}
-			set
-			{
-				if ((this._Friday != value))
-				{
-					this._Friday = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Saturday", DbType="Bit NOT NULL")]
-		public bool Saturday
-		{
-			get
-			{
-				return this._Saturday;
-			}
-			set
-			{
-				if ((this._Saturday != value))
-				{
-					this._Saturday = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentLevel", DbType="Int NOT NULL")]
-		public int StudentLevel
-		{
-			get
-			{
-				return this._StudentLevel;
-			}
-			set
-			{
-				if ((this._StudentLevel != value))
-				{
-					this._StudentLevel = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedule")]
-	public partial class Schedule : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _SessionID;
-		
-		private int _UserID;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSessionIDChanging(int value);
-    partial void OnSessionIDChanged();
-    partial void OnUserIDChanging(int value);
-    partial void OnUserIDChanged();
-    #endregion
-		
-		public Schedule()
-		{
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SessionID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int SessionID
-		{
-			get
-			{
-				return this._SessionID;
-			}
-			set
-			{
-				if ((this._SessionID != value))
-				{
-					this.OnSessionIDChanging(value);
+					this.OnMeetingLinkChanging(value);
 					this.SendPropertyChanging();
-					this._SessionID = value;
-					this.SendPropertyChanged("SessionID");
-					this.OnSessionIDChanged();
+					this._MeetingLink = value;
+					this.SendPropertyChanged("MeetingLink");
+					this.OnMeetingLinkChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
-		public int UserID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string Active
 		{
 			get
 			{
-				return this._UserID;
+				return this._Active;
 			}
 			set
 			{
-				if ((this._UserID != value))
+				if ((this._Active != value))
 				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIDChanging(value);
+					this.OnActiveChanging(value);
 					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Schedule", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Schedules.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Schedules.Add(this);
-						this._UserID = value.UserID;
-					}
-					else
-					{
-						this._UserID = default(int);
-					}
-					this.SendPropertyChanged("User");
+					this._Active = value;
+					this.SendPropertyChanged("Active");
+					this.OnActiveChanged();
 				}
 			}
 		}
@@ -1477,7 +1533,7 @@ namespace Alllive.Models
 		
 		private int _UserID;
 		
-		private string _Description;
+		private string _Bio;
 		
 		private double _Rate;
 		
@@ -1497,6 +1553,40 @@ namespace Alllive.Models
 		
 		private string _StudentLevel;
 		
+		private bool _Math;
+		
+		private bool _Reading;
+		
+		private bool _Science;
+		
+		private string _Photo;
+		
+		private System.Nullable<System.TimeSpan> _SundayStart;
+		
+		private System.Nullable<System.TimeSpan> _SundayEnd;
+		
+		private System.Nullable<System.TimeSpan> _MondayStart;
+		
+		private System.Nullable<System.TimeSpan> _MondayEnd;
+		
+		private System.Nullable<System.TimeSpan> _TuesdayStart;
+		
+		private System.Nullable<System.TimeSpan> _TuesdayEnd;
+		
+		private System.Nullable<System.TimeSpan> _WednesdayStart;
+		
+		private System.Nullable<System.TimeSpan> _WednesdayEnd;
+		
+		private System.Nullable<System.TimeSpan> _ThursdayStart;
+		
+		private System.Nullable<System.TimeSpan> _ThursdayEnd;
+		
+		private System.Nullable<System.TimeSpan> _FridayStart;
+		
+		private System.Nullable<System.TimeSpan> _SaturdayStart;
+		
+		private System.Nullable<System.TimeSpan> _SaturdayEnd;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1505,8 +1595,8 @@ namespace Alllive.Models
     partial void OnTutorProfileIDChanged();
     partial void OnUserIDChanging(int value);
     partial void OnUserIDChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
+    partial void OnBioChanging(string value);
+    partial void OnBioChanged();
     partial void OnRateChanging(double value);
     partial void OnRateChanged();
     partial void OnSundayChanging(bool value);
@@ -1525,6 +1615,40 @@ namespace Alllive.Models
     partial void OnSaturdayChanged();
     partial void OnStudentLevelChanging(string value);
     partial void OnStudentLevelChanged();
+    partial void OnMathChanging(bool value);
+    partial void OnMathChanged();
+    partial void OnReadingChanging(bool value);
+    partial void OnReadingChanged();
+    partial void OnScienceChanging(bool value);
+    partial void OnScienceChanged();
+    partial void OnPhotoChanging(string value);
+    partial void OnPhotoChanged();
+    partial void OnSundayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnSundayStartChanged();
+    partial void OnSundayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnSundayEndChanged();
+    partial void OnMondayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnMondayStartChanged();
+    partial void OnMondayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnMondayEndChanged();
+    partial void OnTuesdayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnTuesdayStartChanged();
+    partial void OnTuesdayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnTuesdayEndChanged();
+    partial void OnWednesdayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnWednesdayStartChanged();
+    partial void OnWednesdayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnWednesdayEndChanged();
+    partial void OnThursdayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnThursdayStartChanged();
+    partial void OnThursdayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnThursdayEndChanged();
+    partial void OnFridayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnFridayStartChanged();
+    partial void OnSaturdayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnSaturdayStartChanged();
+    partial void OnSaturdayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnSaturdayEndChanged();
     #endregion
 		
 		public TutorProfile()
@@ -1532,7 +1656,7 @@ namespace Alllive.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TutorProfileID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TutorProfileID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int TutorProfileID
 		{
 			get
@@ -1572,22 +1696,22 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(MAX)")]
-		public string Description
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bio", DbType="VarChar(MAX)")]
+		public string Bio
 		{
 			get
 			{
-				return this._Description;
+				return this._Bio;
 			}
 			set
 			{
-				if ((this._Description != value))
+				if ((this._Bio != value))
 				{
-					this.OnDescriptionChanging(value);
+					this.OnBioChanging(value);
 					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
+					this._Bio = value;
+					this.SendPropertyChanged("Bio");
+					this.OnBioChanged();
 				}
 			}
 		}
@@ -1772,6 +1896,346 @@ namespace Alllive.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Math", DbType="Bit NOT NULL")]
+		public bool Math
+		{
+			get
+			{
+				return this._Math;
+			}
+			set
+			{
+				if ((this._Math != value))
+				{
+					this.OnMathChanging(value);
+					this.SendPropertyChanging();
+					this._Math = value;
+					this.SendPropertyChanged("Math");
+					this.OnMathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reading", DbType="Bit NOT NULL")]
+		public bool Reading
+		{
+			get
+			{
+				return this._Reading;
+			}
+			set
+			{
+				if ((this._Reading != value))
+				{
+					this.OnReadingChanging(value);
+					this.SendPropertyChanging();
+					this._Reading = value;
+					this.SendPropertyChanged("Reading");
+					this.OnReadingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Science", DbType="Bit NOT NULL")]
+		public bool Science
+		{
+			get
+			{
+				return this._Science;
+			}
+			set
+			{
+				if ((this._Science != value))
+				{
+					this.OnScienceChanging(value);
+					this.SendPropertyChanging();
+					this._Science = value;
+					this.SendPropertyChanged("Science");
+					this.OnScienceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="NVarChar(255)")]
+		public string Photo
+		{
+			get
+			{
+				return this._Photo;
+			}
+			set
+			{
+				if ((this._Photo != value))
+				{
+					this.OnPhotoChanging(value);
+					this.SendPropertyChanging();
+					this._Photo = value;
+					this.SendPropertyChanged("Photo");
+					this.OnPhotoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SundayStart", DbType="Time")]
+		public System.Nullable<System.TimeSpan> SundayStart
+		{
+			get
+			{
+				return this._SundayStart;
+			}
+			set
+			{
+				if ((this._SundayStart != value))
+				{
+					this.OnSundayStartChanging(value);
+					this.SendPropertyChanging();
+					this._SundayStart = value;
+					this.SendPropertyChanged("SundayStart");
+					this.OnSundayStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SundayEnd", DbType="Time")]
+		public System.Nullable<System.TimeSpan> SundayEnd
+		{
+			get
+			{
+				return this._SundayEnd;
+			}
+			set
+			{
+				if ((this._SundayEnd != value))
+				{
+					this.OnSundayEndChanging(value);
+					this.SendPropertyChanging();
+					this._SundayEnd = value;
+					this.SendPropertyChanged("SundayEnd");
+					this.OnSundayEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MondayStart", DbType="Time")]
+		public System.Nullable<System.TimeSpan> MondayStart
+		{
+			get
+			{
+				return this._MondayStart;
+			}
+			set
+			{
+				if ((this._MondayStart != value))
+				{
+					this.OnMondayStartChanging(value);
+					this.SendPropertyChanging();
+					this._MondayStart = value;
+					this.SendPropertyChanged("MondayStart");
+					this.OnMondayStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MondayEnd", DbType="Time")]
+		public System.Nullable<System.TimeSpan> MondayEnd
+		{
+			get
+			{
+				return this._MondayEnd;
+			}
+			set
+			{
+				if ((this._MondayEnd != value))
+				{
+					this.OnMondayEndChanging(value);
+					this.SendPropertyChanging();
+					this._MondayEnd = value;
+					this.SendPropertyChanged("MondayEnd");
+					this.OnMondayEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TuesdayStart", DbType="Time")]
+		public System.Nullable<System.TimeSpan> TuesdayStart
+		{
+			get
+			{
+				return this._TuesdayStart;
+			}
+			set
+			{
+				if ((this._TuesdayStart != value))
+				{
+					this.OnTuesdayStartChanging(value);
+					this.SendPropertyChanging();
+					this._TuesdayStart = value;
+					this.SendPropertyChanged("TuesdayStart");
+					this.OnTuesdayStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TuesdayEnd", DbType="Time")]
+		public System.Nullable<System.TimeSpan> TuesdayEnd
+		{
+			get
+			{
+				return this._TuesdayEnd;
+			}
+			set
+			{
+				if ((this._TuesdayEnd != value))
+				{
+					this.OnTuesdayEndChanging(value);
+					this.SendPropertyChanging();
+					this._TuesdayEnd = value;
+					this.SendPropertyChanged("TuesdayEnd");
+					this.OnTuesdayEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WednesdayStart", DbType="Time")]
+		public System.Nullable<System.TimeSpan> WednesdayStart
+		{
+			get
+			{
+				return this._WednesdayStart;
+			}
+			set
+			{
+				if ((this._WednesdayStart != value))
+				{
+					this.OnWednesdayStartChanging(value);
+					this.SendPropertyChanging();
+					this._WednesdayStart = value;
+					this.SendPropertyChanged("WednesdayStart");
+					this.OnWednesdayStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WednesdayEnd", DbType="Time")]
+		public System.Nullable<System.TimeSpan> WednesdayEnd
+		{
+			get
+			{
+				return this._WednesdayEnd;
+			}
+			set
+			{
+				if ((this._WednesdayEnd != value))
+				{
+					this.OnWednesdayEndChanging(value);
+					this.SendPropertyChanging();
+					this._WednesdayEnd = value;
+					this.SendPropertyChanged("WednesdayEnd");
+					this.OnWednesdayEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThursdayStart", DbType="Time")]
+		public System.Nullable<System.TimeSpan> ThursdayStart
+		{
+			get
+			{
+				return this._ThursdayStart;
+			}
+			set
+			{
+				if ((this._ThursdayStart != value))
+				{
+					this.OnThursdayStartChanging(value);
+					this.SendPropertyChanging();
+					this._ThursdayStart = value;
+					this.SendPropertyChanged("ThursdayStart");
+					this.OnThursdayStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThursdayEnd", DbType="Time")]
+		public System.Nullable<System.TimeSpan> ThursdayEnd
+		{
+			get
+			{
+				return this._ThursdayEnd;
+			}
+			set
+			{
+				if ((this._ThursdayEnd != value))
+				{
+					this.OnThursdayEndChanging(value);
+					this.SendPropertyChanging();
+					this._ThursdayEnd = value;
+					this.SendPropertyChanged("ThursdayEnd");
+					this.OnThursdayEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FridayStart", DbType="Time")]
+		public System.Nullable<System.TimeSpan> FridayStart
+		{
+			get
+			{
+				return this._FridayStart;
+			}
+			set
+			{
+				if ((this._FridayStart != value))
+				{
+					this.OnFridayStartChanging(value);
+					this.SendPropertyChanging();
+					this._FridayStart = value;
+					this.SendPropertyChanged("FridayStart");
+					this.OnFridayStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaturdayStart", DbType="Time")]
+		public System.Nullable<System.TimeSpan> SaturdayStart
+		{
+			get
+			{
+				return this._SaturdayStart;
+			}
+			set
+			{
+				if ((this._SaturdayStart != value))
+				{
+					this.OnSaturdayStartChanging(value);
+					this.SendPropertyChanging();
+					this._SaturdayStart = value;
+					this.SendPropertyChanged("SaturdayStart");
+					this.OnSaturdayStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaturdayEnd", DbType="Time")]
+		public System.Nullable<System.TimeSpan> SaturdayEnd
+		{
+			get
+			{
+				return this._SaturdayEnd;
+			}
+			set
+			{
+				if ((this._SaturdayEnd != value))
+				{
+					this.OnSaturdayEndChanging(value);
+					this.SendPropertyChanging();
+					this._SaturdayEnd = value;
+					this.SendPropertyChanged("SaturdayEnd");
+					this.OnSaturdayEndChanged();
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1846,7 +2310,9 @@ namespace Alllive.Models
 		
 		private System.DateTime _EndDateBy;
 		
-		private System.Nullable<int> _EndDateAfter;
+		private int _EndDateAfter;
+		
+		private string _MeetingLink;
 		
 		public UserScheduleResult()
 		{
@@ -2252,8 +2718,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDateAfter", DbType="Int")]
-		public System.Nullable<int> EndDateAfter
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDateAfter", DbType="Int NOT NULL")]
+		public int EndDateAfter
 		{
 			get
 			{
@@ -2264,6 +2730,22 @@ namespace Alllive.Models
 				if ((this._EndDateAfter != value))
 				{
 					this._EndDateAfter = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MeetingLink", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string MeetingLink
+		{
+			get
+			{
+				return this._MeetingLink;
+			}
+			set
+			{
+				if ((this._MeetingLink != value))
+				{
+					this._MeetingLink = value;
 				}
 			}
 		}
