@@ -39,8 +39,11 @@
                 <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
             </div>
             <div class="col">
-                <button type="button" onclick="location.href='@Url.Action("CancelMeeting","User", new { ID = item.SessionID })'">Cancel Meeting</button>
+                <button type="button" onclick="location.href='@Url.Action("CancelMeeting","User", new { ID = item.SessionID })'">Cancel</button>
+                <button type="button" onclick="location.href='@Url.Action("EditMeeting","User", new { ID = item.SessionID })'">Edit</button>
+
             </div>
+
         </div>
     </div>
     <hr />

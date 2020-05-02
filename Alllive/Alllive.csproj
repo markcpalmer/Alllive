@@ -620,6 +620,7 @@
     <Content Include="Views\Navigation\SearchResults.cshtml" />
     <Content Include="Views\User\TutorRegistration.cshtml" />
     <Content Include="Views\User\ViewProfile.cshtml" />
+    <Content Include="Views\User\EditMeeting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
