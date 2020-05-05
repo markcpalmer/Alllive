@@ -1594,31 +1594,33 @@ namespace Alllive.Models
 		
 		private string _Photo;
 		
-		private System.Nullable<System.TimeSpan> _SundayStart;
+		private string _SundayStart;
 		
-		private System.Nullable<System.TimeSpan> _SundayEnd;
+		private string _SundayEnd;
 		
-		private System.Nullable<System.TimeSpan> _MondayStart;
+		private string _MondayStart;
 		
-		private System.Nullable<System.TimeSpan> _MondayEnd;
+		private string _MondayEnd;
 		
-		private System.Nullable<System.TimeSpan> _TuesdayStart;
+		private string _TuesdayStart;
 		
-		private System.Nullable<System.TimeSpan> _TuesdayEnd;
+		private string _TuesdayEnd;
 		
-		private System.Nullable<System.TimeSpan> _WednesdayStart;
+		private string _WednesdayStart;
 		
-		private System.Nullable<System.TimeSpan> _WednesdayEnd;
+		private string _WednesdayEnd;
 		
-		private System.Nullable<System.TimeSpan> _ThursdayStart;
+		private string _ThursdayStart;
 		
-		private System.Nullable<System.TimeSpan> _ThursdayEnd;
+		private string _ThursdayEnd;
 		
-		private System.Nullable<System.TimeSpan> _FridayStart;
+		private string _FridayStart;
 		
-		private System.Nullable<System.TimeSpan> _SaturdayStart;
+		private string _FridayEnd;
 		
-		private System.Nullable<System.TimeSpan> _SaturdayEnd;
+		private string _SaturdayStart;
+		
+		private string _SaturdayEnd;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1656,31 +1658,33 @@ namespace Alllive.Models
     partial void OnScienceChanged();
     partial void OnPhotoChanging(string value);
     partial void OnPhotoChanged();
-    partial void OnSundayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnSundayStartChanging(string value);
     partial void OnSundayStartChanged();
-    partial void OnSundayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnSundayEndChanging(string value);
     partial void OnSundayEndChanged();
-    partial void OnMondayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnMondayStartChanging(string value);
     partial void OnMondayStartChanged();
-    partial void OnMondayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnMondayEndChanging(string value);
     partial void OnMondayEndChanged();
-    partial void OnTuesdayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnTuesdayStartChanging(string value);
     partial void OnTuesdayStartChanged();
-    partial void OnTuesdayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnTuesdayEndChanging(string value);
     partial void OnTuesdayEndChanged();
-    partial void OnWednesdayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnWednesdayStartChanging(string value);
     partial void OnWednesdayStartChanged();
-    partial void OnWednesdayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnWednesdayEndChanging(string value);
     partial void OnWednesdayEndChanged();
-    partial void OnThursdayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnThursdayStartChanging(string value);
     partial void OnThursdayStartChanged();
-    partial void OnThursdayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnThursdayEndChanging(string value);
     partial void OnThursdayEndChanged();
-    partial void OnFridayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnFridayStartChanging(string value);
     partial void OnFridayStartChanged();
-    partial void OnSaturdayStartChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnFridayEndChanging(string value);
+    partial void OnFridayEndChanged();
+    partial void OnSaturdayStartChanging(string value);
     partial void OnSaturdayStartChanged();
-    partial void OnSaturdayEndChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnSaturdayEndChanging(string value);
     partial void OnSaturdayEndChanged();
     #endregion
 		
@@ -2009,8 +2013,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SundayStart", DbType="Time")]
-		public System.Nullable<System.TimeSpan> SundayStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SundayStart", DbType="NVarChar(20)")]
+		public string SundayStart
 		{
 			get
 			{
@@ -2029,8 +2033,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SundayEnd", DbType="Time")]
-		public System.Nullable<System.TimeSpan> SundayEnd
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SundayEnd", DbType="NVarChar(20)")]
+		public string SundayEnd
 		{
 			get
 			{
@@ -2049,8 +2053,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MondayStart", DbType="Time")]
-		public System.Nullable<System.TimeSpan> MondayStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MondayStart", DbType="NVarChar(20)")]
+		public string MondayStart
 		{
 			get
 			{
@@ -2069,8 +2073,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MondayEnd", DbType="Time")]
-		public System.Nullable<System.TimeSpan> MondayEnd
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MondayEnd", DbType="NVarChar(20)")]
+		public string MondayEnd
 		{
 			get
 			{
@@ -2089,8 +2093,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TuesdayStart", DbType="Time")]
-		public System.Nullable<System.TimeSpan> TuesdayStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TuesdayStart", DbType="NVarChar(20)")]
+		public string TuesdayStart
 		{
 			get
 			{
@@ -2109,8 +2113,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TuesdayEnd", DbType="Time")]
-		public System.Nullable<System.TimeSpan> TuesdayEnd
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TuesdayEnd", DbType="NVarChar(20)")]
+		public string TuesdayEnd
 		{
 			get
 			{
@@ -2129,8 +2133,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WednesdayStart", DbType="Time")]
-		public System.Nullable<System.TimeSpan> WednesdayStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WednesdayStart", DbType="NVarChar(20)")]
+		public string WednesdayStart
 		{
 			get
 			{
@@ -2149,8 +2153,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WednesdayEnd", DbType="Time")]
-		public System.Nullable<System.TimeSpan> WednesdayEnd
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WednesdayEnd", DbType="NVarChar(20)")]
+		public string WednesdayEnd
 		{
 			get
 			{
@@ -2169,8 +2173,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThursdayStart", DbType="Time")]
-		public System.Nullable<System.TimeSpan> ThursdayStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThursdayStart", DbType="NVarChar(20)")]
+		public string ThursdayStart
 		{
 			get
 			{
@@ -2189,8 +2193,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThursdayEnd", DbType="Time")]
-		public System.Nullable<System.TimeSpan> ThursdayEnd
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThursdayEnd", DbType="NVarChar(20)")]
+		public string ThursdayEnd
 		{
 			get
 			{
@@ -2209,8 +2213,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FridayStart", DbType="Time")]
-		public System.Nullable<System.TimeSpan> FridayStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FridayStart", DbType="NVarChar(20)")]
+		public string FridayStart
 		{
 			get
 			{
@@ -2229,8 +2233,28 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaturdayStart", DbType="Time")]
-		public System.Nullable<System.TimeSpan> SaturdayStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FridayEnd", DbType="NVarChar(20)")]
+		public string FridayEnd
+		{
+			get
+			{
+				return this._FridayEnd;
+			}
+			set
+			{
+				if ((this._FridayEnd != value))
+				{
+					this.OnFridayEndChanging(value);
+					this.SendPropertyChanging();
+					this._FridayEnd = value;
+					this.SendPropertyChanged("FridayEnd");
+					this.OnFridayEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaturdayStart", DbType="NVarChar(20)")]
+		public string SaturdayStart
 		{
 			get
 			{
@@ -2249,8 +2273,8 @@ namespace Alllive.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaturdayEnd", DbType="Time")]
-		public System.Nullable<System.TimeSpan> SaturdayEnd
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SaturdayEnd", DbType="NVarChar(20)")]
+		public string SaturdayEnd
 		{
 			get
 			{

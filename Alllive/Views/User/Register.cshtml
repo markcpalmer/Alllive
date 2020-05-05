@@ -185,7 +185,7 @@
                             </label>
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.MonStart)
+                            @Html.DropDownListFor(a => a.MonStart,(IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                         <div class="col-md-3">
                             @Html.TextBoxFor(a => a.MonEnd)

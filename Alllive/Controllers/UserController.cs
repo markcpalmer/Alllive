@@ -48,6 +48,31 @@ namespace Alllive.Controllers
         public ActionResult Register()
         {
             ViewBag.Message = "Registration Page";
+            string[] minutes = new string[]
+            {
+                "00","15","30","45"
+            };
+            var options = new List<string>();
+            for(int h=0; h<24; h++)
+            {
+                string suffix = "am";
+                if (h > 11)
+                {
+                    suffix = "pm";
+                }
+                foreach(string m in minutes)
+                {
+                    if (h == 0)
+                    {
+                        options.Add("12:" + m);
+                    }
+                    else
+                    {
+                        options.Add(h.ToString() + ":" + m);
+                    }
+                }
+            }
+            ViewBag.minuteOptions = options.Select(o=>new SelectListItem {Value=o,Text=o });
             return View();
         }
 
@@ -70,9 +95,21 @@ namespace Alllive.Controllers
             }
             else
             {
+                var newUser = new User()
+                {
+                    UserName = RegisteredUser.UserName,
+                    FirstName = RegisteredUser.FirstName,
+                    LastName = RegisteredUser.LastName
 
-                RegisteredUser.UserId= Dc.insertregistereduser(RegisteredUser.UserName, RegisteredUser.LastName, RegisteredUser.FirstName, RegisteredUser.Password);
+                };
+                Dc.Users.InsertOnSubmit(newUser);
                 Dc.SubmitChanges();
+                var pw = new password() { UserID = newUser.UserID, password1 = RegisteredUser.Password };
+                Dc.passwords.InsertOnSubmit(pw);
+
+                // RegisteredUser.UserId= Dc.insertregistereduser(RegisteredUser.UserName, RegisteredUser.LastName, RegisteredUser.FirstName, RegisteredUser.Password);
+                RegisteredUser.UserId = newUser.UserID;
+                
                 //how do we get the UserID from the EF
                 // sp looks like we are supposed to get the UserId back but its not returning.
                 if (RegisteredUser.RegisterAsTutor)
@@ -86,12 +123,35 @@ namespace Alllive.Controllers
                         Thursday = RegisteredUser.Thursday,
                         Friday = RegisteredUser.Friday,
                         Saturday = RegisteredUser.Saturday,
-                        Sunday = RegisteredUser.Sunday
+                        Sunday = RegisteredUser.Sunday,
+                        //map the rest on mhy own time
+                        Bio = RegisteredUser.Bio,
+                        SundayStart = RegisteredUser.SunStart,
+                        SundayEnd = RegisteredUser.SunEnd,
+                        SaturdayStart = RegisteredUser.SatStart,
+                        SaturdayEnd = RegisteredUser.SatEnd,
+                        MondayStart = RegisteredUser.MonStart,
+                        MondayEnd = RegisteredUser.MonEnd,
+                        TuesdayStart = RegisteredUser.TueStart,
+                        TuesdayEnd = RegisteredUser.TueEnd,
+                        WednesdayStart = RegisteredUser.WedStart,
+                        WednesdayEnd = RegisteredUser.WedEnd,
+                        ThursdayStart = RegisteredUser.ThuStart,
+                        ThursdayEnd = RegisteredUser.ThuEnd,
+                        FridayStart = RegisteredUser.FriStart,
+                        FridayEnd = RegisteredUser.FriEnd,
+                        Rate = RegisteredUser.Rate,
+                        Math = RegisteredUser.MathSubject,
+                        Reading = RegisteredUser.ReadingSubject,
+                        Science = RegisteredUser.ScienceSubject,
+                        StudentLevel = RegisteredUser.StudentLevel
+                                  
                     };
                     Dc.TutorProfiles.InsertOnSubmit(tutor);
-                    Dc.SubmitChanges();
+                    
                 }
-                return RedirectToAction("Login", "Home");
+                Dc.SubmitChanges();
+                return View("RegisterSuccess");
 
             }
 

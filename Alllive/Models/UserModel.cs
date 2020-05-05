@@ -45,8 +45,8 @@ namespace Alllive.Models
 
         /// You don't want any of these required
         public bool MondayStart { get; set; }
-        public DateTime MonStart { get; set; }
-        public DateTime MonEnd { get; set; }
+        public string MonStart { get; set; }
+        public string MonEnd { get; set; }
 
         public bool Tuesday { get; set; }
         public string TueStart { get; set; }
@@ -69,6 +69,9 @@ namespace Alllive.Models
         public bool Sunday { get; set; }
         public string SunStart { get; set; }
         public string SunEnd { get; set; }
+        public double Rate { get; set; }
+        public string StudentLevel { get; set; }
+
 
 
 

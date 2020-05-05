@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alllive.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,20 @@ namespace Alllive.Controllers
 {
     public class HomeController : Controller
     {
+        private UserModel currentUser;
         public ActionResult Index()
         {
-            return View();
+            if (Session != null && Session["AllliveUser"] != null)
+            {
+                currentUser = (UserModel)(Session["AllliveUser"]);
+
+            }
+            if (currentUser == null)
+            {
+                return View();
+            }
+            return RedirectToAction("Schedule", "User", new {ID=currentUser.UserId });
+
         }
 
         public ActionResult About()

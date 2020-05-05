@@ -23,26 +23,15 @@
                 <ul class="nav navbar-nav">
 
 
-                    @* if user is null turn send users to login page when they click schedule,join or start*@
-                    @if (Session["AllLiveUser"] == null)
-                    {
-                        <li>@Html.ActionLink("Schedule Meeting", "Login", "Home")</li>
-                        <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
-                        <li>@Html.ActionLink("Start Meeting", "Login", "Home")</li>
-                        <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
-                        <li>@Html.ActionLink("Online Childrens Yoga", "OnlineYoga", "Navigation")</li>
+
+                    <li>@Html.ActionLink("Schedule Meeting", "ScheduleMeeting", "Navigation")</li>
+                    <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
+                    <li>@Html.ActionLink("Start Meeting", "StartMeeting", "Navigation")</li>
+                    <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
+                    <li>@Html.ActionLink("Online Childrens Yoga", "OnlineYoga", "Navigation")</li>
+                    <li>@Html.ActionLink("Search", "Searchtutor", "Navigation")</li>
 
 
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Schedule Meeting", "ScheduleMeeting", "Navigation")</li>
-                        <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
-                        <li>@Html.ActionLink("Start Meeting", "StartMeeting", "Navigation")</li>
-                        <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
-                        <li>@Html.ActionLink("Online Childrens Yoga", "OnlineYoga", "Navigation")</li>
-
-                    }
 
 
                 </ul>
@@ -52,7 +41,7 @@
                     {
                         @Html.ActionLink("Login", "Login", "Home", false, new { style = "position:absolute; right:10px; top:10px;" })
                         @Html.ActionLink("Register", "Register", "User", false, new { style = "position:absolute; right:60px; top:10px;" })
-                        @Html.ActionLink("Register as Tutor", "TutorRegistration", "User", false, new { style = "position:absolute; right:160px; top:10px;" })
+                        @*@Html.ActionLink("Register as Tutor", "TutorRegistration", "User", false, new { style = "position:absolute; right:160px; top:10px;" })*@
 
                     }
                     else

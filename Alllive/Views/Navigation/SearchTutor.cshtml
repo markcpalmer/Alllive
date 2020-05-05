@@ -8,12 +8,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-5">
-            @Ajax.BeginForm("SearchResults",new AjaxOptions() { HttpMethod="Get", UpdateTargetId="SearchResults",InsertionMode=InsertionMode.Replace})
-            { 
-            @*<form id="FilterForm" onsubmit="ApplyFilter(event)">*@
-                @Html.Label("Filters")
-                <div>
-                    <input name="Range" id="RangeControl1" class="form-control" type="range" min="0" max="200" step="5" />
+            @using (Ajax.BeginForm("SearchResults", new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "SearchResults", InsertionMode = InsertionMode.Replace }))
+                {
+            @*< form id = "FilterForm" onsubmit = "ApplyFilter(event)" >*@
+                   @Html.Label("Filters")
+                   <div>
+                    <input name = "Range" id = "RangeControl1" class="form-control" type="range" min="0" max="200" step="5" />
                     <input onchange="RangeChanged()" name="Range" id="RangeControl2" class="form-control" type="range" min="0" max="200" step="5" />
                 </div>
                 <div>

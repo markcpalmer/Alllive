@@ -10,6 +10,17 @@ namespace Alllive.Controllers
 {
     public class NavigationController : Controller
     {
+        private UserModel currentUser;
+        AllliveDBDataContext Dc = new AllliveDBDataContext();
+
+        public NavigationController()
+        {
+            if (Session !=null && Session["AllliveUser"]!=null)
+            {
+                currentUser= (UserModel)(Session["AllliveUser"]);
+
+            }
+        }
         // GET: Navagation
         public ActionResult Index()
         {
@@ -17,13 +28,22 @@ namespace Alllive.Controllers
         }
         public ActionResult ScheduleMeeting()
         {
+            if (Session != null && Session["AllliveUser"] != null)
+            {
+                currentUser = (UserModel)(Session["AllliveUser"]);
+
+            }
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult ScheduleMeeting(ScheduleModel m)
         {
-            UserModel getUser = (UserModel)(Session["AllliveUser"]);
+            
 
             AllliveDBDataContext db = new AllliveDBDataContext();
             if (ModelState.IsValid)
@@ -58,7 +78,7 @@ namespace Alllive.Controllers
                 //Inserts the values
                 db.insertscheduledmeeting(m.SessionName, m.Description, m.Date, Start, End, m.TimeZone, m.Recurr, m.Frequency,
                      m.RepeatDaily, m.RepeatWeekly, m.RepeatMonthly, m.Sunday, m.Monday, m.Tuesday, m.Wednesday, m.Thursday, m.Friday, m.Saturday, m.RepeatMonthRadio1,
-                    m.RepeatMonthRadio2, m.Radio2List1, m.Radio2List2, m.EndDateBy, m.EndDateAfter,getUser.UserId,m.MeetingLink);
+                    m.RepeatMonthRadio2, m.Radio2List1, m.Radio2List2, m.EndDateBy, m.EndDateAfter,currentUser.UserId,m.MeetingLink);
 
                 
                 //This needs to change (Either Success view or take user to "Add to Calendar Page/Review Meeting Page"
@@ -74,9 +94,24 @@ namespace Alllive.Controllers
         {
             return View();
         }
-        public ActionResult StartMeeting()
+        public ActionResult StartMeeting(int? ID)
         {
-            return View();
+            if (Session != null && Session["AllliveUser"] != null)
+            {
+                currentUser = (UserModel)(Session["AllliveUser"]);
+
+            }
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            if (ID == null)
+            {
+                ID = currentUser.UserId;
+            }
+            var DisplaySchedule = Dc.UserSchedule(ID);
+            return View(DisplaySchedule);
         }
         public ActionResult DistanceLearning()
         {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 20.5" name="AllliveDB">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 23.375" name="AllliveDB">
   <DataContextMoniker Name="/AllliveDBDataContext" />
   <nestedChildShapes>
     <classShape Id="79596312-d2b8-4f15-9188-7864598c8c90" absoluteBounds="1.125, 2.375, 2, 1.3862939453125">
@@ -46,10 +46,10 @@
         <elementListCompartment Id="53d27fe7-2814-42ab-a932-829b87467c67" absoluteBounds="1.3900000000000001, 9.71, 1.9700000000000002, 5.4415283203125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="37e4a6ab-2eb5-45b1-9bc6-68552d0cf89e" absoluteBounds="4.125, 13.875, 2, 6.3861311848958326">
+    <classShape Id="f8aef3d2-7f8a-4686-a734-1d90350bbfc5" absoluteBounds="1.75, 16.5, 2, 6.5784326171875">
       <DataClassMoniker Name="/AllliveDBDataContext/TutorProfile" />
       <nestedChildShapes>
-        <elementListCompartment Id="05ca6cf1-5957-4d3c-9478-1b816f69d20b" absoluteBounds="4.14, 14.335, 1.9700000000000002, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="228b99b5-66ff-47fc-ac1f-662695431b62" absoluteBounds="1.7650000000000001, 16.96, 1.9700000000000002, 6.0184326171875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

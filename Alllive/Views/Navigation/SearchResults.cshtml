@@ -5,50 +5,57 @@
     {
     <div class="list-group-item">
         <img />
-        <h3>@tp.FirstName @tp.LastName</h3>
-        <p>@tp.Bio</p>
-        <h3>Availability</h3>
-        @Html.Label("Sunday:")
-        @if (tp.Sunday)
+        <h3>@tp.User.FirstName @tp.User.LastName</h3>
+        <p>@tp.TutorProfile.Bio</p>
+        <h5>Availability</h5>
+
+        @if (tp.TutorProfile.Sunday)
         {
-            @tp.SundayStart
-            @tp.SundayEnd
+            @Html.Label("Sunday:")
+            @tp.TutorProfile.SundayStart
+            @tp.TutorProfile.SundayEnd
         }
-        @Html.Label("Monday:")
-        @if (tp.Monday)
+        @if (tp.TutorProfile.Monday)
         {
-            @tp.MondayStart
-            @tp.MondayEnd
+            @Html.Label("Monday:")
+
+            @tp.TutorProfile.MondayStart
+            @tp.TutorProfile.MondayEnd
         }
-        @Html.Label("Tuesday:")
-        @if (tp.Tuesday)
+        @if (tp.TutorProfile.Tuesday)
         {
-            @tp.TuesdayStart
-            @tp.TuesdayEnd
+            @Html.Label("Tuesday:")
+
+            @tp.TutorProfile.TuesdayStart
+            @tp.TutorProfile.TuesdayEnd
         }
-        @Html.Label("Wednesday:")
-        @if (tp.Wednesday)
+        @if (tp.TutorProfile.Wednesday)
         {
-            @tp.WednesdayStart
-            @tp.WednesdayEnd
+            @Html.Label("Wednesday:")
+
+            @tp.TutorProfile.WednesdayStart
+            @tp.TutorProfile.WednesdayEnd
         }
-        @Html.Label("Thursday:")
-        @if (tp.Thursday)
+        @if (tp.TutorProfile.Thursday)
         {
-            @tp.ThursdayStart
-            @tp.ThursdayEnd
+            @Html.Label("Thursday:")
+
+            @tp.TutorProfile.ThursdayStart
+            @tp.TutorProfile.ThursdayEnd
         }
-        @Html.Label("Friday:")
-        @if (tp.Friday)
+        @if (tp.TutorProfile.Friday)
         {
-            @tp.FridayStart
-            @tp.FridayEnd
+            @Html.Label("Friday:")
+
+            @tp.TutorProfile.FridayStart
+            @tp.TutorProfile.FridayEnd
         }
-        @Html.Label("Saturday:")
-        @if (tp.Saturday)
+        @if (tp.TutorProfile.Saturday)
         {
-            @tp.SaturdayStart
-            @tp.SaturdayEnd
+            @Html.Label("Saturday:")
+
+            @tp.TutorProfile.SaturdayStart
+            @tp.TutorProfile.SaturdayEnd
         }
     </div>
     }

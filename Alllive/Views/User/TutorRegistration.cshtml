@@ -15,72 +15,147 @@
             </div>
         </div>
     </div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <p>
-                <h4>Tutoring Subjects</h4>
-                <span>Maths</span>
-                @Html.CheckBox("MathSubject", false)
-                <span>Reading</span>
-                @Html.CheckBox("ReadingSubject", false)
-                <span>Science</span>
-                @Html.CheckBox("ScienceSubject", false)
-            </p>
-        </div>
-        <div class="col-md-3">
-            <h4>Bio</h4>
-            @Html.TextArea("Bio")
-        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <p>
+                    <h4>Tutoring Subjects</h4>
+                    <span>Maths</span>
+                    @Html.CheckBox("MathSubject", false)
+                    <span>Reading</span>
+                    @Html.CheckBox("ReadingSubject", false)
+                    <span>Science</span>
+                    @Html.CheckBox("ScienceSubject", false)
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h4>Bio</h4>
+                @Html.TextArea("Bio")
+            </div>
 
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <h4>Availability</h4>
-            <ul style="list-style-type:none;">
-
-                <li>Monday</li>
-                <li>Tuesday</li>
-                <li>Wednesday</li>
-                <li>Thursday</li>
-                <li>Friday</li>
-                <li>Saturday</li>
-                <li>Sunday</li>
-            </ul>
-        </div>
-        <div class="col-md-2">
-            <h6>Start Time</h6>
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-
-
-        </div>
-        <div class="col-md-2">
-            <h6>End Time</h6>
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
-            <input type="time" id="myTime">
         </div>
     </div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Availability</h4>
+            </div>
+            <div class="col-md-3">
+                <h4>Start Time</h4>
+            </div>
+            <div class="col-md-3">
+                <h4>End Time</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    @Html.CheckBoxFor(a => a.Monday)
+                    Monday
+                </label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.MondayStart)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.MondayEnd)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    @Html.CheckBoxFor(a => a.Tuesday)
+                    Tuesday
+                </label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.TuesdayStart)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.TuesdayEnd)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    @Html.CheckBoxFor(a => a.Wednesday)
+                    Wednesday
+                </label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.WednesdayStart)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.WednesdayEnd)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    @Html.CheckBoxFor(a => a.Thursday)
+                    Thursday
+                </label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.ThursdayStart)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.ThursdayEnd)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    @Html.CheckBoxFor(a => a.Friday)
+                    Friday
+                </label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.FridayStart)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    @Html.CheckBoxFor(a => a.Saturday)
+                    Saturday
+                </label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.SaturdayStart)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.SaturdayEnd)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    @Html.CheckBoxFor(a => a.Sunday)
+                    Sunday
+                </label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.SundayStart)
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(a => a.SundayEnd)
+            </div>
+        </div>
 
-<p>
-    <span></span>
-</p>
-<br />
 
-<input type="submit" value="Submit" />
+    </div>
+
+
+    <p>
+        <span></span>
+    </p>
+    <br />
+
+    <input type="submit" value="Submit" />
 
 
 }

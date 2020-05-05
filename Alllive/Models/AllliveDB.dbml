@@ -88,19 +88,20 @@
       <Column Name="Reading" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Science" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Photo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="SundayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="SundayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="MondayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="MondayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="TuesdayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="TuesdayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="WednesdayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="WednesdayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="ThursdayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="ThursdayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="FridayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="SaturdayStart" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="SaturdayEnd" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="SundayStart" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="SundayEnd" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="MondayStart" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="MondayEnd" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TuesdayStart" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TuesdayEnd" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="WednesdayStart" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="WednesdayEnd" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ThursdayStart" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ThursdayEnd" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FridayStart" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FridayEnd" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="SaturdayStart" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="SaturdayEnd" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.insertregistereduser" Method="insertregistereduser">
