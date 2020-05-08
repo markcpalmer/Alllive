@@ -9,10 +9,9 @@ using System.Web.Security;
 
 namespace Alllive.Controllers
 {
-    public class UserController : Controller
+    public class UserController : AllLiveControllerBase
     {
-        AllliveDBDataContext Dc = new AllliveDBDataContext();
-        UserModel U = new UserModel();
+
         // GET: User
         public ActionResult Index()
         {
@@ -45,6 +44,7 @@ namespace Alllive.Controllers
             }
         }
         # region Register
+        [OverrideAuthorization]
         public ActionResult Register()
         {
             ViewBag.Message = "Registration Page";
@@ -62,6 +62,14 @@ namespace Alllive.Controllers
                 }
                 foreach(string m in minutes)
                 {
+                    //if (h > 12)
+                    //{
+                    //    hourConverter = h + ":" + m;
+
+                    //    DateTime dt = DateTime.ParseExact(hourConverter, "HH:mm", null, DateTimeStyles.None);
+                    //    string time12 = dt.ToString("HH:mm");
+                    //    options.Add(dt.ToShortTimeString().ToString());
+                    //}
                     if (h == 0)
                     {
                         options.Add("12:" + m);
@@ -77,6 +85,7 @@ namespace Alllive.Controllers
         }
 
         [HttpPost]
+        [OverrideAuthorization]
         public ActionResult Register(UserModel RegisteredUser)
         {
             //Comparison to see if the user exists
@@ -158,6 +167,7 @@ namespace Alllive.Controllers
         }
         #endregion
         #region Login
+        [OverrideAuthorization]
         public ActionResult Login(UserModel Login) //Nullable Int Type 
         {
             var userExists = Dc.Users.Where(a => a.UserName == Login.UserName).FirstOrDefault();//defaults to null and doesn't error out
@@ -197,7 +207,7 @@ namespace Alllive.Controllers
             /// Assigning the session variables (password/username) into the UserModel 
             /// to reference valid user within each controller of the project.
             /// AUTHENTICATION.  the website knows who the user is at all times
-            UserModel usermng = (UserModel)(Session["AllliveUser"]);
+            currentUser = (UserModel)(Session["AllliveUser"]);
         }
 
         public ActionResult Logoff()
@@ -208,6 +218,7 @@ namespace Alllive.Controllers
         }
 
         #region Schedule
+
         public ActionResult Schedule(int? ID)
         {
             var DisplaySchedule = Dc.UserSchedule(ID);
@@ -239,7 +250,7 @@ namespace Alllive.Controllers
 
         }
         #endregion
-
+        [Authorize]
         public ActionResult SaveTutor(TutorProfile tp)
         {
             if (tp.TutorProfileID == 0)
@@ -249,41 +260,41 @@ namespace Alllive.Controllers
             else
             {
                 Dc.TutorProfiles.Attach(tp);
+                
             }
             Dc.SubmitChanges();
-            return RedirectToAction("Schedule");
+            return RedirectToAction("ViewProfile");
         }
+        [Authorize]
         public ActionResult TutorRegistration(int? tutorProfileId)
         {
-            //UserModel usermng = (UserModel)(Session["AllliveUser"]);
-            //var findTutor = Dc.TutorProfiles.FirstOrDefault(tp => tp.UserID == usermng.UserId);
-            //var m = new TutorProfile();
-            //if (tutorProfileId.HasValue)
-            //{
-            //    findTutor = Dc.TutorProfiles.FirstOrDefault(tp => tp.TutorProfileID == tutorProfileId.Value);
-            //}
-            //if (findTutor != null)
-            //{
-            //    m = findTutor;
-            //}
-            //else
-            //{
-            //    m.UserID = usermng.UserId;
-            //}
-            //return View(m);
-            return View();//delete when you uncomment the above
+            var findTutor = Dc.TutorProfiles.FirstOrDefault(tp => tp.UserID == currentUser.UserId);
+            var m = new TutorProfile();
+            if (tutorProfileId.HasValue)
+            {
+                findTutor = Dc.TutorProfiles.FirstOrDefault(tp => tp.TutorProfileID == tutorProfileId.Value);
+            }
+            if (findTutor != null)
+            {
+                m = findTutor;
+            }
+            else
+            {
+                m.UserID = currentUser.UserId;
+            }
+            return View(m);
+           
         }
+        [Authorize]
         public ActionResult ViewProfile()
         {
-            UserModel usermng = (UserModel)(Session["AllliveUser"]);
-            AllliveDBDataContext db = new AllliveDBDataContext();
-            var tutorVM = db.TutorProfiles.Join(db.Users,
-                    tp => tp.UserID,
+            var tutorVM = Dc.Users.GroupJoin(Dc.TutorProfiles,
                     u => u.UserID,
-                    (tp, u) => new { tp, u }
-                ).Where(a => a.u.UserID == usermng.UserId
+                    tp => tp.UserID,
+                    (u, tp) => new { tp, u }
+                ).Where(a => a.u.UserID == currentUser.UserId
 
-                ).Select(a => new TutorViewModel(a.tp, a.u))
+                ).Select(a => new TutorViewModel(a.tp.FirstOrDefault(), a.u))
                 .FirstOrDefault();
             if (tutorVM == null)
             {

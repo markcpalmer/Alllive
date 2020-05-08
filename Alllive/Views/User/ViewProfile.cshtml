@@ -1,17 +1,37 @@
 ﻿@model Alllive.Models.TutorViewModel
 
 
-
 <div class="container">
-    @if (Model.TutorProfileId > 0)
+    <div class="row">
+        <div class="col-sm-3">
+            <label> Name</label>
+            
+        </div>
+        <div class="col-sm-9">
+            <span>@Model.User.FirstName @Model.User.LastName</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>UserName</label>
+        </div>
+        <div class="col-sm-9">
+            <span>@Model.User.UserName</span>
+        </div>
+
+
+    </div>
+</div>
+<div class="container">
+    @if (Model.TutorProfile!=null)
     {
         <p>
             <img />PHOTO
         </p>
         <p>
-            @Model.Bio;
+            @Model.TutorProfile.Bio;
         </p>
-        <a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfileId })">Edit</a>
+        <a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfile.TutorProfileID })">Edit</a>
     }
     else
     {

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Register";
 }
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 <!-- <style type="text/css">
     .register-form {
         width: ;
@@ -98,7 +98,7 @@
                     <div class="col-sm-1">
                         @Html.Label("Email")
                     </div>
-                    <div class="col-8">
+                    <div class="col-sm-7">
                         @Html.TextBoxFor(a => a.UserName, new { @class = "form-control", @style = "display:inline-block", @placeholder = "your@email.com" })
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                         @Html.PasswordFor(a => a.Password, new { @class = "form-control", @style = "display:inline-block" })
                     </div>
                     <div class="col-sm-1">
-                        @Html.LabelFor(a => a.ConfirmPassword)
+                        @Html.LabelFor(a => a.ConfirmPassword,"Confirm Password" )
                     </div>
                     <div class="col-sm-3">
                         @Html.PasswordFor(a => a.ConfirmPassword, new { @class = "form-control", @style = "display:inline-block" })
@@ -158,7 +158,7 @@
                         </div>
                         <div class="col-md-3">
                             <h4>Bio</h4>
-                            @Html.TextArea("Bio")
+                            @Html.TextArea("Bio",new { @style="width:469px" })
                         </div>
 
                     </div>
@@ -185,10 +185,10 @@
                             </label>
                         </div>
                         <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.MonStart,(IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
+                            @Html.DropDownListFor(a => a.MonStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
+                               </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.MonEnd)
+                            @Html.DropDownListFor(a => a.MonEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                     </div>
                     <div class="row">
@@ -199,10 +199,10 @@
                             </label>
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.TueStart)
+                            @Html.DropDownListFor(a => a.TueStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.TueEnd)
+                            @Html.DropDownListFor(a => a.TueEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                     </div>
                     <div class="row">
@@ -213,10 +213,10 @@
                             </label>
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.WedStart)
+                            @Html.DropDownListFor(a => a.WedStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.WedEnd)
+                            @Html.DropDownListFor(a => a.WedEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                     </div>
                     <div class="row">
@@ -227,10 +227,10 @@
                             </label>
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.ThuStart)
+                            @Html.DropDownListFor(a => a.ThuStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.ThuEnd)
+                            @Html.DropDownListFor(a => a.ThuEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                     </div>
                     <div class="row">
@@ -241,10 +241,10 @@
                             </label>
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.FriStart)
+                            @Html.DropDownListFor(a => a.FriStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.FriEnd)
+                            @Html.DropDownListFor(a => a.FriEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                     </div>
                     <div class="row">
@@ -255,10 +255,10 @@
                             </label>
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.SatStart)
+                            @Html.DropDownListFor(a => a.SatStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.SatEnd)
+                            @Html.DropDownListFor(a => a.SatEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                     </div>
                     <div class="row">
@@ -269,10 +269,10 @@
                             </label>
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.SunStart)
+                            @Html.DropDownListFor(a => a.SunStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(a => a.SunEnd)
+                            @Html.DropDownListFor(a => a.SunEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
                         </div>
                     </div>
 

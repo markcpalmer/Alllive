@@ -2,7 +2,8 @@
 
 @using (Html.BeginForm("SaveTutor", "User", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
 {
-    @Html.Hidden("UserID")
+    @Html.HiddenFor(m => m.UserID)
+    @Html.HiddenFor(m => m.TutorProfileID)
     <div class="container">
 
         <div class="row">
@@ -114,7 +115,7 @@
                 @Html.TextBoxFor(a => a.FridayStart)
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.)
+                @Html.TextBoxFor(a => a.FridayEnd)
             </div>
         </div>
         <div class="row">

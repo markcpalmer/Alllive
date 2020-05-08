@@ -8,39 +8,25 @@ using Alllive.Models;
 
 namespace Alllive.Controllers
 {
-    public class NavigationController : Controller
+    public class NavigationController : AllLiveControllerBase
     {
-        private UserModel currentUser;
-        AllliveDBDataContext Dc = new AllliveDBDataContext();
+        
 
-        public NavigationController()
-        {
-            if (Session !=null && Session["AllliveUser"]!=null)
-            {
-                currentUser= (UserModel)(Session["AllliveUser"]);
-
-            }
-        }
+      
         // GET: Navagation
         public ActionResult Index()
         {
             return View();
         }
+        [Authorize]
         public ActionResult ScheduleMeeting()
         {
-            if (Session != null && Session["AllliveUser"] != null)
-            {
-                currentUser = (UserModel)(Session["AllliveUser"]);
-
-            }
-            if (currentUser == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
+            
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult ScheduleMeeting(ScheduleModel m)
         {
             
@@ -90,21 +76,15 @@ namespace Alllive.Controllers
             // Validation failed and returning current fields.
             return View(m);
         }
+        [OverrideAuthorization]
         public ActionResult JoinMeeting()
         {
             return View();
         }
+        [Authorize]
         public ActionResult StartMeeting(int? ID)
         {
-            if (Session != null && Session["AllliveUser"] != null)
-            {
-                currentUser = (UserModel)(Session["AllliveUser"]);
-
-            }
-            if (currentUser == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
+          
 
             if (ID == null)
             {
@@ -113,18 +93,21 @@ namespace Alllive.Controllers
             var DisplaySchedule = Dc.UserSchedule(ID);
             return View(DisplaySchedule);
         }
+        [OverrideAuthorization]
         public ActionResult DistanceLearning()
         {
             return View();
         }
+        [OverrideAuthorization]
         public ActionResult SearchTutor()
         {
             return View();
         }
+        [OverrideAuthorization]
         public ActionResult SearchResults(SearchTutorModel m)
         {
-            AllliveDBDataContext db = new AllliveDBDataContext();
-            var results = db.TutorProfiles.Join(db.Users,
+            
+            var results = Dc.TutorProfiles.Join(Dc.Users,
                     tp=>tp.UserID,
                     u=>u.UserID,
                     (tp,u)=>new { tp, u }
@@ -141,6 +124,7 @@ namespace Alllive.Controllers
 
             return PartialView(results);
         }
+        [OverrideAuthorization]
         public ActionResult OnlineYoga()
         {
             return View();
