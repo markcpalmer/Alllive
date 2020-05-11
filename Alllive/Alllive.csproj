@@ -124,6 +124,7 @@
     <Compile Include="Controllers\AllLiveControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Controllers\TimerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -135,6 +136,7 @@
     </Compile>
     <Compile Include="Models\ScheduleModel.cs" />
     <Compile Include="Models\SearchTutorModel.cs" />
+    <Compile Include="Models\TimerViewModel.cs" />
     <Compile Include="Models\TutorViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,6 +152,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\Amy.png" />
     <Content Include="Images\laptopboy.jpg" />
+    <Content Include="Images\silhoutte.png" />
     <Content Include="Images\yogakid.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -594,6 +597,7 @@
     <Content Include="Scripts\jqueryui\themes\vader\theme.css" />
     <Content Include="Scripts\jqueryui\themes\vader\theme.min.css" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\script-custom-timepicker.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -625,6 +629,8 @@
     <Content Include="Views\User\ViewProfile.cshtml" />
     <Content Include="Views\User\EditMeeting.cshtml" />
     <Content Include="Views\User\RegisterSuccess.cshtml" />
+    <Content Include="Views\Index.cshtml" />
+    <Content Include="Views\User\UserTutorProfileView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,3 +29,11 @@ h1 {
 .form-rounded {
     border-radius: 3rem;
 }
+.list-group-item-text {
+    margin-left:80px;
+    display:inline-block;
+    vertical-align: top;
+}
+.list-group-item img{
+    vertical-align:auto;
+}

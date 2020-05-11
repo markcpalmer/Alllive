@@ -6,6 +6,15 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    @* for time picker *@
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <!-- Time Picker -->
+    @Styles.Render("~/Plugin/Timepicker/css")
+
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -74,6 +83,10 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @* for time picker *@
+    @Scripts.Render("~/bundles/Script-Timepicker")
+    @Scripts.Render("~/bundles/Script-Custom-Timepicker")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
