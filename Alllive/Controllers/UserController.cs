@@ -72,11 +72,11 @@ namespace Alllive.Controllers
                     //}
                     if (h == 0)
                     {
-                        options.Add("12:" + m);
+                        options.Add("12:" + m +" "+ suffix);
                     }
                     else
                     {
-                        options.Add(h.ToString() + ":" + m);
+                        options.Add(h.ToString() + ":" + m +" "+ suffix);
                     }
                 }
             }
@@ -111,10 +111,10 @@ namespace Alllive.Controllers
                     LastName = RegisteredUser.LastName
 
                 };
-                Dc.Users.InsertOnSubmit(newUser);
-                Dc.SubmitChanges();
+                Dc.Users.Add(newUser);
+                Dc.SaveChanges();
                 var pw = new password() { UserID = newUser.UserID, password1 = RegisteredUser.Password };
-                Dc.passwords.InsertOnSubmit(pw);
+                Dc.passwords.Add(pw);
 
                 // RegisteredUser.UserId= Dc.insertregistereduser(RegisteredUser.UserName, RegisteredUser.LastName, RegisteredUser.FirstName, RegisteredUser.Password);
                 RegisteredUser.UserId = newUser.UserID;
@@ -156,10 +156,10 @@ namespace Alllive.Controllers
                         StudentLevel = RegisteredUser.StudentLevel
                                   
                     };
-                    Dc.TutorProfiles.InsertOnSubmit(tutor);
+                    Dc.TutorProfiles.Add(tutor);
                     
                 }
-                Dc.SubmitChanges();
+                Dc.SaveChanges();
                 return View("RegisterSuccess");
 
             }
@@ -255,14 +255,14 @@ namespace Alllive.Controllers
         {
             if (tp.TutorProfileID == 0)
             {
-                Dc.TutorProfiles.InsertOnSubmit(tp);
+                Dc.TutorProfiles.Add(tp);
             }
             else
             {
                 Dc.TutorProfiles.Attach(tp);
                 
             }
-            Dc.SubmitChanges();
+            Dc.SaveChanges();
             return RedirectToAction("ViewProfile");
         }
         [Authorize]
@@ -294,7 +294,7 @@ namespace Alllive.Controllers
                     (u, tp) => new { tp, u }
                 ).Where(a => a.u.UserID == currentUser.UserId
 
-                ).Select(a => new TutorViewModel(a.tp.FirstOrDefault(), a.u))
+                ).ToList().Select(a => new TutorViewModel(a.tp.FirstOrDefault(), a.u))
                 .FirstOrDefault();
             if (tutorVM == null)
             {

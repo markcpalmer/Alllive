@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Alllive.Models;
 
 namespace Alllive.Controllers
@@ -31,7 +32,6 @@ namespace Alllive.Controllers
         {
             
 
-            AllliveDBDataContext db = new AllliveDBDataContext();
             if (ModelState.IsValid)
             {
                 //Time Sessions
@@ -41,7 +41,11 @@ namespace Alllive.Controllers
 
                 //TimeZone
 
-                m.MeetingLink = "";
+
+                //meeting link
+                string meetingID = Membership.GeneratePassword(10, 2);
+
+                m.MeetingLink = "https://www.groupworld.net/room/3437/"+ meetingID +"?show_timer=true&timer_two_users=true";
 
                 //Radio button logic
                 //You MUST get ALL the values for Recurr
@@ -62,13 +66,13 @@ namespace Alllive.Controllers
                 }
 
                 //Inserts the values
-                db.insertscheduledmeeting(m.SessionName, m.Description, m.Date, Start, End, m.TimeZone, m.Recurr, m.Frequency,
+                Dc.insertscheduledmeeting(m.SessionName, m.Description, m.Date, Start, End, m.TimeZone, m.Recurr, m.Frequency,
                      m.RepeatDaily, m.RepeatWeekly, m.RepeatMonthly, m.Sunday, m.Monday, m.Tuesday, m.Wednesday, m.Thursday, m.Friday, m.Saturday, m.RepeatMonthRadio1,
                     m.RepeatMonthRadio2, m.Radio2List1, m.Radio2List2, m.EndDateBy, m.EndDateAfter,currentUser.UserId,m.MeetingLink);
 
-                
+
                 //This needs to change (Either Success view or take user to "Add to Calendar Page/Review Meeting Page"
-                return View();
+                return RedirectToAction("Schedule", "User", new { ID = currentUser.UserId });//redirects user to different action"                    
             }
             //m.EndDateBy = new DateTime();
             //m.EndDateAfter = new DateTime();
@@ -98,32 +102,7 @@ namespace Alllive.Controllers
         {
             return View();
         }
-        [OverrideAuthorization]
-        public ActionResult SearchTutor()
-        {
-            return View();
-        }
-        [OverrideAuthorization]
-        public ActionResult SearchResults(SearchTutorModel m)
-        {
-            
-            var results = Dc.TutorProfiles.Join(Dc.Users,
-                    tp=>tp.UserID,
-                    u=>u.UserID,
-                    (tp,u)=>new { tp, u }
-                ).Where(a =>
-                (a.tp.Sunday && m.Sunday)||
-                (a.tp.Monday && m.Monday)||
-                (a.tp.Tuesday && m.Tuesday) ||
-                (a.tp.Wednesday && m.Wednesday) ||
-                (a.tp.Thursday && m.Thursday) ||
-                (a.tp.Friday && m.Friday) ||
-                (a.tp.Saturday && m.Saturday)
-                ).Select(a=>new TutorViewModel(a.tp,a.u));
-
-
-            return PartialView(results);
-        }
+       
         [OverrideAuthorization]
         public ActionResult OnlineYoga()
         {

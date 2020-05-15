@@ -77,7 +77,7 @@ namespace Alllive.Models
 
         public UserModel GetUser(UserModel logon, bool cookie)
         {
-            AllliveDBDataContext Dc = new AllliveDBDataContext();
+            AllliveDBEntities Dc = new AllliveDBEntities();
             User user = new User();
 
             // Determine if the cookie exists

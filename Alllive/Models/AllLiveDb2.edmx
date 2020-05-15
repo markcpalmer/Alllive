@@ -1,0 +1,685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AllliveDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="password">
+          <Key>
+            <PropertyRef Name="passwordID" />
+          </Key>
+          <Property Name="passwordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="16" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduleMeeting">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TimeZone" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="Recurr" Type="bit" Nullable="false" />
+          <Property Name="Frequency" Type="int" Nullable="false" />
+          <Property Name="RepeatDaily" Type="int" Nullable="false" />
+          <Property Name="RepeatWeekly" Type="int" Nullable="false" />
+          <Property Name="RepeatMonthly" Type="int" Nullable="false" />
+          <Property Name="Sunday" Type="bit" Nullable="false" />
+          <Property Name="Monday" Type="bit" Nullable="false" />
+          <Property Name="Tuesday" Type="bit" Nullable="false" />
+          <Property Name="Wednesday" Type="bit" Nullable="false" />
+          <Property Name="Thursday" Type="bit" Nullable="false" />
+          <Property Name="Friday" Type="bit" Nullable="false" />
+          <Property Name="Saturday" Type="bit" Nullable="false" />
+          <Property Name="RepeatMonthRadio1" Type="bit" Nullable="false" />
+          <Property Name="RepeatMonthRadio2" Type="bit" Nullable="false" />
+          <Property Name="Radio2List1" Type="int" Nullable="false" />
+          <Property Name="Radio2List2" Type="int" Nullable="false" />
+          <Property Name="EndDateBy" Type="date" Nullable="false" />
+          <Property Name="EndDateAfter" Type="int" Nullable="false" />
+          <Property Name="MeetingLink" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SearchTutor">
+          <Key>
+            <PropertyRef Name="SearchText" />
+            <PropertyRef Name="HourlyRate" />
+            <PropertyRef Name="Sunday" />
+            <PropertyRef Name="Monday" />
+            <PropertyRef Name="Tuesday" />
+            <PropertyRef Name="Wednesday" />
+            <PropertyRef Name="Thursday" />
+            <PropertyRef Name="Friday" />
+            <PropertyRef Name="Saturday" />
+            <PropertyRef Name="StudentLevel" />
+          </Key>
+          <Property Name="SearchText" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="HourlyRate" Type="int" Nullable="false" />
+          <Property Name="Sunday" Type="bit" Nullable="false" />
+          <Property Name="Monday" Type="bit" Nullable="false" />
+          <Property Name="Tuesday" Type="bit" Nullable="false" />
+          <Property Name="Wednesday" Type="bit" Nullable="false" />
+          <Property Name="Thursday" Type="bit" Nullable="false" />
+          <Property Name="Friday" Type="bit" Nullable="false" />
+          <Property Name="Saturday" Type="bit" Nullable="false" />
+          <Property Name="StudentLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TutorProfile">
+          <Key>
+            <PropertyRef Name="TutorProfileID" />
+          </Key>
+          <Property Name="TutorProfileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Bio" Type="varchar(max)" />
+          <Property Name="Rate" Type="float" Nullable="false" />
+          <Property Name="Sunday" Type="bit" Nullable="false" />
+          <Property Name="Monday" Type="bit" Nullable="false" />
+          <Property Name="Tuesday" Type="bit" Nullable="false" />
+          <Property Name="Wednesday" Type="bit" Nullable="false" />
+          <Property Name="Thursday" Type="bit" Nullable="false" />
+          <Property Name="Friday" Type="bit" Nullable="false" />
+          <Property Name="Saturday" Type="bit" Nullable="false" />
+          <Property Name="StudentLevel" Type="nvarchar" MaxLength="20" />
+          <Property Name="Math" Type="bit" Nullable="false" />
+          <Property Name="Reading" Type="bit" Nullable="false" />
+          <Property Name="Science" Type="bit" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="255" />
+          <Property Name="SundayStart" Type="nvarchar" MaxLength="20" />
+          <Property Name="SundayEnd" Type="nvarchar" MaxLength="20" />
+          <Property Name="MondayStart" Type="nvarchar" MaxLength="20" />
+          <Property Name="MondayEnd" Type="nvarchar" MaxLength="20" />
+          <Property Name="TuesdayStart" Type="nvarchar" MaxLength="20" />
+          <Property Name="TuesdayEnd" Type="nvarchar" MaxLength="20" />
+          <Property Name="WednesdayStart" Type="nvarchar" MaxLength="20" />
+          <Property Name="WednesdayEnd" Type="nvarchar" MaxLength="20" />
+          <Property Name="ThursdayStart" Type="nvarchar" MaxLength="20" />
+          <Property Name="ThursdayEnd" Type="nvarchar" MaxLength="20" />
+          <Property Name="FridayStart" Type="nvarchar" MaxLength="20" />
+          <Property Name="FridayEnd" Type="nvarchar" MaxLength="20" />
+          <Property Name="SaturdayStart" Type="nvarchar" MaxLength="20" />
+          <Property Name="SaturdayEnd" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Password_UserID">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="password" Type="Self.password" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="password">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_UserID">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CancelMeeting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SessionID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditMeeting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SessionID" Type="int" Mode="In" />
+          <Parameter Name="SessionName" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Date" Type="date" Mode="In" />
+          <Parameter Name="StartTime" Type="time" Mode="In" />
+          <Parameter Name="EndTime" Type="time" Mode="In" />
+          <Parameter Name="TimeZone" Type="nvarchar" Mode="In" />
+          <Parameter Name="Recurr" Type="bit" Mode="In" />
+          <Parameter Name="Frequency" Type="int" Mode="In" />
+          <Parameter Name="RepeatDaily" Type="int" Mode="In" />
+          <Parameter Name="RepeatWeekly" Type="int" Mode="In" />
+          <Parameter Name="RepeatMonthly" Type="int" Mode="In" />
+          <Parameter Name="Sunday" Type="bit" Mode="In" />
+          <Parameter Name="Monday" Type="bit" Mode="In" />
+          <Parameter Name="Tuesday" Type="bit" Mode="In" />
+          <Parameter Name="Wednesday" Type="bit" Mode="In" />
+          <Parameter Name="Thursday" Type="bit" Mode="In" />
+          <Parameter Name="Friday" Type="bit" Mode="In" />
+          <Parameter Name="Saturday" Type="bit" Mode="In" />
+          <Parameter Name="RepeatMonthRadio1" Type="bit" Mode="In" />
+          <Parameter Name="RepeatMonthRadio2" Type="bit" Mode="In" />
+          <Parameter Name="Radio2List1" Type="int" Mode="In" />
+          <Parameter Name="Radio2List2" Type="int" Mode="In" />
+          <Parameter Name="EndDateBy" Type="date" Mode="In" />
+          <Parameter Name="EndDateAfter" Type="int" Mode="In" />
+          <Parameter Name="MeetingLink" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertregistereduser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertscheduledmeeting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SessionName" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Date" Type="date" Mode="In" />
+          <Parameter Name="StartTime" Type="time" Mode="In" />
+          <Parameter Name="EndTime" Type="time" Mode="In" />
+          <Parameter Name="TimeZone" Type="nvarchar" Mode="In" />
+          <Parameter Name="Recurr" Type="bit" Mode="In" />
+          <Parameter Name="Frequency" Type="int" Mode="In" />
+          <Parameter Name="RepeatDaily" Type="int" Mode="In" />
+          <Parameter Name="RepeatWeekly" Type="int" Mode="In" />
+          <Parameter Name="RepeatMonthly" Type="int" Mode="In" />
+          <Parameter Name="Sunday" Type="bit" Mode="In" />
+          <Parameter Name="Monday" Type="bit" Mode="In" />
+          <Parameter Name="Tuesday" Type="bit" Mode="In" />
+          <Parameter Name="Wednesday" Type="bit" Mode="In" />
+          <Parameter Name="Thursday" Type="bit" Mode="In" />
+          <Parameter Name="Friday" Type="bit" Mode="In" />
+          <Parameter Name="Saturday" Type="bit" Mode="In" />
+          <Parameter Name="RepeatMonthRadio1" Type="bit" Mode="In" />
+          <Parameter Name="RepeatMonthRadio2" Type="bit" Mode="In" />
+          <Parameter Name="Radio2List1" Type="int" Mode="In" />
+          <Parameter Name="Radio2List2" Type="int" Mode="In" />
+          <Parameter Name="EndDateBy" Type="date" Mode="In" />
+          <Parameter Name="EndDateAfter" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="MeetingLink" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UserSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="AllliveDBModelStoreContainer">
+          <EntitySet Name="password" EntityType="Self.password" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleMeeting" EntityType="Self.ScheduleMeeting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TutorProfile" EntityType="Self.TutorProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SearchTutor" EntityType="Self.SearchTutor" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SearchTutor].[SearchText] AS [SearchText], 
+    [SearchTutor].[HourlyRate] AS [HourlyRate], 
+    [SearchTutor].[Sunday] AS [Sunday], 
+    [SearchTutor].[Monday] AS [Monday], 
+    [SearchTutor].[Tuesday] AS [Tuesday], 
+    [SearchTutor].[Wednesday] AS [Wednesday], 
+    [SearchTutor].[Thursday] AS [Thursday], 
+    [SearchTutor].[Friday] AS [Friday], 
+    [SearchTutor].[Saturday] AS [Saturday], 
+    [SearchTutor].[StudentLevel] AS [StudentLevel]
+    FROM [dbo].[SearchTutor] AS [SearchTutor]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Password_UserID" Association="Self.FK_Password_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="password" EntitySet="password" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_UserID" Association="Self.FK_Schedule_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AllliveDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="password">
+          <Key>
+            <PropertyRef Name="passwordID" />
+          </Key>
+          <Property Name="passwordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="password1" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Password_UserID" FromRole="password" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Schedule_UserID" FromRole="Schedule" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ScheduleMeeting">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TimeZone" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Recurr" Type="Boolean" Nullable="false" />
+          <Property Name="Frequency" Type="Int32" Nullable="false" />
+          <Property Name="RepeatDaily" Type="Int32" Nullable="false" />
+          <Property Name="RepeatWeekly" Type="Int32" Nullable="false" />
+          <Property Name="RepeatMonthly" Type="Int32" Nullable="false" />
+          <Property Name="Sunday" Type="Boolean" Nullable="false" />
+          <Property Name="Monday" Type="Boolean" Nullable="false" />
+          <Property Name="Tuesday" Type="Boolean" Nullable="false" />
+          <Property Name="Wednesday" Type="Boolean" Nullable="false" />
+          <Property Name="Thursday" Type="Boolean" Nullable="false" />
+          <Property Name="Friday" Type="Boolean" Nullable="false" />
+          <Property Name="Saturday" Type="Boolean" Nullable="false" />
+          <Property Name="RepeatMonthRadio1" Type="Boolean" Nullable="false" />
+          <Property Name="RepeatMonthRadio2" Type="Boolean" Nullable="false" />
+          <Property Name="Radio2List1" Type="Int32" Nullable="false" />
+          <Property Name="Radio2List2" Type="Int32" Nullable="false" />
+          <Property Name="EndDateBy" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDateAfter" Type="Int32" Nullable="false" />
+          <Property Name="MeetingLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TutorProfile">
+          <Key>
+            <PropertyRef Name="TutorProfileID" />
+          </Key>
+          <Property Name="TutorProfileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="Double" Nullable="false" />
+          <Property Name="Sunday" Type="Boolean" Nullable="false" />
+          <Property Name="Monday" Type="Boolean" Nullable="false" />
+          <Property Name="Tuesday" Type="Boolean" Nullable="false" />
+          <Property Name="Wednesday" Type="Boolean" Nullable="false" />
+          <Property Name="Thursday" Type="Boolean" Nullable="false" />
+          <Property Name="Friday" Type="Boolean" Nullable="false" />
+          <Property Name="Saturday" Type="Boolean" Nullable="false" />
+          <Property Name="StudentLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Math" Type="Boolean" Nullable="false" />
+          <Property Name="Reading" Type="Boolean" Nullable="false" />
+          <Property Name="Science" Type="Boolean" Nullable="false" />
+          <Property Name="Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SundayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SundayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MondayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MondayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TuesdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TuesdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WednesdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WednesdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ThursdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ThursdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FridayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FridayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SaturdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SaturdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="passwords" Relationship="Self.FK_Password_UserID" FromRole="Users" ToRole="password" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_UserID" FromRole="Users" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="SearchTutor">
+          <Key>
+            <PropertyRef Name="SearchText" />
+            <PropertyRef Name="HourlyRate" />
+            <PropertyRef Name="Sunday" />
+            <PropertyRef Name="Monday" />
+            <PropertyRef Name="Tuesday" />
+            <PropertyRef Name="Wednesday" />
+            <PropertyRef Name="Thursday" />
+            <PropertyRef Name="Friday" />
+            <PropertyRef Name="Saturday" />
+            <PropertyRef Name="StudentLevel" />
+          </Key>
+          <Property Name="SearchText" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HourlyRate" Type="Int32" Nullable="false" />
+          <Property Name="Sunday" Type="Boolean" Nullable="false" />
+          <Property Name="Monday" Type="Boolean" Nullable="false" />
+          <Property Name="Tuesday" Type="Boolean" Nullable="false" />
+          <Property Name="Wednesday" Type="Boolean" Nullable="false" />
+          <Property Name="Thursday" Type="Boolean" Nullable="false" />
+          <Property Name="Friday" Type="Boolean" Nullable="false" />
+          <Property Name="Saturday" Type="Boolean" Nullable="false" />
+          <Property Name="StudentLevel" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Password_UserID">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="password" Type="Self.password" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="password">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_UserID">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AllliveDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="passwords" EntityType="Self.password" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <EntitySet Name="ScheduleMeetings" EntityType="Self.ScheduleMeeting" />
+          <EntitySet Name="TutorProfiles" EntityType="Self.TutorProfile" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="SearchTutors" EntityType="Self.SearchTutor" />
+          <AssociationSet Name="FK_Password_UserID" Association="Self.FK_Password_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="password" EntitySet="passwords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_UserID" Association="Self.FK_Schedule_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <FunctionImport Name="CancelMeeting">
+            <Parameter Name="SessionID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditMeeting">
+            <Parameter Name="SessionID" Mode="In" Type="Int32" />
+            <Parameter Name="SessionName" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="StartTime" Mode="In" Type="Time" />
+            <Parameter Name="EndTime" Mode="In" Type="Time" />
+            <Parameter Name="TimeZone" Mode="In" Type="String" />
+            <Parameter Name="Recurr" Mode="In" Type="Boolean" />
+            <Parameter Name="Frequency" Mode="In" Type="Int32" />
+            <Parameter Name="RepeatDaily" Mode="In" Type="Int32" />
+            <Parameter Name="RepeatWeekly" Mode="In" Type="Int32" />
+            <Parameter Name="RepeatMonthly" Mode="In" Type="Int32" />
+            <Parameter Name="Sunday" Mode="In" Type="Boolean" />
+            <Parameter Name="Monday" Mode="In" Type="Boolean" />
+            <Parameter Name="Tuesday" Mode="In" Type="Boolean" />
+            <Parameter Name="Wednesday" Mode="In" Type="Boolean" />
+            <Parameter Name="Thursday" Mode="In" Type="Boolean" />
+            <Parameter Name="Friday" Mode="In" Type="Boolean" />
+            <Parameter Name="Saturday" Mode="In" Type="Boolean" />
+            <Parameter Name="RepeatMonthRadio1" Mode="In" Type="Boolean" />
+            <Parameter Name="RepeatMonthRadio2" Mode="In" Type="Boolean" />
+            <Parameter Name="Radio2List1" Mode="In" Type="Int32" />
+            <Parameter Name="Radio2List2" Mode="In" Type="Int32" />
+            <Parameter Name="EndDateBy" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDateAfter" Mode="In" Type="Int32" />
+            <Parameter Name="MeetingLink" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertregistereduser">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertscheduledmeeting">
+            <Parameter Name="SessionName" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="StartTime" Mode="In" Type="Time" />
+            <Parameter Name="EndTime" Mode="In" Type="Time" />
+            <Parameter Name="TimeZone" Mode="In" Type="String" />
+            <Parameter Name="Recurr" Mode="In" Type="Boolean" />
+            <Parameter Name="Frequency" Mode="In" Type="Int32" />
+            <Parameter Name="RepeatDaily" Mode="In" Type="Int32" />
+            <Parameter Name="RepeatWeekly" Mode="In" Type="Int32" />
+            <Parameter Name="RepeatMonthly" Mode="In" Type="Int32" />
+            <Parameter Name="Sunday" Mode="In" Type="Boolean" />
+            <Parameter Name="Monday" Mode="In" Type="Boolean" />
+            <Parameter Name="Tuesday" Mode="In" Type="Boolean" />
+            <Parameter Name="Wednesday" Mode="In" Type="Boolean" />
+            <Parameter Name="Thursday" Mode="In" Type="Boolean" />
+            <Parameter Name="Friday" Mode="In" Type="Boolean" />
+            <Parameter Name="Saturday" Mode="In" Type="Boolean" />
+            <Parameter Name="RepeatMonthRadio1" Mode="In" Type="Boolean" />
+            <Parameter Name="RepeatMonthRadio2" Mode="In" Type="Boolean" />
+            <Parameter Name="Radio2List1" Mode="In" Type="Int32" />
+            <Parameter Name="Radio2List2" Mode="In" Type="Int32" />
+            <Parameter Name="EndDateBy" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDateAfter" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="MeetingLink" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UserSchedule" ReturnType="Collection(AllliveDBModel.UserSchedule_Result)">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="UserSchedule_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int32" Name="SessionID" Nullable="false" />
+          <Property Type="String" Name="SessionName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Time" Name="StartTime" Nullable="false" />
+          <Property Type="Time" Name="EndTime" Nullable="false" />
+          <Property Type="String" Name="TimeZone" Nullable="false" MaxLength="7" />
+          <Property Type="Boolean" Name="Recurr" Nullable="false" />
+          <Property Type="Int32" Name="Frequency" Nullable="false" />
+          <Property Type="Int32" Name="RepeatDaily" Nullable="false" />
+          <Property Type="Int32" Name="RepeatWeekly" Nullable="false" />
+          <Property Type="Int32" Name="RepeatMonthly" Nullable="false" />
+          <Property Type="Boolean" Name="Sunday" Nullable="false" />
+          <Property Type="Boolean" Name="Monday" Nullable="false" />
+          <Property Type="Boolean" Name="Tuesday" Nullable="false" />
+          <Property Type="Boolean" Name="Wednesday" Nullable="false" />
+          <Property Type="Boolean" Name="Thursday" Nullable="false" />
+          <Property Type="Boolean" Name="Friday" Nullable="false" />
+          <Property Type="Boolean" Name="Saturday" Nullable="false" />
+          <Property Type="Boolean" Name="RepeatMonthRadio1" Nullable="false" />
+          <Property Type="Boolean" Name="RepeatMonthRadio2" Nullable="false" />
+          <Property Type="Int32" Name="Radio2List1" Nullable="false" />
+          <Property Type="Int32" Name="Radio2List2" Nullable="false" />
+          <Property Type="DateTime" Name="EndDateBy" Nullable="false" />
+          <Property Type="Int32" Name="EndDateAfter" Nullable="false" />
+          <Property Type="String" Name="MeetingLink" Nullable="false" MaxLength="200" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AllliveDBModelStoreContainer" CdmEntityContainer="AllliveDBEntities">
+          <EntitySetMapping Name="passwords">
+            <EntityTypeMapping TypeName="AllliveDBModel.password">
+              <MappingFragment StoreEntitySet="password">
+                <ScalarProperty Name="passwordID" ColumnName="passwordID" />
+                <ScalarProperty Name="password1" ColumnName="password" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="AllliveDBModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleMeetings">
+            <EntityTypeMapping TypeName="AllliveDBModel.ScheduleMeeting">
+              <MappingFragment StoreEntitySet="ScheduleMeeting">
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="Recurr" ColumnName="Recurr" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="RepeatDaily" ColumnName="RepeatDaily" />
+                <ScalarProperty Name="RepeatWeekly" ColumnName="RepeatWeekly" />
+                <ScalarProperty Name="RepeatMonthly" ColumnName="RepeatMonthly" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="RepeatMonthRadio1" ColumnName="RepeatMonthRadio1" />
+                <ScalarProperty Name="RepeatMonthRadio2" ColumnName="RepeatMonthRadio2" />
+                <ScalarProperty Name="Radio2List1" ColumnName="Radio2List1" />
+                <ScalarProperty Name="Radio2List2" ColumnName="Radio2List2" />
+                <ScalarProperty Name="EndDateBy" ColumnName="EndDateBy" />
+                <ScalarProperty Name="EndDateAfter" ColumnName="EndDateAfter" />
+                <ScalarProperty Name="MeetingLink" ColumnName="MeetingLink" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TutorProfiles">
+            <EntityTypeMapping TypeName="AllliveDBModel.TutorProfile">
+              <MappingFragment StoreEntitySet="TutorProfile">
+                <ScalarProperty Name="TutorProfileID" ColumnName="TutorProfileID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="StudentLevel" ColumnName="StudentLevel" />
+                <ScalarProperty Name="Math" ColumnName="Math" />
+                <ScalarProperty Name="Reading" ColumnName="Reading" />
+                <ScalarProperty Name="Science" ColumnName="Science" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="SundayStart" ColumnName="SundayStart" />
+                <ScalarProperty Name="SundayEnd" ColumnName="SundayEnd" />
+                <ScalarProperty Name="MondayStart" ColumnName="MondayStart" />
+                <ScalarProperty Name="MondayEnd" ColumnName="MondayEnd" />
+                <ScalarProperty Name="TuesdayStart" ColumnName="TuesdayStart" />
+                <ScalarProperty Name="TuesdayEnd" ColumnName="TuesdayEnd" />
+                <ScalarProperty Name="WednesdayStart" ColumnName="WednesdayStart" />
+                <ScalarProperty Name="WednesdayEnd" ColumnName="WednesdayEnd" />
+                <ScalarProperty Name="ThursdayStart" ColumnName="ThursdayStart" />
+                <ScalarProperty Name="ThursdayEnd" ColumnName="ThursdayEnd" />
+                <ScalarProperty Name="FridayStart" ColumnName="FridayStart" />
+                <ScalarProperty Name="FridayEnd" ColumnName="FridayEnd" />
+                <ScalarProperty Name="SaturdayStart" ColumnName="SaturdayStart" />
+                <ScalarProperty Name="SaturdayEnd" ColumnName="SaturdayEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AllliveDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchTutors">
+            <EntityTypeMapping TypeName="AllliveDBModel.SearchTutor">
+              <MappingFragment StoreEntitySet="SearchTutor">
+                <ScalarProperty Name="SearchText" ColumnName="SearchText" />
+                <ScalarProperty Name="HourlyRate" ColumnName="HourlyRate" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="StudentLevel" ColumnName="StudentLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CancelMeeting" FunctionName="AllliveDBModel.Store.CancelMeeting" />
+          <FunctionImportMapping FunctionImportName="EditMeeting" FunctionName="AllliveDBModel.Store.EditMeeting" />
+          <FunctionImportMapping FunctionImportName="insertregistereduser" FunctionName="AllliveDBModel.Store.insertregistereduser" />
+          <FunctionImportMapping FunctionImportName="insertscheduledmeeting" FunctionName="AllliveDBModel.Store.insertscheduledmeeting" />
+          <FunctionImportMapping FunctionImportName="UserSchedule" FunctionName="AllliveDBModel.Store.UserSchedule">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AllliveDBModel.UserSchedule_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="Recurr" ColumnName="Recurr" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="RepeatDaily" ColumnName="RepeatDaily" />
+                <ScalarProperty Name="RepeatWeekly" ColumnName="RepeatWeekly" />
+                <ScalarProperty Name="RepeatMonthly" ColumnName="RepeatMonthly" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="RepeatMonthRadio1" ColumnName="RepeatMonthRadio1" />
+                <ScalarProperty Name="RepeatMonthRadio2" ColumnName="RepeatMonthRadio2" />
+                <ScalarProperty Name="Radio2List1" ColumnName="Radio2List1" />
+                <ScalarProperty Name="Radio2List2" ColumnName="Radio2List2" />
+                <ScalarProperty Name="EndDateBy" ColumnName="EndDateBy" />
+                <ScalarProperty Name="EndDateAfter" ColumnName="EndDateAfter" />
+                <ScalarProperty Name="MeetingLink" ColumnName="MeetingLink" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -43,6 +43,12 @@
             @*@Html.TextBoxFor(a => a.DateTimeScheduledIn, new { @class = "form-control", @style = "display:inline-block" })*@
             @Html.TextBoxFor(a => a.StartTime, new { @style = "border-radius:3rem;", @class = "form-control" })
         </div>
+        @*<div class='input-group date' id='datepicker'>
+            <input type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span>
+            </span>
+        </div>*@
     </div>
     <div class="row">
         <div class="col-sm-2">
@@ -288,7 +294,7 @@
 </div>
 }
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+@*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>*@
 
 <!-- This handles Reoccurring opttions -->
 <script>
@@ -410,9 +416,9 @@
         })
     });
 </script>
-
 <script>
-$(function () {
-    $(".datefield").datepicker();
-});
+    $(function () {
+        $('#datepicker').datepicker();
+    });
 </script>
+

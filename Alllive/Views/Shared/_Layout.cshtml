@@ -7,13 +7,23 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    @* for time picker *@
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 
-    <!-- Time Picker -->
-    @Styles.Render("~/Plugin/Timepicker/css")
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    @*<script src="~/Scripts/jquery-ui.js"></script>*@
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/jqueryui/jquery-ui.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/moment.min.js"></script>
+    @*<script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>*@
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script> <!--include your less or built css files-->
+    <!--
+    bootstrap-datetimepicker-build.less will pull in "../bootstrap/variables.less" and "bootstrap-datetimepicker.less";
+    or
+    <link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
+    -->
 
 </head>
 <body>
@@ -38,7 +48,7 @@
                     <li>@Html.ActionLink("Start Meeting", "StartMeeting", "Navigation")</li>
                     <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
                     <li>@Html.ActionLink("Online Childrens Yoga", "OnlineYoga", "Navigation")</li>
-                    <li>@Html.ActionLink("Search", "Searchtutor", "Navigation")</li>
+                    <li>@Html.ActionLink("Search", "SearchTutor", "Search")</li>
 
 
 
@@ -82,10 +92,9 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
-    @* for time picker *@
-    @Scripts.Render("~/bundles/Script-Timepicker")
-    @Scripts.Render("~/bundles/Script-Custom-Timepicker")
+    
 
     @RenderSection("scripts", required: false)
 </body>

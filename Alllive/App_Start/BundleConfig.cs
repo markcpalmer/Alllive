@@ -12,6 +12,8 @@ namespace Alllive
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/jquery.unobtrusive-ajax.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+          "~/Scripts/jquery-ui-{version}.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //            "~/Scripts/jquery.validate*"));
