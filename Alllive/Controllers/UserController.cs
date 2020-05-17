@@ -62,14 +62,16 @@ namespace Alllive.Controllers
                 }
                 foreach(string m in minutes)
                 {
-                    //if (h > 12)
-                    //{
-                    //    hourConverter = h + ":" + m;
+                    if (h > 12)
+                    {
+                        var hourConverter = h + ":" + m;
 
-                    //    DateTime dt = DateTime.ParseExact(hourConverter, "HH:mm", null, DateTimeStyles.None);
-                    //    string time12 = dt.ToString("HH:mm");
-                    //    options.Add(dt.ToShortTimeString().ToString());
-                    //}
+                        //DateTime dt = DateTime.ParseExact(hourConverter, "HH:mm", null, DateTimeStyles.None);
+                        DateTime dt = DateTime.ParseExact(hourConverter, "HH:mm", null, System.Globalization.DateTimeStyles.None);
+
+                        string time12 = dt.ToString("HH:mm");
+                        options.Add(dt.ToShortTimeString().ToString());
+                    }
                     if (h == 0)
                     {
                         options.Add("12:" + m +" "+ suffix);

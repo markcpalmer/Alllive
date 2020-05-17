@@ -37,3 +37,7 @@ h1 {
 .list-group-item img{
     vertical-align:auto;
 }
+/*bootstrap overrides*/
+div.row{
+    margin-top:5px;
+}

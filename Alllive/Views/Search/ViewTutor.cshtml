@@ -9,220 +9,215 @@
 
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-3">
-            <label> Name</label>
-
-        </div>
-        <div class="col-sm-9">
-            <span>@Model.User.FirstName @Model.User.LastName</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <label>UserName</label>
-        </div>
-        <div class="col-sm-9">
-            <span>@Model.User.UserName</span>
-        </div>
-
-
-    </div>
-</div>
-<div class="container">
-    @if (Model.TutorProfile != null)
+    
+    @if (Model.TutorProfile.Photo != null)
     {
-        <div class=" container">
-            <div class="row">
-                <div class="col-md-1">
-                    <h5>Rate</h5>
-                </div>
-                <div class="col-md-1">
-                    @Model.TutorProfile.Rate
-                </div>
-            </div>
-        </div>
-        <p>
-            <img />PHOTO
-        </p>
-        <hr />
-        <p>
-            @Model.TutorProfile.Bio;
-        </p>
-        if (Model.TutorProfile.Bio != null)
-        {
-            <hr />
-        }
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-1">
-                    <h4>Availability</h4>
-                </div>
-                <div class="col-md-1">
-                    <h6>Start Time</h6>
-                </div>
-                <div class="col-md-1">
-                    <h6>End Time</h6>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <h5>Monday: </h5>
-                    </p>
-                </div>
-                @if (Model.TutorProfile.Monday)
-                {
-
-
-                    <div class="col-md-1">
-                        @Model.TutorProfile.MondayStart
-                    </div>
-                    <div class="col-md-1">
-                        @Model.TutorProfile.MondayEnd
-
-                    </div>
-                }
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <h5>Tuesday: </h5>
-                    </p>
-                </div>
-                @if (Model.TutorProfile.Tuesday)
-                {
-
-
-                    <div class="col-md-1">
-                        @Model.TutorProfile.TuesdayStart
-                    </div>
-                    <div class="col-md-1">
-                        @Model.TutorProfile.TuesdayEnd
-
-                    </div>
-                }
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <h5>Wednesday: </h5>
-                    </p>
-                </div>
-                @if (Model.TutorProfile.Wednesday)
-                {
-
-
-                    <div class="col-md-1">
-                        @Model.TutorProfile.WednesdayStart
-                    </div>
-                    <div class="col-md-1">
-                        @Model.TutorProfile.WednesdayEnd
-
-                    </div>
-                }
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <h5>Thursday: </h5>
-                    </p>
-                </div>
-                @if (Model.TutorProfile.Thursday)
-                {
-
-
-                    <div class="col-md-1">
-                        @Model.TutorProfile.ThursdayStart
-                    </div>
-                    <div class="col-md-1">
-                        @Model.TutorProfile.ThursdayEnd
-
-                    </div>
-                }
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <h5>Friday: </h5>
-                    </p>
-                </div>
-                @if (Model.TutorProfile.Friday)
-                {
-
-
-                    <div class="col-md-1">
-                        @Model.TutorProfile.FridayStart
-                    </div>
-                    <div class="col-md-1">
-                        @Model.TutorProfile.FridayEnd
-
-                    </div>
-                }
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <h5>Saturday: </h5>
-                    </p>
-                </div>
-                @if (Model.TutorProfile.Saturday)
-                {
-
-
-                    <div class="col-md13">
-                        @Model.TutorProfile.SaturdayStart
-                    </div>
-                    <div class="col-md-1">
-                        @Model.TutorProfile.SaturdayEnd
-
-                    </div>
-                }
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <h5>Sunday: </h5>
-                    </p>
-                </div>
-                @if (Model.TutorProfile.Sunday)
-                {
-
-
-                    <div class="col-md-1">
-                        @Model.TutorProfile.SundayStart
-                    </div>
-                    <div class="col-md-1">
-                        @Model.TutorProfile.SundayEnd
-
-                    </div>
-                }
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    Subjects
-                </div>
-                <div class="col-md-1">
-                    @if (@Model.TutorProfile.Reading)
-                    {
-                        <h6>Reading</h6>
-                    }
-                    @if (@Model.TutorProfile.Math)
-                    {
-                        <h6>Maths</h6>
-                    }
-                    @if (@Model.TutorProfile.Science)
-                    {
-                        <h6>Science</h6>
-                    }
-                </div>
-            </div>
-        </div>
-        @*<a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfile.TutorProfileID })">Edit</a>*@
+        <img width="70" height="70" src="@Model.TutorProfile.Photo" />
     }
     else
     {
-        <a class="btn btn-primary" href="@Url.Action("TutorRegistration")">Add a Tutor Profile</a>
+        <img width="70" height="70" src="~/Images/silhoutte.png" />
     }
-</div>
+    <div class="list-group-item-text">
+        <h4>@Model.User.FirstName @Model.User.LastName</h4>
+        <h5>@Model.TutorProfile.HeadLine</h5>
+        <hr/>
+        <p>@Model.TutorProfile.Bio</p>
+    
+    </div>
+    </div>
+    <div class="container">
+        @if (Model.TutorProfile != null)
+        {
+            <div class=" container">
+                <div class="row">
+                    <div class="col-md-1">
+                        <label>Rate</label>
+                    </div>
+                    <div class="col-md-1">
+                        @Model.TutorProfile.Rate
+                    </div>
+                </div>
+            </div>
+            
+            <hr />
+            <p>
+                @Model.TutorProfile.Bio;
+            </p>
+            if (Model.TutorProfile.Bio != null)
+            {
+                <hr />
+            }
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-1">
+                        <h6>Availability</h6>
+                    </div>
+                    <div class="col-md-1">
+                        <h6>Start Time</h6>
+                    </div>
+                    <div class="col-md-1">
+                        <h6>End Time</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>
+                            <h5>Monday: </h5>
+                        </p>
+                    </div>
+                    @if (Model.TutorProfile.Monday)
+                    {
+
+
+                        <div class="col-md-1">
+                            @Model.TutorProfile.MondayStart
+                        </div>
+                        <div class="col-md-1">
+                            @Model.TutorProfile.MondayEnd
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>
+                            <h5>Tuesday: </h5>
+                        </p>
+                    </div>
+                    @if (Model.TutorProfile.Tuesday)
+                    {
+
+
+                        <div class="col-md-1">
+                            @Model.TutorProfile.TuesdayStart
+                        </div>
+                        <div class="col-md-1">
+                            @Model.TutorProfile.TuesdayEnd
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>
+                            <h5>Wednesday: </h5>
+                        </p>
+                    </div>
+                    @if (Model.TutorProfile.Wednesday)
+                    {
+
+
+                        <div class="col-md-1">
+                            @Model.TutorProfile.WednesdayStart
+                        </div>
+                        <div class="col-md-1">
+                            @Model.TutorProfile.WednesdayEnd
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>
+                            <h5>Thursday: </h5>
+                        </p>
+                    </div>
+                    @if (Model.TutorProfile.Thursday)
+                    {
+
+
+                        <div class="col-md-1">
+                            @Model.TutorProfile.ThursdayStart
+                        </div>
+                        <div class="col-md-1">
+                            @Model.TutorProfile.ThursdayEnd
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>
+                            <h5>Friday: </h5>
+                        </p>
+                    </div>
+                    @if (Model.TutorProfile.Friday)
+                    {
+
+
+                        <div class="col-md-1">
+                            @Model.TutorProfile.FridayStart
+                        </div>
+                        <div class="col-md-1">
+                            @Model.TutorProfile.FridayEnd
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>
+                            <h5>Saturday: </h5>
+                        </p>
+                    </div>
+                    @if (Model.TutorProfile.Saturday)
+                    {
+
+
+                        <div class="col-md13">
+                            @Model.TutorProfile.SaturdayStart
+                        </div>
+                        <div class="col-md-1">
+                            @Model.TutorProfile.SaturdayEnd
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>
+                            <h5>Sunday: </h5>
+                        </p>
+                    </div>
+                    @if (Model.TutorProfile.Sunday)
+                    {
+
+
+                        <div class="col-md-1">
+                            @Model.TutorProfile.SundayStart
+                        </div>
+                        <div class="col-md-1">
+                            @Model.TutorProfile.SundayEnd
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        Subjects
+                    </div>
+                    <div class="col-md-1">
+                        @if (@Model.TutorProfile.Reading)
+                        {
+                            <h6>Reading</h6>
+                        }
+                        @if (@Model.TutorProfile.Math)
+                        {
+                            <h6>Maths</h6>
+                        }
+                        @if (@Model.TutorProfile.Science)
+                        {
+                            <h6>Science</h6>
+                        }
+                    </div>
+                </div>
+            </div>
+            @*<a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfile.TutorProfileID })">Edit</a>*@
+        }
+        else
+        {
+            <a class="btn btn-primary" href="@Url.Action("TutorRegistration")">Add a Tutor Profile</a>
+        }
+    </div>

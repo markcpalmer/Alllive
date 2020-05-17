@@ -130,155 +130,169 @@
                         </label>
                     </div>
                 </div>
-    <div id="tutor-section" style="display:none">          
-                <div class="container">
-
+                <div id="tutor-section" style="display:none">
                     <div class="row">
-                        <div class="col-8">
-                            <span>Upload Photo</span>
-
-                            @Html.TextBox("Photo")
-                            <button>Browse</button>
-
+                        <div class="col-sm-1">
+                            @Html.Label("HeadLine")
+                        </div>
+                        <div class="col-sm-7">
+                            @Html.TextBoxFor(a => a.HeadLine, new { @class = "form-control", @style = "display:inline-block", @placeholder = "Headline" })
                         </div>
                     </div>
-                </div>
-                <div class="container">
+                    
+
                     <div class="row">
-                        <div class="col-md-3">
-                            <p>
-                                <h4>Tutoring Subjects</h4>
-                                <span>Maths</span>
-                                @Html.CheckBox("MathSubject", false)
-                                <span>Reading</span>
-                                @Html.CheckBox("ReadingSubject", false)
-                                <span>Science</span>
-                                @Html.CheckBox("ScienceSubject", false)
-                            </p>
+                        <div class="col-sm-1">
+                            <label>Photo</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <img src="~/Images/silhoutte.png" />
                         </div>
                         <div class="col-md-3">
                             <h4>Bio</h4>
-                            @Html.TextArea("Bio",new { @style="width:469px" })
+                            @Html.TextArea("Bio", new { @style = "width:460px" })
+                        </div>
+                    </div>
+                    
+                    
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p>
+                                    <h4>Tutoring Subjects</h4>
+                                    <span>Maths</span>
+                                    @Html.CheckBox("MathSubject", false)
+                                    <span>Reading</span>
+                                    @Html.CheckBox("ReadingSubject", false)
+                                    <span>Science</span>
+                                    @Html.CheckBox("ScienceSubject", false)
+                                </p>
+                            </div>
+                            
+
+                        </div>
+                    
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                            @Html.Label("Rate")
+                        </div>
+                        <div class="col-sm-1">
+                            @Html.TextBoxFor(a => a.Rate, new { @class = "form-control", @style = "display:inline-block", @type = "number" })
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h4>Availability</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Start Time</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>End Time</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.MondayStart)
+                                    Monday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.MonStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.MonEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.Tuesday)
+                                    Tuesday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.TueStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.TueEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.Wednesday)
+                                    Wednesday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.WedStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.WedEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control", @style = "width:106px" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.Thursday)
+                                    Thursday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.ThuStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.ThuEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.Friday)
+                                    Friday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.FriStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.FriEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.Saturday)
+                                    Saturday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.SatStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.SatEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.Sunday)
+                                    Sunday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.SunStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(a => a.SunEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions,new {@class="form-control", @style="width:106px" })
+                            </div>
                         </div>
 
-                    </div>
-                 </div>
 
-              
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h4>Availability</h4>
-                        </div>
-                        <div class="col-md-3">
-                            <h4>Start Time</h4>
-                        </div>
-                        <div class="col-md-3">
-                            <h4>End Time</h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>
-                                @Html.CheckBoxFor(a => a.MondayStart)
-                                Monday
-                            </label>
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.MonStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                               </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.MonEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>
-                                @Html.CheckBoxFor(a => a.Tuesday)
-                                Tuesday
-                            </label>
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.TueStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.TueEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>
-                                @Html.CheckBoxFor(a => a.Wednesday)
-                                Wednesday
-                            </label>
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.WedStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.WedEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>
-                                @Html.CheckBoxFor(a => a.Thursday)
-                                Thursday
-                            </label>
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.ThuStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.ThuEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>
-                                @Html.CheckBoxFor(a => a.Friday)
-                                Friday
-                            </label>
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.FriStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.FriEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>
-                                @Html.CheckBoxFor(a => a.Saturday)
-                                Saturday
-                            </label>
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.SatStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.SatEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>
-                                @Html.CheckBoxFor(a => a.Sunday)
-                                Sunday
-                            </label>
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.SunStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(a => a.SunEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions)
-                        </div>
-                    </div>
-
-
+                   
                 </div>
-    </div>
        
     
 

@@ -42,6 +42,8 @@ namespace Alllive.Models
         public bool ScienceSubject { get; set; }
 
         public string Bio { get; set; } //Be best to set character limit and display it in View
+        public string HeadLine { get; set; } //Be best to set character limit and display it in View
+
 
         /// You don't want any of these required
         public bool MondayStart { get; set; }

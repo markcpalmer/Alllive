@@ -44,5 +44,6 @@ namespace Alllive.Models
         public string FridayEnd { get; set; }
         public string SaturdayStart { get; set; }
         public string SaturdayEnd { get; set; }
+        public string HeadLine { get; set; }
     }
 }

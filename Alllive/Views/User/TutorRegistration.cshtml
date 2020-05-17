@@ -4,19 +4,25 @@
 {
     @Html.HiddenFor(m => m.UserID)
     @Html.HiddenFor(m => m.TutorProfileID)
+   
     <div class="container">
-
         <div class="row">
-            <div class="col-8">
-                <span>Upload Photo</span>
-
-                @Html.TextBox("Photo")
-                <button>Browse</button>
-
+            <div class="col-sm-1">
+                @Html.Label("HeadLine")
+            </div>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(a => a.HeadLine, new { @class = "form-control", @style = "display:inline-block" })
             </div>
         </div>
-    </div>
-    <div class="container">
+        <div class="row">
+            <div class="col-sm-1">
+                <label>Photo</label>
+            </div>
+            <div class="col-sm-6">
+                <img src="~/Images/silhoutte.png" />
+            </div>
+        </div>
+    
         <div class="row">
             <div class="col-md-3">
                 <p>
@@ -29,14 +35,24 @@
                     @Html.CheckBox("ScienceSubject", false)
                 </p>
             </div>
-            <div class="col-md-3">
-                <h4>Bio</h4>
-                @Html.TextArea("Bio")
-            </div>
+            
 
         </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Bio</h4>
+            @Html.TextArea("Bio",new { @class="form-control",@rows="4"})
+        </div>
     </div>
-    <div class="container">
+    <div class="row">
+        <div class="col-sm-1">
+            @Html.Label("Rate")
+        </div>
+        <div class="col-sm-1">
+            @Html.TextBoxFor(a => a.Rate, new { @class = "form-control", @style = "display:inline-block", @type = "number" })
+        </div>
+    </div>
         <div class="row">
             <div class="col-md-3">
                 <h4>Availability</h4>
