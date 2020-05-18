@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="AllliveDBModel.SearchTutor" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="AllliveDBModel.FK_Password_UserID" ManuallyRouted="false" />
         <AssociationConnector Association="AllliveDBModel.FK_Schedule_UserID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AllliveDBModel.Image" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

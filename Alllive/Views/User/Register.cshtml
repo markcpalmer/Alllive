@@ -146,7 +146,9 @@
                             <label>Photo</label>
                         </div>
                         <div class="col-sm-2">
-                            <img src="~/Images/silhoutte.png" />
+                            <img src="~/Images/silhoutte.png" id="profilePic" onclick="profileImage_Click(event)" ondrop="profileImage_Drop(event)"/>
+                            <input type="file" id="profileImage" accept="image/*" class="invisible" onchange="profileImage_Change(event)" />
+                            <small>click image to upload</small>
                         </div>
                         <div class="col-md-3">
                             <h4>Bio</h4>
@@ -318,8 +320,73 @@
         function TutorCheck() {
             $("#tutor-section").toggle();
         }
+        function profileImage_Click(e) {
+            e.preventDefault();
+            $("#profileImage").click();
+
+        }
+        function profileImage_Drop(e) {
+            e.preventDefault();
+            profileImage_Change(e);
+        }
+        function profileImage_Change(e) {
+
+            if (e.dataTransfer || e.target) {
+                let fileToUpload = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+                if (fileToUpload) {
+                    // Upload the file to the server
+                  @*var fd = new FormData();
+                  fd.append('file', fileToUpload);
+                  $.ajax({
+                    method: 'PUT',
+                    url: '@Url.Action("SaveImage", "Images")',
+                    data: fd,
+                    headers: {
+                      'Content-Type': undefined,
+                    },
+                    success: function (imgResponse) {
+
+                    }
+                  })*@
+
+                    // Alternate - resize image client-side
+                    let fr = new FileReader();
+                    fr.onload = () => {
+                        let img = new Image();
+                        img.onload = () => {
+                            let ratio = 1;
+                            let h = img.height;
+                            let w = img.width;
+                            if (w > 200) {
+                                ratio = 200 / w;
+                                h = ratio * h;
+                            }
+                            if (h > 200) {
+                                ratio = 200 / img.height;
+                            }
+                            h = img.height * ratio;
+                            w = img.width * ratio;
+                            let canvas = document.createElement("canvas");
+                            canvas.width = w;
+                            canvas.height = h;
+
+                            let ctx = canvas.getContext("2d");
+                            ctx.drawImage(img, 0, 0, w, h);
+                            // TODO: Upload the image
+                            $("#profilePic").prop("src", canvas.toDataURL("image/png"));
+                        };
+                        if (typeof fr.result === "string") {
+                            img.src = fr.result;
+                        }
+                    };
+                    fr.readAsDataURL(fileToUpload);
+                }
+            }
+        }
+        
     </script>
     }
+
         @*<div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>

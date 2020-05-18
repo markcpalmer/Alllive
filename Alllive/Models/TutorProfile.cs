@@ -45,5 +45,6 @@ namespace Alllive.Models
         public string SaturdayStart { get; set; }
         public string SaturdayEnd { get; set; }
         public string HeadLine { get; set; }
+        public Nullable<int> ImageID { get; set; }
     }
 }

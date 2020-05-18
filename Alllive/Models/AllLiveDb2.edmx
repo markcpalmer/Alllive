@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AllliveDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Images">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="255" />
+          <Property Name="FileThumbPath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="password">
           <Key>
             <PropertyRef Name="passwordID" />
@@ -98,7 +106,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="Math" Type="bit" Nullable="false" />
           <Property Name="Reading" Type="bit" Nullable="false" />
           <Property Name="Science" Type="bit" Nullable="false" />
-          <Property Name="Photo" Type="nvarchar" MaxLength="255" />
+          <Property Name="ImageID" Type="int" />
           <Property Name="SundayStart" Type="nvarchar" MaxLength="20" />
           <Property Name="SundayEnd" Type="nvarchar" MaxLength="20" />
           <Property Name="MondayStart" Type="nvarchar" MaxLength="20" />
@@ -216,6 +224,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Parameter Name="UserID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="AllliveDBModelStoreContainer">
+          <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="password" EntityType="Self.password" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduleMeeting" EntityType="Self.ScheduleMeeting" Schema="dbo" store:Type="Tables" />
@@ -332,6 +341,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="SaturdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="SaturdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="HeadLine" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ImageID" Type="Int32" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -475,6 +485,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <FunctionImport Name="UserSchedule" ReturnType="Collection(AllliveDBModel.UserSchedule_Result)">
           <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Images" EntityType="AllliveDBModel.Image" />
         </EntityContainer>
         <ComplexType Name="UserSchedule_Result">
           <Property Type="Int32" Name="UserID" Nullable="false" />
@@ -505,6 +516,14 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Type="Int32" Name="EndDateAfter" Nullable="false" />
           <Property Type="String" Name="MeetingLink" Nullable="false" MaxLength="200" />
         </ComplexType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FileThumbPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -564,6 +583,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySetMapping Name="TutorProfiles">
             <EntityTypeMapping TypeName="AllliveDBModel.TutorProfile">
               <MappingFragment StoreEntitySet="TutorProfile">
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
                 <ScalarProperty Name="HeadLine" ColumnName="HeadLine" />
                 <ScalarProperty Name="TutorProfileID" ColumnName="TutorProfileID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -580,7 +600,6 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
                 <ScalarProperty Name="Math" ColumnName="Math" />
                 <ScalarProperty Name="Reading" ColumnName="Reading" />
                 <ScalarProperty Name="Science" ColumnName="Science" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="SundayStart" ColumnName="SundayStart" />
                 <ScalarProperty Name="SundayEnd" ColumnName="SundayEnd" />
                 <ScalarProperty Name="MondayStart" ColumnName="MondayStart" />
@@ -661,6 +680,15 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="AllliveDBModel.Image">
+              <MappingFragment StoreEntitySet="Images">
+                <ScalarProperty Name="FileThumbPath" ColumnName="FileThumbPath" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
