@@ -11,7 +11,7 @@ namespace Alllive.Controllers
     {
         protected UserModel currentUser;
         protected AllliveDBEntities Dc = new AllliveDBEntities();
-
+        
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);

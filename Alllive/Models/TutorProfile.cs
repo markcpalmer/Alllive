@@ -16,6 +16,7 @@ namespace Alllive.Models
     {
         public int TutorProfileID { get; set; }
         public int UserID { get; set; }
+        public string HeadLine { get; set; }
         public string Bio { get; set; }
         public double Rate { get; set; }
         public bool Sunday { get; set; }
@@ -29,7 +30,7 @@ namespace Alllive.Models
         public bool Math { get; set; }
         public bool Reading { get; set; }
         public bool Science { get; set; }
-        public string Photo { get; set; }
+        public Nullable<int> ImageID { get; set; }
         public string SundayStart { get; set; }
         public string SundayEnd { get; set; }
         public string MondayStart { get; set; }
@@ -44,7 +45,5 @@ namespace Alllive.Models
         public string FridayEnd { get; set; }
         public string SaturdayStart { get; set; }
         public string SaturdayEnd { get; set; }
-        public string HeadLine { get; set; }
-        public Nullable<int> ImageID { get; set; }
     }
 }

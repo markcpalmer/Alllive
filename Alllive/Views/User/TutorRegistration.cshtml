@@ -22,7 +22,7 @@
                 <img src="~/Images/silhoutte.png" />
             </div>
         </div>
-    
+
         <div class="row">
             <div class="col-md-3">
                 <p>
@@ -35,24 +35,24 @@
                     @Html.CheckBox("ScienceSubject", false)
                 </p>
             </div>
-            
+
 
         </div>
-    
-    <div class="row">
-        <div class="col-md-8">
-            <h4>Bio</h4>
-            @Html.TextArea("Bio",new { @class="form-control",@rows="4"})
+
+        <div class="row">
+            <div class="col-md-8">
+                <h4>Bio</h4>
+                @Html.TextArea("Bio", new { @class = "form-control", @rows = "4" })
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-1">
-            @Html.Label("Rate")
+        <div class="row">
+            <div class="col-sm-1">
+                @Html.Label("Rate")
+            </div>
+            <div class="col-sm-1">
+                @Html.TextBoxFor(a => a.Rate, new { @class = "form-control", @style = "display:inline-block", @type = "number" })
+            </div>
         </div>
-        <div class="col-sm-1">
-            @Html.TextBoxFor(a => a.Rate, new { @class = "form-control", @style = "display:inline-block", @type = "number" })
-        </div>
-    </div>
         <div class="row">
             <div class="col-md-3">
                 <h4>Availability</h4>
@@ -72,10 +72,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.MondayStart)
+                @Html.DropDownListFor(a => a.MondayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.MondayEnd)
+                @Html.DropDownListFor(a => a.MondayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -86,10 +86,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.TuesdayStart)
+                @Html.DropDownListFor(a => a.TuesdayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.TuesdayEnd)
+                @Html.DropDownListFor(a => a.TuesdayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -100,10 +100,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.WednesdayStart)
+                @Html.DropDownListFor(a => a.WednesdayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.WednesdayEnd)
+                @Html.DropDownListFor(a => a.WednesdayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -114,10 +114,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.ThursdayStart)
+                @Html.DropDownListFor(a => a.ThursdayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.ThursdayEnd)
+                @Html.DropDownListFor(a => a.ThursdayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -128,10 +128,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.FridayStart)
+                @Html.DropDownListFor(a => a.FridayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.FridayEnd)
+                @Html.DropDownListFor(a => a.FridayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -142,10 +142,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.SaturdayStart)
+                @Html.DropDownListFor(a => a.SaturdayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.SaturdayEnd)
+                @Html.DropDownListFor(a => a.SaturdayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -156,13 +156,12 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.SundayStart)
+                @Html.DropDownListFor(a => a.SundayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(a => a.SundayEnd)
+                @Html.DropDownListFor(a => a.SundayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
             </div>
         </div>
-
 
     </div>
 

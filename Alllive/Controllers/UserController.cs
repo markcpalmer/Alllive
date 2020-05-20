@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using Alllive.Models;
 using System.Web.Security;
-
+using Alllive.Helpers;
+using fs = System.IO;
+using System.Configuration;
 
 namespace Alllive.Controllers
 {
@@ -48,41 +50,7 @@ namespace Alllive.Controllers
         public ActionResult Register()
         {
             ViewBag.Message = "Registration Page";
-            string[] minutes = new string[]
-            {
-                "00","15","30","45"
-            };
-            var options = new List<string>();
-            for(int h=0; h<24; h++)
-            {
-                string suffix = "am";
-                if (h > 11)
-                {
-                    suffix = "pm";
-                }
-                foreach(string m in minutes)
-                {
-                    if (h > 12)
-                    {
-                        var hourConverter = h + ":" + m;
-
-                        //DateTime dt = DateTime.ParseExact(hourConverter, "HH:mm", null, DateTimeStyles.None);
-                        DateTime dt = DateTime.ParseExact(hourConverter, "HH:mm", null, System.Globalization.DateTimeStyles.None);
-
-                        string time12 = dt.ToString("HH:mm");
-                        options.Add(dt.ToShortTimeString().ToString());
-                    }
-                    if (h == 0)
-                    {
-                        options.Add("12:" + m +" "+ suffix);
-                    }
-                    else
-                    {
-                        options.Add(h.ToString() + ":" + m +" "+ suffix);
-                    }
-                }
-            }
-            ViewBag.minuteOptions = options.Select(o=>new SelectListItem {Value=o,Text=o });
+            ViewBag.minuteOptions = Utilities.GetTimeFrames();
             return View();
         }
 
@@ -265,6 +233,40 @@ namespace Alllive.Controllers
                 
             }
             Dc.SaveChanges();
+            if (Request.Files.Count > 0)
+            {
+                //Todo: save file to server!
+                string baseFile = Request.Files[0].FileName;
+                string extension = baseFile.Substring(baseFile.LastIndexOf('.'));
+                baseFile = baseFile.Substring(0, baseFile.LastIndexOf('.'));
+
+                var filePath = ConfigurationManager.AppSettings["FileRoot"] +  "\\Images\\" + tp.TutorProfileID + baseFile + extension;
+                var thumbPath = ConfigurationManager.AppSettings["FileRoot"] +  "\\Images\\Thumbs\\" + tp.TutorProfileID + baseFile + extension;
+
+                if (fs.File.Exists(filePath) || fs.File.Exists(thumbPath))
+                {
+                    var i = DateTime.Now.Ticks;
+                    filePath = ConfigurationManager.AppSettings["FileRoot"] + "\\Images\\" + tp.TutorProfileID + baseFile + string.Format("_{0}", i) + extension;
+                    thumbPath = ConfigurationManager.AppSettings["FileRoot"] + "\\Images\\Thumbs\\" + tp.TutorProfileID + baseFile + string.Format("_{0}", i) + extension;
+                }
+                Request.Files[0].SaveAs(filePath);
+                //using (System.Drawing.Image originalImage = System.Drawing.Image.FromFile(filePath))
+                //{
+                //    using (var thumbImage = DataHelper.GetImageThumbnail(originalImage))
+                //    {
+                //        thumbImage.Save(thumbPath);
+                //    }
+                //}
+
+                var imgEntity = new Image();
+                Dc.Images.Add(imgEntity);
+                Dc.SaveChanges();
+                tp.ImageID = imgEntity.ImageID;
+                Dc.SaveChanges();
+                
+
+          
+            }
             return RedirectToAction("ViewProfile");
         }
         [Authorize]
@@ -284,6 +286,8 @@ namespace Alllive.Controllers
             {
                 m.UserID = currentUser.UserId;
             }
+            ViewBag.minuteOptions = Utilities.GetTimeFrames();
+
             return View(m);
            
         }
