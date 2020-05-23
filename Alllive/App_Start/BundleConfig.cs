@@ -28,6 +28,7 @@ namespace Alllive
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery-ui.*",
                       "~/Content/Site.css"));
         }
     }

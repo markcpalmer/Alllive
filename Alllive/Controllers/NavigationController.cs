@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Alllive.Helpers;
 using Alllive.Models;
 
 namespace Alllive.Controllers
@@ -22,6 +23,7 @@ namespace Alllive.Controllers
         [Authorize]
         public ActionResult ScheduleMeeting()
         {
+            ViewBag.minuteOptions = Utilities.GetTimeFrames();
             
             return View();
         }
