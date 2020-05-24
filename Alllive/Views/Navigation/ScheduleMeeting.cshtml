@@ -144,14 +144,57 @@
                     Repeat every
                 </div>
                 <div class="col-sm-4">
-                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem> { }, new { @style = "width: 50%", @class = "form-control" })
-                    <label ID="Frequency">Day</label>
+                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem> 
+                  {
+                        new SelectListItem{ Text="1", Value = "1", Selected = true },
+                        new SelectListItem{ Text="2", Value = "2" },
+                        new SelectListItem{ Text="3", Value = "3" },
+                        new SelectListItem{ Text="4", Value = "4" },
+                        new SelectListItem{ Text="5", Value = "5" },
+                        new SelectListItem{ Text="6", Value = "6" },
+                        new SelectListItem{Text="7", Value="7"},
+                        new SelectListItem{ Text="8", Value = "8" },
+                        new SelectListItem{ Text="9", Value = "9" },
+                        new SelectListItem{ Text="10", Value = "10" },
+                        new SelectListItem{ Text="11", Value = "11" },
+                        new SelectListItem{ Text="12", Value = "12" },
+                        new SelectListItem{ Text="13", Value = "13" },
+                        new SelectListItem{Text="14", Value="14"},
+                        new SelectListItem{Text="15", Value="15"}
+
+               }, new { @style = "width: 50%", @class = "form-control" })
+                    <label>Day</label>
                 </div>
             </div>
         </div>
 
         <!-- Week Settings -->
         <div class="Weekly" ID="Weekly" style="display:none">
+            <div class="row">
+                <div class="col-sm-2">
+                    Repeat every
+                </div>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(a => a.RepeatWeekly, new List<SelectListItem>
+                                     {
+                                           new SelectListItem{ Text="1", Value = "1", Selected = true },
+                                           new SelectListItem{ Text="2", Value = "2" },
+                                           new SelectListItem{ Text="3", Value = "3" },
+                                           new SelectListItem{ Text="4", Value = "4" },
+                                           new SelectListItem{ Text="5", Value = "5" },
+                                           new SelectListItem{ Text="6", Value = "6" },
+                                           new SelectListItem{Text="7", Value="7"},
+                                           new SelectListItem{ Text="8", Value = "8" },
+                                           new SelectListItem{ Text="9", Value = "9" },
+                                           new SelectListItem{ Text="10", Value = "10" },
+                                           new SelectListItem{ Text="11", Value = "11" },
+                                           new SelectListItem{ Text="12", Value = "12" }
+                                           
+
+                                  }, new { @style = "width: 50%", @class = "form-control" }) 
+                    <label>Week</label>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-2">
                     Occurs on
@@ -178,10 +221,26 @@
         <!-- Month Settings -->
         <div class="Monthly" ID="Monthly" style="display:none">
             <div class="row">
+                <div class="col-sm-2">
+                    Repeat every
+                </div>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(a => a.RepeatMonthly, new List<SelectListItem>
+                                     {
+                                           new SelectListItem{ Text="1", Value = "1", Selected = true },
+                                           new SelectListItem{ Text="2", Value = "2" },
+                                           new SelectListItem{ Text="3", Value = "3" },
+                                           
+
+                                  }, new { @style = "width: 50%", @class = "form-control" })    
+                    <label>Month</label>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
                     @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn1", @class = "form-check-input" })
-                    @Html.DropDownListFor(a => a.RepeatMonthly, new List<SelectListItem>
+                    @Html.DropDownListFor(a => a.RepeatMonthlyDate, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a Value", Value = "0" },
                         new SelectListItem{ Text="1", Value = "1" },
@@ -222,7 +281,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn2"})
+                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn2" })
                     @Html.DropDownListFor(a => a.Radio2List1, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a time of Month", Value = "0" },
@@ -242,7 +301,7 @@
                         new SelectListItem{ Text="Thursday", Value = "5" },
                         new SelectListItem{ Text="Friday", Value = "6" },
                         new SelectListItem{ Text="Saturday", Value="7"}
-                    },new { @style= "display:inline; width: 40%;", @class="form-control" })
+                    }, new { @style = "display:inline; width: 40%;", @class = "form-control" })
                     @Html.Label("Of the Month")
                 </div>
             </div>
@@ -292,7 +351,7 @@
         <p>
             @Html.ValidationSummary()
         </p>
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="btn btn-primary"/>
 </div>
 }
 
@@ -302,31 +361,23 @@
 <script>
     $(document).ready(function () {
         $("#EndDateBy").datepicker();
+              $('#datepicker').datepicker();
         $("#Recurr").click(function () {
             if ($(this).is(':checked')) {
                 $("#RecurrOptions").show();
                 $("#Daily").show();
-                $("#Day").show();
-                $("#RepeatDaily").children('option').hide();
-                $("#RepeatDaily").children("option[id^=Day]").show()
+                
 
-                //Populates the Frequency default (Day)
-                for (var j = 0; j <= 15 ; j++) {
-                    $("#RepeatDaily").append($('<option></option>').val(j).text(j));
-                }
             }
             else {
                 $("#RecurrOptions").hide();
                 $("#Daily").hide();
-                $("#Day").hide();
             }
         });
-    });
-</script>
+  
+//<!-- This handles the Frequency options and displays-->
 
-<!-- This handles the Frequency options and displays-->
-<script>
-    $(document).ready(function () {
+   
         $("#myList").change(function () {
 
             function cleanup(val) {
@@ -351,77 +402,44 @@
             }
 
             if ($(this).val() === "2") {
-                $("#Frequency").text("Week");
-                $("#Day").hide();
+               
+                $("#Daily").hide();
                 $("#Weekly").show();
                 $("#Monthly").hide();
 
                 // Populates the # in RepeatDaily based off of ID
-                $("#RepeatDaily").children('option').hide();
-                $("#RepeatDaily").children("option[id^=Week]").show()
-                $("#RepeatDaily").val(0);
+                //$("#RepeatDaily").children('option').hide();
+                //$("#RepeatDaily").children("option[id^=Week]").show()
+                $("#RepeatWeekly").val(1);
 
                 //Remove Monthly
                 cleanup(3);
             }
             else if ($(this).val() === "1") {
-                $("#Frequency").text("Day");
-                $("#Day").show();
+                $("#Daily").show();
                 $("#Weekly").hide();
                 $("#Monthly").hide();
 
-                $("#RepeatDaily").children('option').hide();
-                $("#RepeatDaily").children("option[id^=Day]").show();
-                $("#RepeatDaily").val(0);
+               
+                $("#RepeatDaily").val(1);
 
                 cleanup(3); //Remove Monthly
                 cleanup(2);//Remove Weekly
             }
             else if ($(this).val() === "3") {
-                $("#Frequency").text("Month");
-                $("#Day").hide();
+                $("#Daily").hide();
                 $("#Weekly").hide();
                 $("#Monthly").show();
-                $("#RepeatDaily").val(0);
+                $("#RepeatMonthly").val(1);
 
-                $("#RepeatDaily").children('option').hide();
-                $("#RepeatDaily").children("option[id^=Month]").show()
-
+               
                 cleanup(2); //Remove Weekly
             }
         });
-    });
-</script>
+ 
+//<!-- This sets the frequency List items based on myList selection -->
 
-<!-- This sets the frequency List items based on myList selection -->
-<script>
-    $(document).ready(function () {
-        $("#myList").change(function () {
-            const Day = 15;
-            const Week = 12;
-            const Month = 3;
-
-            if ($(this).val() === "2") {
-                for (var j = 0; j <= Week ; j++) {
-                   $("#RepeatDaily").append($('<option></option>').val(j).text(j));
-                }
-            }
-            else if ($(this).val() === "3") {
-                for (var j = 0; j <= Month ; j++) {
-                   $("#RepeatDaily").append($('<option></option>').val(j).text(j));
-                }
-            }
-            else if ($(this).val() === "1") {
-                for (var j = 0; j <= Day ; j++) {
-                    $("#RepeatDaily").append($('<option></option>').val(j).text(j));
-                }
-            }
-        })
-    });
-</script>
-<script>
-    $(function () {
-        $('#datepicker').datepicker();
+       
     });
 </script>
 

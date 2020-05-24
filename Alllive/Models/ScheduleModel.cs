@@ -25,6 +25,7 @@ namespace Alllive.Models
         public int RepeatDaily { get; set; }
         public int RepeatWeekly { get; set; }
         public int RepeatMonthly { get; set; }
+        public int RepeatMonthlyDate { get; set; }
         public bool  Sunday { get; set; }
         public bool Monday { get; set; }
         public bool Tuesday { get; set; }

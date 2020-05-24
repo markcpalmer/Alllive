@@ -23,14 +23,18 @@
     </div>
 </div>
 <div class="container">
-    @if (Model.TutorProfile!=null)
+    @if (Model.TutorProfile != null)
     {
         <p>
-            <img src="~/Images/silhoutte.png"/>
+            <img src="~/Images/silhoutte.png" />
+        </p>
+        <p>
+            @Model.TutorProfile.HeadLine;
         </p>
         <p>
             @Model.TutorProfile.Bio;
         </p>
+
         <a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfile.TutorProfileID })">Edit</a>
     }
     else
