@@ -41,6 +41,12 @@ h1 {
 div.row{
     margin-top:5px;
 }
+.mb-2{
+    margin-bottom:20px;
+}
+.mt-2{
+    margin-top:20px;
+}
 .timep{
     width:106px;
 }

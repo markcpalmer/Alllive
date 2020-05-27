@@ -141,25 +141,34 @@ namespace Alllive.Controllers
         public ActionResult Login(UserModel Login) //Nullable Int Type 
         {
             var userExists = Dc.Users.Where(a => a.UserName == Login.UserName).FirstOrDefault();//defaults to null and doesn't error out
-
-            if (userExists != null)
+            if (ModelState.IsValid)
             {
-                try
+                if (userExists != null)
                 {
-                    //FormsAuthentication common Windows/Microsoft Method. This tells your server to whitelist the cookie.
-                    FormsAuthentication.SetAuthCookie(Login.UserName, true); //True is for Remember ME
-                    PrepareUserSession(userExists);
-                    
-                    return RedirectToAction("Schedule", "User", new { ID = userExists.UserID });//redirects user to different action"                    
-                }
-                catch { }
+                    try
+                    {
+                        //FormsAuthentication common Windows/Microsoft Method. This tells your server to whitelist the cookie.
+                        FormsAuthentication.SetAuthCookie(Login.UserName, true); //True is for Remember ME
+                        PrepareUserSession(userExists);
 
-                return View();
+                        return RedirectToAction("Schedule", "User", new { ID = userExists.UserID });//redirects user to different action"                    
+                    }
+                    catch
+                    {
+                        return RedirectToAction("Login", "Home");
+                    }
+
+
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid UserName or Password");
+                    //     return View(Login);
+                    return RedirectToAction("Login", "Home", new { Login });
+                }
             }
-            else
-            {
-                return View();
-            }
+
+
 
 
         }
@@ -232,7 +241,7 @@ namespace Alllive.Controllers
                 Dc.TutorProfiles.Attach(tp);
                 
             }
-            Dc.SaveChanges();
+           
             if (Request.Files.Count > 0)
             {
                 //Todo: save file to server!
@@ -267,6 +276,7 @@ namespace Alllive.Controllers
 
           
             }
+            Dc.SaveChanges();
             return RedirectToAction("ViewProfile");
         }
         [Authorize]

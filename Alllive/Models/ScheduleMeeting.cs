@@ -41,5 +41,6 @@ namespace Alllive.Models
         public int EndDateAfter { get; set; }
         public string MeetingLink { get; set; }
         public string Active { get; set; }
+        public int RepeatMonthlyDate { get; set; }
     }
 }

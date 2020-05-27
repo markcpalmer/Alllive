@@ -18,19 +18,28 @@ namespace Alllive.Controllers
         [OverrideAuthorization]
         public ActionResult SearchResults(SearchTutorModel m)
         {
-
+            string search = (m.SearchText ?? "").ToLower();
+            bool usesdays = (m.Sunday || m.Monday || m.Tuesday || m.Wednesday || m.Thursday || m.Friday || m.Saturday);
             var results = Dc.TutorProfiles.Join(Dc.Users,
                     tp => tp.UserID,
                     u => u.UserID,
                     (tp, u) => new { tp, u }
                 ).Where(a =>
-                (a.tp.Sunday && m.Sunday) ||
+                (
+                    string.IsNullOrEmpty(m.SearchText)||
+                    a.tp.Bio.Contains(m.SearchText)|| 
+                    (search=="math" && a.tp.Math)||
+                    (search == "reading" && a.tp.Reading) ||
+                    (search == "science" && a.tp.Science) 
+                ) &&
+                (a.tp.Rate >= m.RateLow && a.tp.Rate <= m.RateHigh)&&
+               (!usesdays|| (a.tp.Sunday && m.Sunday) ||
                 (a.tp.Monday && m.Monday) ||
                 (a.tp.Tuesday && m.Tuesday) ||
                 (a.tp.Wednesday && m.Wednesday) ||
                 (a.tp.Thursday && m.Thursday) ||
                 (a.tp.Friday && m.Friday) ||
-                (a.tp.Saturday && m.Saturday)
+                (a.tp.Saturday && m.Saturday) )
                 ).ToList().Select(a => new TutorViewModel(a.tp, a.u));
 
 

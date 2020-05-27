@@ -7,16 +7,26 @@
 <h2>SearchTutor</h2>
 <div class="container">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-3">
             @using (Ajax.BeginForm("SearchResults", new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "SearchResults", InsertionMode = InsertionMode.Replace }))
                 {
             @*< form id = "FilterForm" onsubmit = "ApplyFilter(event)" >*@
                    @Html.Label("Filters")
-                   <div>
-                    <input name = "Range" id = "RangeControl1" class="form-control" type="range" min="0" max="200" step="5" />
-                    <input onchange="RangeChanged()" name="Range" id="RangeControl2" class="form-control" type="range" min="0" max="200" step="5" />
+                <div class="mb-2">
+                    @Html.TextBoxFor(m=>m.SearchText, new { @class="form-control"})
                 </div>
-                <div>
+            <div class="mb-2">
+                @Html.HiddenFor(m => m.RateLow)
+                @Html.HiddenFor(m => m.RateHigh)
+
+                <label id="rangeLabel">
+
+                </label>
+                <div id="slider-range">
+
+                </div>
+            </div>
+                <div class="mb-2">
                     @Html.Label("Availability")
                     <br />
                     @Html.CheckBoxFor(a => a.Sunday)
@@ -58,17 +68,8 @@
         </div>
 
         <div class="form-group col-md-7">
-            <form>
-                <div class="input-group">
-                    <input id="subjectSearch" type="text" class="form-control mr-100" />
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary" type="submit">Search </button>
-                    </div>
-
-                </div>
-
-            </form>
-            // search results go here
+            
+            @*// search results go here*@
            <div id="SearchResults">
 
            </div>
@@ -77,9 +78,22 @@
 </div>
 @section scripts{
     <script>
-        function RangeChanged(){
+        $(document).ready(function () {
+            $( "#slider-range" ).slider({
+              range: true,
+              min: 0,
+              max: 250,
+              values: [ 0, 250 ],
+              slide: function( event, ui ) {
+                  $("#RangeLow").val(ui.values[0]);
+                  $( "#RangeHigh" ).val( ui.values[1]);
+                  $("#rangeLabel").text("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+          $("#rangeLabel").text("$0 - $250");
 
-        }
+        });
+        
         function ApplyFilter(e) {
             e.preventDefault();
             var m = $("#FilterForm").serialize();

@@ -74,6 +74,7 @@
     <div class="login-form">
         @using (Html.BeginForm("Login", "User", FormMethod.Post))
         {
+            @Html.ValidationSummary(true,"Invalid Login or Password",new { @class="text-danger"})
             <h2 class="text-center">Sign in</h2>
             <div class="text-center social-btn">
                 <a href="#" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>

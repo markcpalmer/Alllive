@@ -8,7 +8,8 @@ namespace Alllive.Models
     public class SearchTutorModel
     {
         public string SearchText { get; set; }
-        public int HourlyRate { get; set; }
+        public int RateLow { get; set; }
+        public int RateHigh { get; set; }
         public bool Sunday { get; set; }
         public bool Monday { get; set; }
         public bool Tuesday { get; set; }

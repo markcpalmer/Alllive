@@ -44,6 +44,7 @@
           <Property Name="RepeatDaily" Type="int" Nullable="false" />
           <Property Name="RepeatWeekly" Type="int" Nullable="false" />
           <Property Name="RepeatMonthly" Type="int" Nullable="false" />
+          <Property Name="RepeatMonthlyDate" Type="int" Nullable="false" />
           <Property Name="Sunday" Type="bit" Nullable="false" />
           <Property Name="Monday" Type="bit" Nullable="false" />
           <Property Name="Tuesday" Type="bit" Nullable="false" />
@@ -204,6 +205,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Parameter Name="RepeatDaily" Type="int" Mode="In" />
           <Parameter Name="RepeatWeekly" Type="int" Mode="In" />
           <Parameter Name="RepeatMonthly" Type="int" Mode="In" />
+          <Parameter Name="RepeatMonthlyDate" Type="int" Mode="In" />
           <Parameter Name="Sunday" Type="bit" Mode="In" />
           <Parameter Name="Monday" Type="bit" Mode="In" />
           <Parameter Name="Tuesday" Type="bit" Mode="In" />
@@ -305,6 +307,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="EndDateAfter" Type="Int32" Nullable="false" />
           <Property Name="MeetingLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RepeatMonthlyDate" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -428,6 +431,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
             <Parameter Name="RepeatDaily" Mode="In" Type="Int32" />
             <Parameter Name="RepeatWeekly" Mode="In" Type="Int32" />
             <Parameter Name="RepeatMonthly" Mode="In" Type="Int32" />
+            <Parameter Name="RepeatMonthlyDate" Mode="In" Type="Int32" />
             <Parameter Name="Sunday" Mode="In" Type="Boolean" />
             <Parameter Name="Monday" Mode="In" Type="Boolean" />
             <Parameter Name="Tuesday" Mode="In" Type="Boolean" />
@@ -549,6 +553,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySetMapping Name="ScheduleMeetings">
             <EntityTypeMapping TypeName="AllliveDBModel.ScheduleMeeting">
               <MappingFragment StoreEntitySet="ScheduleMeeting">
+                <ScalarProperty Name="RepeatMonthlyDate" ColumnName="RepeatMonthlyDate" />
                 <ScalarProperty Name="SessionID" ColumnName="SessionID" />
                 <ScalarProperty Name="SessionName" ColumnName="SessionName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
