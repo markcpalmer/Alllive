@@ -1,0 +1,16 @@
+﻿@model Alllive.Models.Attendee
+
+    <div class="row">
+        <div class="col-sm-5">
+            @Model.Name
+        </div>
+        <div class="col-sm-5">
+            @Model.Email
+        </div>
+        <div class="col-sm-2">
+           <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#editAttendee" 
+                   onclick="editAttendeeClick(@Model.AttendeeID,'@Model.Email','@Model.Name',@Model.UserID,@Model.Rate)">
+               <i class="glyphicon glyphicon-pencil"></i>
+           </button>
+        </div>
+    </div>

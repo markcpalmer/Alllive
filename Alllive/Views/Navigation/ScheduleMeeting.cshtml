@@ -1,65 +1,64 @@
-﻿@model  Alllive.Models.ScheduleModel
+﻿@model  Alllive.Models.ScheduleMeeting
+
 @{
     ViewBag.Title = "ScheduleMeeting";
 }
 
 <h2>Schedule Meeting</h2>
+
 @using (Html.BeginForm("ScheduleMeeting", "Navigation", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
 {
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Session Name")
-            @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })
+    @Html.HiddenFor(a=>a.SessionID)
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Session Name")
+                @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })
 
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block;" })
+            </div>
         </div>
-
-        <div class="col-sm-2">
-            @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block;" })
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Description")
+            </div>
+            <div class="col-sm-2">
+                @Html.TextAreaFor(a => a.Description)
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Description")
-        </div>
-        <div class="col-sm-2">
-            @Html.TextAreaFor(a => a.Description)
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            @Html.Label("Date")
-        </div>
-        <div class="col-sm-2">
-            @Html.TextBoxFor(a => a.Date, new { @ID = "datepicker", @class = "form-control" })
-        </div>
-    </div>
+    @*<div class="row">
+            <div class="col-sm-2">
+                @Html.Label("Date")
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(a => a.Date, new { @ID = "datepicker", @class = "form-control" })
+            </div>
+        </div>*@
     <div class="row">
         <div class="col-sm-2">
             @Html.Label("Start Time")
         </div>
         <div class="col-sm-2">
-            @*@Html.TextBoxFor(a => a.DateTimeScheduledIn, new { @class = "form-control", @style = "display:inline-block" })*@
-            @Html.DropDownListFor(a => a.StartTime, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+            @Html.TextBoxFor(a => a.StartTime, new { @class = "form-control", @style = "display:inline-block" })
+            @*@Html.DropDownListFor(a => a.StartTime, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })*@
 
         </div>
         @*<div class='input-group date' id='datepicker'>
-            <input type='text' class="form-control" />
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-time"></span>
-            </span>
-        </div>*@
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>*@
     </div>
     <div class="row">
         <div class="col-sm-2">
             @Html.Label("End Time")
         </div>
         <div class="col-sm-2">
-            @*@Html.TextBoxFor(a => a.DateTi}meScheduledOut, new { @class = "form-control", @style = "display:inline-block" })*@
-            @Html.DropDownListFor(a => a.EndTime, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
-
-
+            @Html.TextBoxFor(a => a.EndTime, new { @class = "form-control", @style = "display:inline-block" })
+            @*@Html.DropDownListFor(a => a.EndTime, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })*@
         </div>
     </div>
     <div class="row">
@@ -112,7 +111,11 @@
                 }, new { @style = "width: 90%", @class = "form-control" })
         </div>
     </div>
-
+        <h4>Attendees&nbsp;<button class="btn btn-success" onclick="Attendee_Add()"><i class="glyphicon glyphicon-plus"></i></button></h4>
+        @foreach(var attendee in Model.Attendees)
+        {
+            @Html.Partial("_Attendee", attendee)
+        }
     <div class="row">
         <div class="col-sm-2">
             @Html.Label("Recurr")
@@ -144,7 +147,7 @@
                     Repeat every
                 </div>
                 <div class="col-sm-4">
-                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem> 
+                    @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem>
                   {
                         new SelectListItem{ Text="1", Value = "1", Selected = true },
                         new SelectListItem{ Text="2", Value = "2" },
@@ -176,22 +179,20 @@
                 </div>
                 <div class="col-sm-4">
                     @Html.DropDownListFor(a => a.RepeatWeekly, new List<SelectListItem>
-                                     {
-                                           new SelectListItem{ Text="1", Value = "1", Selected = true },
-                                           new SelectListItem{ Text="2", Value = "2" },
-                                           new SelectListItem{ Text="3", Value = "3" },
-                                           new SelectListItem{ Text="4", Value = "4" },
-                                           new SelectListItem{ Text="5", Value = "5" },
-                                           new SelectListItem{ Text="6", Value = "6" },
-                                           new SelectListItem{Text="7", Value="7"},
-                                           new SelectListItem{ Text="8", Value = "8" },
-                                           new SelectListItem{ Text="9", Value = "9" },
-                                           new SelectListItem{ Text="10", Value = "10" },
-                                           new SelectListItem{ Text="11", Value = "11" },
-                                           new SelectListItem{ Text="12", Value = "12" }
-                                           
-
-                                  }, new { @style = "width: 50%", @class = "form-control" }) 
+                        {
+                            new SelectListItem{ Text="1", Value = "1", Selected = true },
+                            new SelectListItem{ Text="2", Value = "2" },
+                            new SelectListItem{ Text="3", Value = "3" },
+                            new SelectListItem{ Text="4", Value = "4" },
+                            new SelectListItem{ Text="5", Value = "5" },
+                            new SelectListItem{ Text="6", Value = "6" },
+                            new SelectListItem{Text="7", Value="7"},
+                            new SelectListItem{ Text="8", Value = "8" },
+                            new SelectListItem{ Text="9", Value = "9" },
+                            new SelectListItem{ Text="10", Value = "10" },
+                            new SelectListItem{ Text="11", Value = "11" },
+                            new SelectListItem{ Text="12", Value = "12" }
+                    }, new { @style = "width: 50%", @class = "form-control" })
                     <label>Week</label>
                 </div>
             </div>
@@ -226,13 +227,11 @@
                 </div>
                 <div class="col-sm-4">
                     @Html.DropDownListFor(a => a.RepeatMonthly, new List<SelectListItem>
-                                     {
-                                           new SelectListItem{ Text="1", Value = "1", Selected = true },
-                                           new SelectListItem{ Text="2", Value = "2" },
-                                           new SelectListItem{ Text="3", Value = "3" },
-                                           
-
-                                  }, new { @style = "width: 50%", @class = "form-control" })    
+                    {
+                        new SelectListItem{ Text="1", Value = "1", Selected = true },
+                        new SelectListItem{ Text="2", Value = "2" },
+                        new SelectListItem{ Text="3", Value = "3" },
+                    }, new { @style = "width: 50%", @class = "form-control" })
                     <label>Month</label>
                 </div>
             </div>
@@ -305,7 +304,6 @@
                     @Html.Label("Of the Month")
                 </div>
             </div>
-
         </div>
         <div class="row">
             <div class="col-sm-2">
@@ -335,49 +333,69 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- Validation Messages for Form-->
     <p>
-            @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'"})
-        <p>
-        @*<p>
-            @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })
-        </p>
-        <p>
-            @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
-        </p>*@
-        <p>
-            @Html.ValidationSummary()
-        </p>
+        @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'"})
+    <p>
+    @*<p>
+        @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })
+    </p>
+    <p>
+        @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
+    </p>
+    <p>
+        @Html.ValidationSummary()
+    </p>
     <input type="submit" value="Submit" class="btn btn-primary"/>
-</div>
-}
+    </div>*@
+        
 
-@*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>*@
+    @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>*@
 
-<!-- This handles Reoccurring opttions -->
-<script>
-    $(document).ready(function () {
+    <!-- This handles Reoccurring opttions -->
+    </div>
+    }
+@Html.Partial("_EditAttendee")
+    <script>
+        function Attendee_Add() {
+            $("#editAttendeeID").val("");
+            $("#editEmail").val("");
+            $("#editName").val("");
+            $("#editUserID").val("");
+            $("#editRate").val(@ViewBag.Rate);
+
+        }
+        function Attendee_Save() {
+
+        }
+        function editAttendeeClick(attendeeID,email,name,userID,rate) {
+            $("#editAttendeeID").val(attendeeID);
+            $("#editEmail").val(email);
+            $("#editName").val(name);
+            $("#editUserID").val(userID);
+            $("#editRate").val(rate);
+
+        }
+        $(document).ready(function () {
         $("#EndDateBy").datepicker();
-              $('#datepicker').datepicker();
+        $("#StartTime").datepicker();
+        $("#EndTime").datepicker();
+
+        //$('#datepicker').datepicker();
         $("#Recurr").click(function () {
             if ($(this).is(':checked')) {
                 $("#RecurrOptions").show();
                 $("#Daily").show();
-                
-
             }
             else {
                 $("#RecurrOptions").hide();
                 $("#Daily").hide();
             }
         });
-  
-//<!-- This handles the Frequency options and displays-->
-
-   
+            
+        //<!-- This handles the Frequency options and displays-->
         $("#myList").change(function () {
 
             function cleanup(val) {
@@ -402,7 +420,7 @@
             }
 
             if ($(this).val() === "2") {
-               
+
                 $("#Daily").hide();
                 $("#Weekly").show();
                 $("#Monthly").hide();
@@ -420,7 +438,7 @@
                 $("#Weekly").hide();
                 $("#Monthly").hide();
 
-               
+
                 $("#RepeatDaily").val(1);
 
                 cleanup(3); //Remove Monthly
@@ -432,14 +450,9 @@
                 $("#Monthly").show();
                 $("#RepeatMonthly").val(1);
 
-               
+
                 cleanup(2); //Remove Weekly
             }
         });
- 
-//<!-- This sets the frequency List items based on myList selection -->
-
-       
     });
 </script>
-

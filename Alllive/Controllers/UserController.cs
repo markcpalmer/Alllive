@@ -104,6 +104,7 @@ namespace Alllive.Controllers
                         Saturday = RegisteredUser.Saturday,
                         Sunday = RegisteredUser.Sunday,
                         //map the rest on mhy own time
+                        HeadLine=RegisteredUser.HeadLine,
                         Bio = RegisteredUser.Bio,
                         SundayStart = RegisteredUser.SunStart,
                         SundayEnd = RegisteredUser.SunEnd,
@@ -138,15 +139,30 @@ namespace Alllive.Controllers
         #endregion
         #region Login
         [OverrideAuthorization]
-        public ActionResult Login(UserModel Login) //Nullable Int Type 
+        [HttpGet]
+        public ActionResult Login()
         {
-            var userExists = Dc.Users.Where(a => a.UserName == Login.UserName).FirstOrDefault();//defaults to null and doesn't error out
+            ViewBag.Message = "Login Page";
+            return View();
+
+        }
+        [OverrideAuthorization]
+        [HttpPost]
+        public ActionResult Login(LoginViewModel Login) //Nullable Int Type 
+        {
             if (ModelState.IsValid)
             {
+                var userExists = Dc.Users.Where(a => a.UserName == Login.UserName).FirstOrDefault();//defaults to null and doesn't error out
                 if (userExists != null)
                 {
-                    try
+                    bool isPasswordCorrect = Dc.passwords.Any(p => p.UserID == userExists.UserID && p.password1 == Login.Password);
+                    if (!isPasswordCorrect)
                     {
+                        ModelState.AddModelError("", "Invalid UserName or Password");
+                        return View("Login", Login);
+                    }
+                        try
+                        {
                         //FormsAuthentication common Windows/Microsoft Method. This tells your server to whitelist the cookie.
                         FormsAuthentication.SetAuthCookie(Login.UserName, true); //True is for Remember ME
                         PrepareUserSession(userExists);
@@ -155,7 +171,7 @@ namespace Alllive.Controllers
                     }
                     catch
                     {
-                        return RedirectToAction("Login", "Home");
+                        return View("Login", Login);
                     }
 
 
@@ -164,9 +180,10 @@ namespace Alllive.Controllers
                 {
                     ModelState.AddModelError("", "Invalid UserName or Password");
                     //     return View(Login);
-                    return RedirectToAction("Login", "Home", new { Login });
+                    return View("Login", Login);
                 }
             }
+            return View("Login", Login);
 
 
 

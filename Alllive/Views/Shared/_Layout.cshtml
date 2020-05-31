@@ -58,14 +58,14 @@
                     @* turn on login button if user is null turn it off if user is not null *@
                     @if (Session["AllLiveUser"] == null)
                     {
-                        @Html.ActionLink("Login", "Login", "Home", false, new { style = "position:absolute; right:10px; top:10px;" })
+                        @Html.ActionLink("Login", "Login", "User", false, new { style = "position:absolute; right:10px; top:10px;" })
                         @Html.ActionLink("Register", "Register", "User", false, new { style = "position:absolute; right:60px; top:10px;" })
                         @*@Html.ActionLink("Register as Tutor", "TutorRegistration", "User", false, new { style = "position:absolute; right:160px; top:10px;" })*@
 
                     }
                     else
                     {
-                        @Html.ActionLink("Profile", "ViewProfile", "User", null, new { style = "position: absolute; right:60px; top:10px;" })
+                        @Html.ActionLink("Profile", "ViewProfile", "User", null, new { style = "position: absolute; right:70px; top:10px;" })
 
                         @Html.ActionLink("Sign Out", "Logoff", "User", false, new { style = "position: absolute; right:10px; top:10px;" })
                     }

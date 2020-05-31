@@ -28,11 +28,11 @@
                 <p>
                     <h4>Tutoring Subjects</h4>
                     <span>Maths</span>
-                    @Html.CheckBox("MathSubject", false)
+                    @Html.CheckBoxFor(a=>a.Math)
                     <span>Reading</span>
-                    @Html.CheckBox("ReadingSubject", false)
+                    @Html.CheckBoxFor(a=>a.Reading)
                     <span>Science</span>
-                    @Html.CheckBox("ScienceSubject", false)
+                    @Html.CheckBoxFor(a=>a.Science)
                 </p>
             </div>
 

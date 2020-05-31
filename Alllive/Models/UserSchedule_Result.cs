@@ -18,8 +18,8 @@ namespace Alllive.Models
         public string SessionName { get; set; }
         public string Description { get; set; }
         public System.DateTime Date { get; set; }
-        public System.TimeSpan StartTime { get; set; }
-        public System.TimeSpan EndTime { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime EndTime { get; set; }
         public string TimeZone { get; set; }
         public bool Recurr { get; set; }
         public int Frequency { get; set; }
@@ -40,5 +40,6 @@ namespace Alllive.Models
         public System.DateTime EndDateBy { get; set; }
         public int EndDateAfter { get; set; }
         public string MeetingLink { get; set; }
+        public int RepeatMonthlyDate { get; set; }
     }
 }

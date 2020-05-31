@@ -21,25 +21,36 @@ namespace Alllive.Controllers
             return View();
         }
         [Authorize]
-        public ActionResult ScheduleMeeting()
+        public ActionResult ScheduleMeeting(int sessionID=0)
         {
             ViewBag.minuteOptions = Utilities.GetTimeFrames();
+            var profile = Dc.TutorProfiles.FirstOrDefault(a => a.UserID == currentUser.UserId);
+            if(profile != null)
+            {
+                ViewBag.Rate = profile.Rate;
+            }
+            var m = new ScheduleMeeting();
+            if (sessionID > 0)
+            {
+                m = Dc.ScheduleMeetings.Include("Attendees").FirstOrDefault(a=>a.SessionID==sessionID);
+            }
+
             
-            return View();
+            return View(m);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult ScheduleMeeting(ScheduleModel m)
+        public ActionResult ScheduleMeeting(ScheduleMeeting m)
         {
             
 
             if (ModelState.IsValid)
             {
                 //Time Sessions
-                TimeSpan Start, End = new TimeSpan();
-                Start = m.StartTime.TimeOfDay;
-                End = m.EndTime.TimeOfDay;
+                //TimeSpan Start, End = new TimeSpan();
+                //Start = m.StartTime.TimeOfDay;
+                //End = m.EndTime.TimeOfDay;
 
                 //TimeZone
 
@@ -68,7 +79,7 @@ namespace Alllive.Controllers
                 }
 
                 //Inserts the values
-                Dc.insertscheduledmeeting(m.SessionName, m.Description, m.Date, Start, End, m.TimeZone, m.Recurr, m.Frequency,
+                Dc.insertscheduledmeeting(m.SessionName, m.Description, m.Date, m.StartTime, m.EndTime, m.TimeZone, m.Recurr, m.Frequency,
                      m.RepeatDaily, m.RepeatWeekly, m.RepeatMonthly,m.RepeatMonthlyDate, m.Sunday, m.Monday, m.Tuesday, m.Wednesday, m.Thursday, m.Friday, m.Saturday, m.RepeatMonthRadio1,
                     m.RepeatMonthRadio2, m.Radio2List1, m.Radio2List2, m.EndDateBy, m.EndDateAfter,currentUser.UserId,m.MeetingLink);
 

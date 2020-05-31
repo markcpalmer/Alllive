@@ -154,9 +154,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AllLiveDb2.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attendee.cs">
+      <DependentUpon>AllLiveDb2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Image.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\password.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
@@ -799,7 +803,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Schedule.cshtml" />
     <Content Include="Views\Home\Catalog.cshtml" />
@@ -816,10 +820,11 @@
     <Content Include="Views\User\RegisterSuccess.cshtml" />
     <Content Include="Views\User\UserTutorProfileView.cshtml" />
     <Content Include="Views\Search\ViewTutor.cshtml" />
+    <Content Include="Views\Navigation\_EditAttendee.cshtml" />
+    <Content Include="Views\Navigation\_Attendee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AllLiveControllerBase\" />
     <Folder Include="Views\Images\" />
   </ItemGroup>
   <ItemGroup>

@@ -14,18 +14,25 @@ namespace Alllive.Models
     
     public partial class ScheduleMeeting
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ScheduleMeeting()
+        {
+            this.Attendees = new HashSet<Attendee>();
+        }
+    
         public int SessionID { get; set; }
         public string SessionName { get; set; }
         public string Description { get; set; }
         public System.DateTime Date { get; set; }
-        public System.TimeSpan StartTime { get; set; }
-        public System.TimeSpan EndTime { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime EndTime { get; set; }
         public string TimeZone { get; set; }
         public bool Recurr { get; set; }
         public int Frequency { get; set; }
         public int RepeatDaily { get; set; }
         public int RepeatWeekly { get; set; }
         public int RepeatMonthly { get; set; }
+        public int RepeatMonthlyDate { get; set; }
         public bool Sunday { get; set; }
         public bool Monday { get; set; }
         public bool Tuesday { get; set; }
@@ -41,6 +48,9 @@ namespace Alllive.Models
         public int EndDateAfter { get; set; }
         public string MeetingLink { get; set; }
         public string Active { get; set; }
-        public int RepeatMonthlyDate { get; set; }
+        public Nullable<int> HostUserID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Attendee> Attendees { get; set; }
     }
 }

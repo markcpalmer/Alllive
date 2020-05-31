@@ -29,11 +29,12 @@ namespace Alllive.Models
     
         public virtual DbSet<password> passwords { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
-        public virtual DbSet<ScheduleMeeting> ScheduleMeetings { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<SearchTutor> SearchTutors { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<TutorProfile> TutorProfiles { get; set; }
+        public virtual DbSet<Attendee> Attendees { get; set; }
+        public virtual DbSet<ScheduleMeeting> ScheduleMeetings { get; set; }
     
         public virtual int CancelMeeting(Nullable<int> sessionID)
         {
@@ -44,7 +45,7 @@ namespace Alllive.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CancelMeeting", sessionIDParameter);
         }
     
-        public virtual int EditMeeting(Nullable<int> sessionID, string sessionName, string description, Nullable<System.DateTime> date, Nullable<System.TimeSpan> startTime, Nullable<System.TimeSpan> endTime, string timeZone, Nullable<bool> recurr, Nullable<int> frequency, Nullable<int> repeatDaily, Nullable<int> repeatWeekly, Nullable<int> repeatMonthly, Nullable<bool> sunday, Nullable<bool> monday, Nullable<bool> tuesday, Nullable<bool> wednesday, Nullable<bool> thursday, Nullable<bool> friday, Nullable<bool> saturday, Nullable<bool> repeatMonthRadio1, Nullable<bool> repeatMonthRadio2, Nullable<int> radio2List1, Nullable<int> radio2List2, Nullable<System.DateTime> endDateBy, Nullable<int> endDateAfter, string meetingLink)
+        public virtual int EditMeeting(Nullable<int> sessionID, string sessionName, string description, Nullable<System.DateTime> date, Nullable<System.DateTime> startTime, Nullable<System.DateTime> endTime, string timeZone, Nullable<bool> recurr, Nullable<int> frequency, Nullable<int> repeatDaily, Nullable<int> repeatWeekly, Nullable<int> repeatMonthly, Nullable<bool> sunday, Nullable<bool> monday, Nullable<bool> tuesday, Nullable<bool> wednesday, Nullable<bool> thursday, Nullable<bool> friday, Nullable<bool> saturday, Nullable<bool> repeatMonthRadio1, Nullable<bool> repeatMonthRadio2, Nullable<int> radio2List1, Nullable<int> radio2List2, Nullable<System.DateTime> endDateBy, Nullable<int> endDateAfter, string meetingLink)
         {
             var sessionIDParameter = sessionID.HasValue ?
                 new ObjectParameter("SessionID", sessionID) :
@@ -64,11 +65,11 @@ namespace Alllive.Models
     
             var startTimeParameter = startTime.HasValue ?
                 new ObjectParameter("StartTime", startTime) :
-                new ObjectParameter("StartTime", typeof(System.TimeSpan));
+                new ObjectParameter("StartTime", typeof(System.DateTime));
     
             var endTimeParameter = endTime.HasValue ?
                 new ObjectParameter("EndTime", endTime) :
-                new ObjectParameter("EndTime", typeof(System.TimeSpan));
+                new ObjectParameter("EndTime", typeof(System.DateTime));
     
             var timeZoneParameter = timeZone != null ?
                 new ObjectParameter("TimeZone", timeZone) :
@@ -174,7 +175,7 @@ namespace Alllive.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insertregistereduser", usernameParameter, lastNameParameter, firstNameParameter, passwordParameter);
         }
     
-        public virtual int insertscheduledmeeting(string sessionName, string description, Nullable<System.DateTime> date, Nullable<System.TimeSpan> startTime, Nullable<System.TimeSpan> endTime, string timeZone, Nullable<bool> recurr, Nullable<int> frequency, Nullable<int> repeatDaily, Nullable<int> repeatWeekly, Nullable<int> repeatMonthly, Nullable<int> repeatMonthlyDate, Nullable<bool> sunday, Nullable<bool> monday, Nullable<bool> tuesday, Nullable<bool> wednesday, Nullable<bool> thursday, Nullable<bool> friday, Nullable<bool> saturday, Nullable<bool> repeatMonthRadio1, Nullable<bool> repeatMonthRadio2, Nullable<int> radio2List1, Nullable<int> radio2List2, Nullable<System.DateTime> endDateBy, Nullable<int> endDateAfter, Nullable<int> userID, string meetingLink)
+        public virtual int insertscheduledmeeting(string sessionName, string description, Nullable<System.DateTime> date, Nullable<System.DateTime> startTime, Nullable<System.DateTime> endTime, string timeZone, Nullable<bool> recurr, Nullable<int> frequency, Nullable<int> repeatDaily, Nullable<int> repeatWeekly, Nullable<int> repeatMonthly, Nullable<int> repeatMonthlyDate, Nullable<bool> sunday, Nullable<bool> monday, Nullable<bool> tuesday, Nullable<bool> wednesday, Nullable<bool> thursday, Nullable<bool> friday, Nullable<bool> saturday, Nullable<bool> repeatMonthRadio1, Nullable<bool> repeatMonthRadio2, Nullable<int> radio2List1, Nullable<int> radio2List2, Nullable<System.DateTime> endDateBy, Nullable<int> endDateAfter, Nullable<int> userID, string meetingLink)
         {
             var sessionNameParameter = sessionName != null ?
                 new ObjectParameter("SessionName", sessionName) :
@@ -190,11 +191,11 @@ namespace Alllive.Models
     
             var startTimeParameter = startTime.HasValue ?
                 new ObjectParameter("StartTime", startTime) :
-                new ObjectParameter("StartTime", typeof(System.TimeSpan));
+                new ObjectParameter("StartTime", typeof(System.DateTime));
     
             var endTimeParameter = endTime.HasValue ?
                 new ObjectParameter("EndTime", endTime) :
-                new ObjectParameter("EndTime", typeof(System.TimeSpan));
+                new ObjectParameter("EndTime", typeof(System.DateTime));
     
             var timeZoneParameter = timeZone != null ?
                 new ObjectParameter("TimeZone", timeZone) :

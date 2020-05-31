@@ -38,12 +38,7 @@ namespace Alllive.Controllers
 
             return View();
         }
-        public ActionResult Login()
-        {
-            ViewBag.Message = "Login Page";
-            return View();
 
-        }
         public ActionResult Catalog()
         {
             ViewBag.Message = "Catalog Page";
