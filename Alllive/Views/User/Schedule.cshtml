@@ -2,8 +2,9 @@
     @{
     ViewBag.Title = "Schedule";
     }
+    
+    <h2>Schedule&nbsp;<a class="btn btn-primary" href="@Url.Action("ScheduleMeeting","Navigation")"><i class="glyphicon glyphicon-plus"></i></a></h2>
 
-    <h2>Schedule</h2>
     @if (Model != null)
     {
     foreach (var item in Model)
@@ -39,8 +40,11 @@
                 <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
             </div>
             <div class="col">
-                <button type="button" onclick="location.href='@Url.Action("CancelMeeting","User", new { ID = item.SessionID })'">Cancel</button>
-                <button type="button" onclick="location.href='@Url.Action("EditMeeting","User", new { ID = item.SessionID })'">Edit</button>
+                @Html.ActionLink("Cancel", "CancelMeeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Edit", "ScheduleMeeting","Navigation", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
+
+                @*<button type="button" onclick="location.href='@Url.Action("CancelMeeting","User", new { ID = item.SessionID })'">Cancel</button>
+                <button type="button" onclick="location.href='@Url.Action("EditMeeting","User", new { ID = item.SessionID })'">Edit</button>*@
 
             </div>
 

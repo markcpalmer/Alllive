@@ -10,15 +10,15 @@
 
     <script src="~/Scripts/jquery-3.5.1.js"></script>
     @*<script src="~/Scripts/jquery-ui.js"></script>*@
-    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
-    <script src="~/Scripts/jqueryui/jquery-ui.js"></script>
+    @*<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/jqueryui/jquery-ui.js"></script>*@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script type="text/javascript" src="~/Scripts/moment.min.js"></script>
     @*<script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>*@
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script> <!--include your less or built css files-->
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>*@ <!--include your less or built css files-->
     <!--
     bootstrap-datetimepicker-build.less will pull in "../bootstrap/variables.less" and "bootstrap-datetimepicker.less";
     or
@@ -43,9 +43,12 @@
 
 
 
-                    <li>@Html.ActionLink("Schedule Meeting", "ScheduleMeeting", "Navigation")</li>
+                    @if (Session["AllLiveUser"] != null)
+                    {
+                    <li>@Html.ActionLink("New Meeting", "ScheduleMeeting", "Navigation")</li>
+                    <li>@Html.ActionLink("Schedule", "Schedule", "Navigation")</li>
+                    }
                     <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Navigation")</li>
-                    <li>@Html.ActionLink("Start Meeting", "StartMeeting", "Navigation")</li>
                     <li>@Html.ActionLink("Distance Learning", "DistanceLearning", "Navigation")</li>
                     <li>@Html.ActionLink("Online Childrens Yoga", "OnlineYoga", "Navigation")</li>
                     <li>@Html.ActionLink("Search Tutors", "SearchTutor", "Search")</li>

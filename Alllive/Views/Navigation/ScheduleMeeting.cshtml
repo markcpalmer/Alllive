@@ -6,7 +6,7 @@
 
 <h2>Schedule Meeting</h2>
 
-@using (Html.BeginForm("ScheduleMeeting", "Navigation", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
+@using (Ajax.BeginForm("SaveMeeting", "Navigation", new AjaxOptions { HttpMethod = "POST", OnBegin="SaveMeeting_Begin()" }))
 {
     @Html.HiddenFor(a=>a.SessionID)
     <div class="container">
@@ -16,7 +16,7 @@
                 @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })
 
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block;" })
             </div>
         </div>
@@ -24,8 +24,8 @@
             <div class="col-sm-2">
                 @Html.Label("Description")
             </div>
-            <div class="col-sm-2">
-                @Html.TextAreaFor(a => a.Description)
+            <div class="col-sm-4">
+                @Html.TextAreaFor(a => a.Description, new { @class="form-control",@rows=4})
             </div>
         </div>
     @*<div class="row">
@@ -40,8 +40,8 @@
         <div class="col-sm-2">
             @Html.Label("Start Time")
         </div>
-        <div class="col-sm-2">
-            @Html.TextBoxFor(a => a.StartTime, new { @class = "form-control", @style = "display:inline-block" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(a => a.StartTime, new { @class = "form-control"})
             @*@Html.DropDownListFor(a => a.StartTime, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })*@
 
         </div>
@@ -56,8 +56,8 @@
         <div class="col-sm-2">
             @Html.Label("End Time")
         </div>
-        <div class="col-sm-2">
-            @Html.TextBoxFor(a => a.EndTime, new { @class = "form-control", @style = "display:inline-block" })
+        <div class="col-sm-4">
+            @Html.TextBoxFor(a => a.EndTime, new { @class = "form-control"})
             @*@Html.DropDownListFor(a => a.EndTime, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })*@
         </div>
     </div>
@@ -65,7 +65,7 @@
         <div class="col-sm-2">
             @Html.Label("Time Zone")
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-6">
             @Html.DropDownListFor(a => a.TimeZone, new List<SelectListItem>
                {
                    new SelectListItem{ Text="(GMT -12:00) Eniwetok, Kwajalein", Value = "-12:00" },
@@ -111,11 +111,17 @@
                 }, new { @style = "width: 90%", @class = "form-control" })
         </div>
     </div>
-        <h4>Attendees&nbsp;<button class="btn btn-success" onclick="Attendee_Add()"><i class="glyphicon glyphicon-plus"></i></button></h4>
-        @foreach(var attendee in Model.Attendees)
-        {
-            @Html.Partial("_Attendee", attendee)
-        }
+       @if (Model.SessionID > 0)
+       {
+        <h4>Attendees&nbsp;<a class="btn btn-success" onclick="Attendee_Add()" data-toggle="modal" data-target="#editAttendee"><i class="glyphicon glyphicon-plus"></i></a></h4>
+        <div id="attendeeList">
+            @foreach (var attendee in Model.Attendees)
+            {
+                @Html.Partial("_Attendee", attendee)
+            }
+        </div>
+       }
+
     <div class="row">
         <div class="col-sm-2">
             @Html.Label("Recurr")
@@ -136,7 +142,7 @@
                     new SelectListItem{ Text="Daily", Value = "1" },
                     new SelectListItem{ Text="Weekly", Value = "2" },
                     new SelectListItem{ Text="Monthly", Value = "3" },
-                 }, new { @ID = "myList", @style = "width: 60%", @class = "form-control" })
+                 }, new { @ID = "myList", @class = "form-control" })
             </div>
         </div>
 
@@ -146,7 +152,7 @@
                 <div class="col-sm-2">
                     Repeat every
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     @Html.DropDownListFor(a => a.RepeatDaily, new List<SelectListItem>
                   {
                         new SelectListItem{ Text="1", Value = "1", Selected = true },
@@ -165,7 +171,10 @@
                         new SelectListItem{Text="14", Value="14"},
                         new SelectListItem{Text="15", Value="15"}
 
-               }, new { @style = "width: 50%", @class = "form-control" })
+               }, new {@class = "form-control" })
+                </div>
+                <div class="col-sm-2">
+
                     <label>Day</label>
                 </div>
             </div>
@@ -177,7 +186,7 @@
                 <div class="col-sm-2">
                     Repeat every
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     @Html.DropDownListFor(a => a.RepeatWeekly, new List<SelectListItem>
                         {
                             new SelectListItem{ Text="1", Value = "1", Selected = true },
@@ -192,7 +201,10 @@
                             new SelectListItem{ Text="10", Value = "10" },
                             new SelectListItem{ Text="11", Value = "11" },
                             new SelectListItem{ Text="12", Value = "12" }
-                    }, new { @style = "width: 50%", @class = "form-control" })
+                    }, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-2">
+
                     <label>Week</label>
                 </div>
             </div>
@@ -225,20 +237,25 @@
                 <div class="col-sm-2">
                     Repeat every
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     @Html.DropDownListFor(a => a.RepeatMonthly, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="1", Value = "1", Selected = true },
                         new SelectListItem{ Text="2", Value = "2" },
                         new SelectListItem{ Text="3", Value = "3" },
-                    }, new { @style = "width: 50%", @class = "form-control" })
+                    }, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-2">
+
                     <label>Month</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
-                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn1", @class = "form-check-input" })
+                <div class="col-sm-2">
+                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn1", @class = "form-check-input pull-right" })
+
+                </div>
+                <div class="col-sm-2">
                     @Html.DropDownListFor(a => a.RepeatMonthlyDate, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a Value", Value = "0" },
@@ -273,14 +290,19 @@
                         new SelectListItem{ Text="29", Value = "29" },
                         new SelectListItem{ Text="30", Value = "30" },
                         new SelectListItem{ Text="31", Value = "31" }
-                    }, new { @ID = "MonthlyFrequency", @style = "display:inline; width:40%", @class = "form-control" })
+                    }, new { @ID = "MonthlyFrequency", @class = "form-control" })
+                    </div>
+                 <div class="col-sm-2">
+
                     @Html.Label("Of the Month")
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
-                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn2" })
+                <div class="col-sm-2">
+                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn2",@class="pull-right"})
+
+                </div>
+                <div class="col-sm-2">
                     @Html.DropDownListFor(a => a.Radio2List1, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a time of Month", Value = "0" },
@@ -289,7 +311,10 @@
                         new SelectListItem{ Text="Third", Value = "3" },
                         new SelectListItem{ Text="Fourth", Value="4" },
                         new SelectListItem{ Text="Last",Value="5" }
-                    }, new { @style = "display:inline; width:40%;", @class = "form-control" })
+                    }, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-2">
+
                     @Html.DropDownListFor(a => a.Radio2List2, new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a Day", Value = "0" },
@@ -300,23 +325,38 @@
                         new SelectListItem{ Text="Thursday", Value = "5" },
                         new SelectListItem{ Text="Friday", Value = "6" },
                         new SelectListItem{ Text="Saturday", Value="7"}
-                    }, new { @style = "display:inline; width: 40%;", @class = "form-control" })
+                    }, new {@class = "form-control" })
+                </div>
+                <div class="col-sm-2">
+
                     @Html.Label("Of the Month")
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 End date
             </div>
-            <div class="col-sm-8">
-                <div>
-                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn3" , @class="form-check-input" })
-                    @Html.Label("By", new { @class = "form-check-label" })
+            <div class="col-sm-1">
+              @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn3" , @class="form-check-input pull-right" })
+            </div>
+            <div class="col-sm-1">
+              @Html.Label("By", new { @class = "form-check-label" })
+                 </div>
+            <div class="col-sm-4">
                     @Html.TextBoxFor(a=>a.EndDateBy, new { @placeholder = "MM/DD/YYYY", @class = "form-control" })
-                    <br />
-                    @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn4" , @class= "form-check-input" })
+            </div>
+         </div>
+                   <div class="row">
+                       <div class="col-sm-2">
+
+                            @Html.RadioButtonFor(a => a.RepeatMonthRadio2, false, new { @ID = "rbtn4", @class = "form-check-input pull-right" })
+
+                       </div>
+                       <div class="col-sm-1">
                     @Html.Label("After", new { @class = "form-check-label" })
+                        </div>
+                       <div class="col-sm-2">
                     @Html.DropDownListFor(a=>a.EndDateAfter,new List<SelectListItem>
                     {
                         new SelectListItem{ Text="Select a Value", Value = "0" },
@@ -327,29 +367,31 @@
                         new SelectListItem{ Text="5", Value = "5" },
                         new SelectListItem{ Text="6", Value = "6" },
                         new SelectListItem{Text="7", Value="7"}
-                    }, new {@style="display:inline;width: 20%" , @class="form-control"})
-
+                    }, new {@class="form-control"})
+                           </div>
+                       <div class="col-sm-3">
                     @Html.Label("Occurances of meeting").
                 </div>
             </div>
-        </div>
+       
     </div>
 
+
     <!-- Validation Messages for Form-->
-    <p>
+    @*<p>
         @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'"})
     <p>
-    @*<p>
+    <p>
         @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })
     </p>
     <p>
         @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
-    </p>
+    </p>*@
     <p>
         @Html.ValidationSummary()
     </p>
-    <input type="submit" value="Submit" class="btn btn-primary"/>
-    </div>*@
+    <input type="submit" value="Save" class="btn btn-primary"/>
+    
         
 
     @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>*@
@@ -359,6 +401,9 @@
     }
 @Html.Partial("_EditAttendee")
     <script>
+        function SaveMeeting_Begin() {
+            return true;
+        }
         function Attendee_Add() {
             $("#editAttendeeID").val("");
             $("#editEmail").val("");
@@ -368,6 +413,30 @@
 
         }
         function Attendee_Save() {
+            var m = {
+                AttendeeID: $("#editAttendeeID").val() || 0,
+                Name: $("#editName").val(),
+                Email: $("#editEmail").val(),
+                UserID: $("#editUserID").val() || null,
+                Rate: parseFloat($("#editRate").val()),
+                SessionID: parseInt($("#SessionID").val() || 0)
+            };
+
+            $.ajax({
+                 method: 'PUT',
+                 url: '@Url.Action("SaveAttendee", "Navigation")',
+                 data: JSON.stringify(m),
+                 
+                 contentType: "application/json",
+                 
+                 success: function (response) {
+                     $("#attendeeList").append(response);
+                     Attendee_Add();
+                 }
+
+            })
+
+            
 
         }
         function editAttendeeClick(attendeeID,email,name,userID,rate) {
