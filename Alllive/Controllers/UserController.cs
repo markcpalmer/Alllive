@@ -8,6 +8,7 @@ using System.Web.Security;
 using Alllive.Helpers;
 using fs = System.IO;
 using System.Configuration;
+using System.Data.Entity;
 
 namespace Alllive.Controllers
 {
@@ -215,36 +216,19 @@ namespace Alllive.Controllers
 
         #region Schedule
 
-        public ActionResult Schedule(int? ID)
+        public ActionResult Schedule(int ID)
         {
-            var DisplaySchedule = Dc.UserSchedule(ID);
+            //var DisplaySchedule = Dc.UserSchedule(ID);
+            var DisplaySchedule = Dc.Schedules.Join( Dc.ScheduleMeetings,
+               a =>a.SessionID,
+               b => b.SessionID,
+               (a,b) => new { a, b }
+                ).Where(a=>a.a.UserID == ID)
+                .Select(a=>a.b)
+                .Include(a=>a.Attendees);
             return View(DisplaySchedule);
         }
-        public ActionResult CancelMeeting(int ID)
-        {
-            Dc.CancelMeeting(ID);
-            var getUser = Dc.Schedules.Where(a => a.SessionID == ID).FirstOrDefault();
-            return RedirectToAction("Schedule","User",new { ID = getUser.UserID });
-        }
-        public ActionResult EditMeeting(int ID)
-        { 
-            ScheduleMeeting result = Dc.ScheduleMeetings.Where(a => a.SessionID == ID).FirstOrDefault();
-            return View(result);
-            
-        }
-        [HttpPost]
-        public ActionResult EditMeeting(ScheduleMeeting User)
-        {
-            Dc.EditMeeting(User.SessionID,User.SessionName,User.Description,User.Date,User.StartTime,
-                User.EndTime,User.TimeZone,User.Recurr,User.Frequency,User.RepeatDaily,User.RepeatWeekly,User.RepeatMonthly,
-                User.Sunday,User.Monday,User.Tuesday,User.Wednesday,User.Thursday,User.Friday,User.Saturday,User.RepeatMonthRadio1,
-                User.RepeatMonthRadio2,User.Radio2List1,User.Radio2List2,User.EndDateBy,User.EndDateAfter,User.MeetingLink
-          );
-            
-            var getUser = Dc.Schedules.Where(a => a.SessionID == User.SessionID).FirstOrDefault();
-            return RedirectToAction("Schedule", "User", new { ID = getUser.UserID });
-
-        }
+        
         #endregion
         [Authorize]
         public ActionResult SaveTutor(TutorProfile tp)

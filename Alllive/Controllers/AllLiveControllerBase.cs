@@ -26,7 +26,7 @@ namespace Alllive.Controllers
                 }
                 else
                 {
-                    filterContext.Result = RedirectToAction("Login", "Home");
+                    filterContext.Result = RedirectToAction("Login", "User");
                 }
             }
         }

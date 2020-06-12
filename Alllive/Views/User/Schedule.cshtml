@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Alllive.Models.UserSchedule_Result>
+﻿@model IEnumerable<Alllive.Models.ScheduleMeeting>
     @{
     ViewBag.Title = "Schedule";
     }
     
-    <h2>Schedule&nbsp;<a class="btn btn-primary" href="@Url.Action("ScheduleMeeting","Navigation")"><i class="glyphicon glyphicon-plus"></i></a></h2>
+    <h2>Schedule&nbsp;<a class="btn btn-primary" href="@Url.Action("ScheduleMeeting","Meeting")"><i class="glyphicon glyphicon-plus"></i></a></h2>
 
     @if (Model != null)
     {
@@ -13,7 +13,9 @@
         <div class="row">
             <div class="col">
                 <!--<b>@item.SessionID</b>-->
-                <b>@item.Date.ToString("MM/dd/yyyy")</b>
+                <b>@item.StartTime.ToString("MM/dd/yyyy")</b>
+                <br />
+                <b>@item.StartTime.ToString("hh:mm tt")</b>
             </div>
             <div class="col">
                 <b>@item.SessionName</b>
@@ -36,12 +38,17 @@
             </div>            
         </div>
         <div class="row">
+            <div class="col-sm-8">
+                @String.Join(", ",item.Attendees.Select(a=>a.Name))
+            </div>
+        </div>
+        <div class="row">
             <div class="col">
                 <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
             </div>
             <div class="col">
-                @Html.ActionLink("Cancel", "CancelMeeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
-                @Html.ActionLink("Edit", "ScheduleMeeting","Navigation", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Cancel", "CancelMeeting","Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Edit", "ScheduleMeeting","Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
 
                 @*<button type="button" onclick="location.href='@Url.Action("CancelMeeting","User", new { ID = item.SessionID })'">Cancel</button>
                 <button type="button" onclick="location.href='@Url.Action("EditMeeting","User", new { ID = item.SessionID })'">Edit</button>*@

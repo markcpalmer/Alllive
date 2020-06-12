@@ -132,6 +132,7 @@
     <Compile Include="Controllers\AllLiveControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -350,6 +351,7 @@
       <DependentUpon>AllLiveDb2.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
@@ -809,21 +811,20 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Schedule.cshtml" />
     <Content Include="Views\Home\Catalog.cshtml" />
-    <Content Include="Views\Navigation\ScheduleMeeting.cshtml" />
-    <Content Include="Views\Navigation\JoinMeeting.cshtml" />
-    <Content Include="Views\Navigation\StartMeeting.cshtml" />
+    <Content Include="Views\Meeting\ScheduleMeeting.cshtml" />
+    <Content Include="Views\Meeting\JoinMeeting.cshtml" />
+    <Content Include="Views\Meeting\StartMeeting.cshtml" />
     <Content Include="Views\Navigation\DistanceLearning.cshtml" />
     <Content Include="Views\Search\SearchTutor.cshtml" />
     <Content Include="Views\Navigation\OnlineYoga.cshtml" />
     <Content Include="Views\Search\SearchResults.cshtml" />
     <Content Include="Views\User\TutorRegistration.cshtml" />
     <Content Include="Views\User\ViewProfile.cshtml" />
-    <Content Include="Views\User\EditMeeting.cshtml" />
     <Content Include="Views\User\RegisterSuccess.cshtml" />
     <Content Include="Views\User\UserTutorProfileView.cshtml" />
     <Content Include="Views\Search\ViewTutor.cshtml" />
-    <Content Include="Views\Navigation\_EditAttendee.cshtml" />
-    <Content Include="Views\Navigation\_Attendee.cshtml" />
+    <Content Include="Views\Meeting\_EditAttendee.cshtml" />
+    <Content Include="Views\Meeting\_Attendee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
