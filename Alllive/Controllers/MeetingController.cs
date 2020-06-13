@@ -3,6 +3,8 @@ using Alllive.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -179,7 +181,40 @@ namespace Alllive.Controllers
         {
             Dc.CancelMeeting(ID);
             var getUser = Dc.Schedules.Where(a => a.SessionID == ID).FirstOrDefault();
+            var attendee = Dc.Attendees.Where(a => a.SessionID == ID).Select(b=>b.AttendeeID).ToList();
+
+            SendEmailToUsers(attendee, getUser.User.ToString());
             return RedirectToAction("Schedule", "User", new { ID = getUser.UserID });
+        }
+        public void SendEmailToUsers(List<int> To, string Host)
+        {
+            MailMessage Mail = new MailMessage();
+
+            Mail.From = new MailAddress("Mail@itsalllive.com");
+             
+            foreach(var person in To)
+            {
+                var personID = Dc.Users.Where(a => a.UserID == person).Select(b=>b.UserName).FirstOrDefault();
+                Mail.To.Add(personID);
+                Mail.Subject = "Your meeting has been cancelled";
+                Mail.Body = "Your meeting with " + Host + " has been cancelled.";
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "Mail@itsalllive.com",
+                        Password = "G00gl3!@"
+                    };
+                    smtp.Port = 465;
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtpout.secureserver.net";
+                    smtp.EnableSsl = true;
+                    smtp.Send(Mail);
+                }
+            }
+            
+            
         }
     }
 
