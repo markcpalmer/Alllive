@@ -168,7 +168,7 @@ namespace Alllive.Controllers
                         FormsAuthentication.SetAuthCookie(Login.UserName, true); //True is for Remember ME
                         PrepareUserSession(userExists);
 
-                        return RedirectToAction("Schedule", "User", new { ID = userExists.UserID });//redirects user to different action"                    
+                        return RedirectToAction("Schedule", "User");//redirects user to different action"                    
                     }
                     catch
                     {
@@ -215,15 +215,17 @@ namespace Alllive.Controllers
         }
 
         #region Schedule
-
-        public ActionResult Schedule(int ID)
+        [Authorize]
+        public ActionResult Schedule()
         {
+          //  currentUser = (UserModel)(Session["AllliveUser"]);
+            int UserID = currentUser.UserId;
             //var DisplaySchedule = Dc.UserSchedule(ID);
             var DisplaySchedule = Dc.Schedules.Join( Dc.ScheduleMeetings,
                a =>a.SessionID,
                b => b.SessionID,
                (a,b) => new { a, b }
-                ).Where(a=>a.a.UserID == ID)
+                ).Where(a=>a.a.UserID == UserID)
                 .Select(a=>a.b)
                 .Include(a=>a.Attendees);
             return View(DisplaySchedule);

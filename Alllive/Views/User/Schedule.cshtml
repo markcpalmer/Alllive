@@ -4,14 +4,18 @@
     }
     
     <h2>Schedule&nbsp;<a class="btn btn-primary" href="@Url.Action("ScheduleMeeting","Meeting")"><i class="glyphicon glyphicon-plus"></i></a></h2>
-
+     @ViewBag.message
     @if (Model != null)
     {
     foreach (var item in Model)
     {
-    <div class="container">
-        <div class="row">
+    <div class="container @(item.Active == "N" ?"cancelled":"")">
+        <div class="row  ">
             <div class="col">
+                @if(item.Active == "N")
+                {
+                    <em>Cancelled</em>
+                }
                 <!--<b>@item.SessionID</b>-->
                 <b>@item.StartTime.ToString("MM/dd/yyyy")</b>
                 <br />
@@ -47,11 +51,20 @@
                 <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
             </div>
             <div class="col">
-                @Html.ActionLink("Cancel", "CancelMeeting","Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
-                @Html.ActionLink("Edit", "ScheduleMeeting","Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
+                @if (item.Active == "Y")
+                {
+                    @Html.ActionLink("Cancel", "CancelMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Edit", "ScheduleMeeting", "Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
 
+
+                }
+                else
+                {
+                    @Html.ActionLink("Reactivate", "ReactivateMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-primary" })
+
+                }
                 @*<button type="button" onclick="location.href='@Url.Action("CancelMeeting","User", new { ID = item.SessionID })'">Cancel</button>
-                <button type="button" onclick="location.href='@Url.Action("EditMeeting","User", new { ID = item.SessionID })'">Edit</button>*@
+        <button type="button" onclick="location.href='@Url.Action("EditMeeting","User", new { ID = item.SessionID })'">Edit</button>*@
 
             </div>
 

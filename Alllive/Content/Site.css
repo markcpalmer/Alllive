@@ -50,3 +50,7 @@ div.row{
 .timep{
     width:106px;
 }
+.cancelled {
+    color:#ccc;
+    font-style:italic;
+}

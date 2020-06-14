@@ -21,7 +21,7 @@ namespace Alllive.Controllers
             {
                 return View();
             }
-            return RedirectToAction("Schedule", "User", new {ID=currentUser.UserId });
+            return RedirectToAction("Schedule", "User");
 
         }
 

@@ -183,8 +183,23 @@ namespace Alllive.Controllers
             var getUser = Dc.Schedules.Where(a => a.SessionID == ID).FirstOrDefault();
             var attendee = Dc.Attendees.Where(a => a.SessionID == ID).Select(b=>b.AttendeeID).ToList();
 
-            SendEmailToUsers(attendee, getUser.User.ToString());
-            return RedirectToAction("Schedule", "User", new { ID = getUser.UserID });
+            SendEmailToUsers(attendee, getUser.User.FirstName + " " + getUser.User.LastName);
+            return RedirectToAction("Schedule", "User");
+        }
+        public ActionResult ReactivateMeeting(int ID)
+        {
+            var meeting = Dc.ScheduleMeetings.Find(ID);
+            if(meeting != null)
+            {
+                meeting.Active = "Y";
+                Dc.SaveChanges();
+                return RedirectToAction("ScheduleMeeting",new {sessionID=ID });
+            }
+            else
+            {
+                ViewBag.message = "Meeting not found";
+                return RedirectToAction("Schedule", "User");
+            }
         }
         public void SendEmailToUsers(List<int> To, string Host)
         {
@@ -206,10 +221,10 @@ namespace Alllive.Controllers
                         UserName = "Mail@itsalllive.com",
                         Password = "G00gl3!@"
                     };
-                    smtp.Port = 465;
+                    smtp.Port = 587;
                     smtp.Credentials = credential;
                     smtp.Host = "smtpout.secureserver.net";
-                    smtp.EnableSsl = true;
+                    smtp.EnableSsl = false;
                     smtp.Send(Mail);
                 }
             }
