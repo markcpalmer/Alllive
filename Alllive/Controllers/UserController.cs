@@ -242,9 +242,11 @@ namespace Alllive.Controllers
             else
             {
                 Dc.TutorProfiles.Attach(tp);
-                
+                Dc.Entry(tp).State = System.Data.Entity.EntityState.Modified;
+
+
             }
-           
+
             if (Request.Files.Count > 0)
             {
                 //Todo: save file to server!
@@ -303,6 +305,12 @@ namespace Alllive.Controllers
 
             return View(m);
            
+        }
+        public ActionResult Messaging(int? userID)
+        {
+
+            var storeMessages = Dc.Messages.Where(a => a.ReceiverID == userID).ToList();
+            return View(storeMessages);
         }
         [Authorize]
         public ActionResult ViewProfile()

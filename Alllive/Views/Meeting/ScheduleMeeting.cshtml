@@ -6,10 +6,10 @@
 
 <h2>Schedule Meeting</h2>
 
-@using (Ajax.BeginForm("SaveMeeting", "Meeting", new AjaxOptions { HttpMethod = "POST", OnBegin="SaveMeeting_Begin()",UpdateTargetId="mainBody", InsertionMode=InsertionMode.Replace }))
+@using (Ajax.BeginForm("SaveMeeting", "Meeting",new { Active = Model.Active, HostUserID = Model.HostUserID},  new AjaxOptions { HttpMethod = "POST", OnBegin="SaveMeeting_Begin()",
+    OnSuccess="SaveMeeting_Success",UpdateTargetId="mainBody", InsertionMode=InsertionMode.Replace }))
 {
     @Html.HiddenFor(a=>a.SessionID)
-    @Html.HiddenFor(a=>a.HostUserID)
     <div class="container">
         <div class="row">
             <div class="col-sm-2">
@@ -405,7 +405,7 @@
     <p>
         @Html.ValidationSummary()
     </p>
-        @Html.ActionLink("Back to schedule", "Schedule", "User",null,new { @class="btn btn-default"});
+        @Html.ActionLink("Back to schedule", "Schedule", "User",null,new { @class="btn btn-default"})
     <input type="submit" value="Save" class="btn btn-primary"/>
 
     
@@ -420,6 +420,13 @@
     <script>
         function SaveMeeting_Begin() {
             return true;
+        }
+        function SaveMeeting_Success() {
+            var myToast = Toastify({
+                text: "The meeting has been saved",
+                duration: 2000
+            });
+            myToast.showToast();
         }
         function Attendee_Add() {
             $("#editAttendeeID").val("");
@@ -446,9 +453,20 @@
                  
                  contentType: "application/json",
                  
-                 success: function (response) {
-                     $("#attendeeList").append(response);
-                     Attendee_Add();
+                success: function (response) {
+                    if (m.AttendeeID > 0) {
+                        $("#attendee" + m.AttendeeID).replaceWith(response);
+                    }
+                    else {
+                        $("#attendeeList").append(response);
+                        Attendee_Add();
+                    }
+                    var myToast = Toastify({
+                        text: "The attendee has been saved",
+                        duration: 2000
+                    });
+                    myToast.showToast();
+
                  }
 
             })
@@ -475,6 +493,11 @@
                      if (response.result === "ok") {
                          var row = $(btn).closest(".row");
                          $(row).remove();
+                         var myToast = Toastify({
+                             text: "The attendee has been deleted",
+                             duration: 2000
+                         });
+                         myToast.showToast();
                      }
                  }
 

@@ -59,6 +59,7 @@ namespace Alllive.Controllers
                 if (m.SessionID > 0)
                 {
                     Dc.ScheduleMeetings.Attach(m);
+                    Dc.Entry(m).State = System.Data.Entity.EntityState.Modified;
                     Dc.SaveChanges();
                 }
                 else
@@ -125,12 +126,13 @@ namespace Alllive.Controllers
                 if (m.AttendeeID > 0)
                 {
                     Dc.Attendees.Attach(m);
+                    Dc.Entry(m).State = System.Data.Entity.EntityState.Modified;
                 }
                 else
                 {
                     Dc.Attendees.Add(m);
                 }
-                if (m.UserID.HasValue)
+                if (m.UserID.HasValue && m.UserID.Value>0)
                 {
                     var findSchedule = Dc.Schedules.FirstOrDefault(a => a.UserID == m.UserID.Value && a.SessionID == m.SessionID);
                     if (findSchedule == null)

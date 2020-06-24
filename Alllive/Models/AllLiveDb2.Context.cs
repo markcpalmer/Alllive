@@ -35,6 +35,7 @@ namespace Alllive.Models
         public virtual DbSet<TutorProfile> TutorProfiles { get; set; }
         public virtual DbSet<Attendee> Attendees { get; set; }
         public virtual DbSet<ScheduleMeeting> ScheduleMeetings { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
     
         public virtual int CancelMeeting(Nullable<int> sessionID)
         {
@@ -45,7 +46,7 @@ namespace Alllive.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CancelMeeting", sessionIDParameter);
         }
     
-        public virtual int EditMeeting(Nullable<int> sessionID, string sessionName, string description, Nullable<System.DateTime> date, Nullable<System.DateTime> startTime, Nullable<System.DateTime> endTime, string timeZone, Nullable<bool> recurr, Nullable<int> frequency, Nullable<int> repeatDaily, Nullable<int> repeatWeekly, Nullable<int> repeatMonthly, Nullable<bool> sunday, Nullable<bool> monday, Nullable<bool> tuesday, Nullable<bool> wednesday, Nullable<bool> thursday, Nullable<bool> friday, Nullable<bool> saturday, Nullable<bool> repeatMonthRadio1, Nullable<bool> repeatMonthRadio2, Nullable<int> radio2List1, Nullable<int> radio2List2, Nullable<System.DateTime> endDateBy, Nullable<int> endDateAfter, string meetingLink)
+        public virtual int EditMeeting(Nullable<int> sessionID, string sessionName, string description, Nullable<System.DateTime> date, Nullable<System.DateTime> startTime, Nullable<System.DateTime> endTime, string timeZone, Nullable<bool> recurr, Nullable<int> frequency, Nullable<int> repeatDaily, Nullable<int> repeatWeekly, Nullable<int> repeatMonthly, Nullable<int> repeatMonthlyDate, Nullable<bool> sunday, Nullable<bool> monday, Nullable<bool> tuesday, Nullable<bool> wednesday, Nullable<bool> thursday, Nullable<bool> friday, Nullable<bool> saturday, Nullable<bool> repeatMonthRadio1, Nullable<bool> repeatMonthRadio2, Nullable<int> radio2List1, Nullable<int> radio2List2, Nullable<System.DateTime> endDateBy, Nullable<int> endDateAfter, string meetingLink)
         {
             var sessionIDParameter = sessionID.HasValue ?
                 new ObjectParameter("SessionID", sessionID) :
@@ -94,6 +95,10 @@ namespace Alllive.Models
             var repeatMonthlyParameter = repeatMonthly.HasValue ?
                 new ObjectParameter("RepeatMonthly", repeatMonthly) :
                 new ObjectParameter("RepeatMonthly", typeof(int));
+    
+            var repeatMonthlyDateParameter = repeatMonthlyDate.HasValue ?
+                new ObjectParameter("RepeatMonthlyDate", repeatMonthlyDate) :
+                new ObjectParameter("RepeatMonthlyDate", typeof(int));
     
             var sundayParameter = sunday.HasValue ?
                 new ObjectParameter("Sunday", sunday) :
@@ -151,7 +156,7 @@ namespace Alllive.Models
                 new ObjectParameter("MeetingLink", meetingLink) :
                 new ObjectParameter("MeetingLink", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EditMeeting", sessionIDParameter, sessionNameParameter, descriptionParameter, dateParameter, startTimeParameter, endTimeParameter, timeZoneParameter, recurrParameter, frequencyParameter, repeatDailyParameter, repeatWeeklyParameter, repeatMonthlyParameter, sundayParameter, mondayParameter, tuesdayParameter, wednesdayParameter, thursdayParameter, fridayParameter, saturdayParameter, repeatMonthRadio1Parameter, repeatMonthRadio2Parameter, radio2List1Parameter, radio2List2Parameter, endDateByParameter, endDateAfterParameter, meetingLinkParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EditMeeting", sessionIDParameter, sessionNameParameter, descriptionParameter, dateParameter, startTimeParameter, endTimeParameter, timeZoneParameter, recurrParameter, frequencyParameter, repeatDailyParameter, repeatWeeklyParameter, repeatMonthlyParameter, repeatMonthlyDateParameter, sundayParameter, mondayParameter, tuesdayParameter, wednesdayParameter, thursdayParameter, fridayParameter, saturdayParameter, repeatMonthRadio1Parameter, repeatMonthRadio2Parameter, radio2List1Parameter, radio2List2Parameter, endDateByParameter, endDateAfterParameter, meetingLinkParameter);
         }
     
         public virtual int insertregistereduser(string username, string lastName, string firstName, string password)

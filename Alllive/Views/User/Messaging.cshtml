@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Alllive.Models.Message>
+
+@{
+    ViewBag.Title = "Messaging";
+}
+
+    <div>
+    <!--Put on hold work on Sending messages to Tutors first-->
+    <h2>Messages</h2>
+    @foreach (var msg in Model)
+    {
+        <div>
+            <em>@msg.TimeStamp.ToString("MM/dd/yyyy hh:mm tt")</em>
+            <br />
+            <div>
+                @msg.Message1
+            </div>
+        </div>
+        <hr />
+    }
+    </div>
+    <div>
+
+    </div>
+

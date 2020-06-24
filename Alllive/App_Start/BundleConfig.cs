@@ -28,10 +28,12 @@ namespace Alllive
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/moment-with-locales.js",
-                      "~/Scripts/bootstrap-datetimepicker.js"
+                      "~/Scripts/bootstrap-datetimepicker.js",
+                      "~/Scripts/toastify.js"
               ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                       "~/Content/toastify.css",
                       "~/Content/bootstrap.css",
                       "~/Content/jquery-ui.*",
                       "~/Content/bootstrap-datetimepicker.css",

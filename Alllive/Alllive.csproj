@@ -133,6 +133,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -162,6 +163,9 @@
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\Message.cs">
+      <DependentUpon>AllLiveDb2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\password.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
@@ -246,6 +250,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\toastify.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -793,6 +798,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\script-custom-timepicker.js" />
+    <Content Include="Scripts\toastify.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -825,6 +831,8 @@
     <Content Include="Views\Search\ViewTutor.cshtml" />
     <Content Include="Views\Meeting\_EditAttendee.cshtml" />
     <Content Include="Views\Meeting\_Attendee.cshtml" />
+    <Content Include="Views\User\Messaging.cshtml" />
+    <Content Include="Views\Message\Compose.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

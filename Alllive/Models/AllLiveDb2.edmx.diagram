@@ -16,6 +16,7 @@
         <EntityTypeShape EntityType="AllliveDBModel.Attendee" Width="1.5" PointX="8.375" PointY="0.75" />
         <EntityTypeShape EntityType="AllliveDBModel.ScheduleMeeting" Width="1.5" PointX="6.125" PointY="0.625" />
         <AssociationConnector Association="AllliveDBModel.FK_Attendee_ScheduleMeeting" />
+        <EntityTypeShape EntityType="AllliveDBModel.Message" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

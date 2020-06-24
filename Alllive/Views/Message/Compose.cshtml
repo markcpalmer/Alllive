@@ -1,0 +1,25 @@
+﻿@model Alllive.Models.Message 
+@{
+    ViewBag.Title = "Compose";
+}
+
+
+<div>
+    @using(Html.BeginForm("Compose","Message",FormMethod.Post))
+    {
+        @Html.Label("Please leave a message")
+    <div>
+        @Html.TextAreaFor(a => a.Message1, new { @class = "form-control", @rows = 4 })
+    </div>
+        @Html.HiddenFor(a=>a.ReceiverID)
+        @Html.HiddenFor(a=>a.SenderID)
+        <button type="submit" class="btn btn-primary">Send</button>
+    }
+    
+</div>
+
+<!-- DELETE ALL Special characters except {. | , | _  | ' }-->
+<!-- Character counter in JS-->
+
+
+<!-- Submit takes them to the Message controller to Compose POST method-->
