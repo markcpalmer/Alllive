@@ -306,12 +306,7 @@ namespace Alllive.Controllers
             return View(m);
            
         }
-        public ActionResult Messaging(int? userID)
-        {
-
-            var storeMessages = Dc.Messages.Where(a => a.ReceiverID == userID).ToList();
-            return View(storeMessages);
-        }
+       
         [Authorize]
         public ActionResult ViewProfile()
         {

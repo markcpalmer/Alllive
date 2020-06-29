@@ -15,16 +15,16 @@ namespace Alllive.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-            var descriptor = filterContext.ActionDescriptor.GetCustomAttributes(true);
-            if (descriptor.Any(a => a.GetType() == typeof(AuthorizeAttribute)))
+            if (filterContext.HttpContext.Session["AllliveUser"] != null)
             {
-
-
-                if (filterContext.HttpContext.Session["AllliveUser"] != null)
-                {
-                    currentUser = (UserModel)filterContext.HttpContext.Session["AllliveUser"];
-                }
-                else
+                currentUser = (UserModel)filterContext.HttpContext.Session["AllliveUser"];
+                ViewBag.myUserID = currentUser.UserId;
+            }
+            var actionDescriptor = filterContext.ActionDescriptor.GetCustomAttributes(true);
+            //var controllerDecriptor = filterContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(true);
+            if (actionDescriptor.Any(a => a.GetType() == typeof(AuthorizeAttribute)))
+            { 
+                if(currentUser==null)
                 {
                     filterContext.Result = RedirectToAction("Login", "User");
                 }

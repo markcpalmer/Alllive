@@ -14,11 +14,13 @@
         <div class="row">
             <div class="col-sm-2">
                 @Html.Label("Session Name")
-                @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'" })
 
             </div>
             <div class="col-sm-4">
-                @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block;" })
+                @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block;",required = "required" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(a => a.SessionName, "", new { @class="text-danger" })
             </div>
         </div>
         <div class="row">
@@ -403,7 +405,7 @@
         @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
     </p>*@
     <p>
-        @Html.ValidationSummary()
+        @*@Html.ValidationSummary()*@
     </p>
         @Html.ActionLink("Back to schedule", "Schedule", "User",null,new { @class="btn btn-default"})
     <input type="submit" value="Save" class="btn btn-primary"/>
@@ -506,7 +508,7 @@
             }
         }
         function datetimechange(e) {
-            $("input", this).val(e.date._d); // sets input to selected date
+            $("input", this).val(e.date); // sets input to selected date
         }
         $(document).ready(function () {
             var dtoptions = { locale: "en" };

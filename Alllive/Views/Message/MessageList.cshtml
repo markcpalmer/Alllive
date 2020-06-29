@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Alllive.Models.Message>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Messaging";
+}
+
+    <div class="chat-thread-wrapper" id="thread-wrapper">
+    <!--Put on hold work on Sending messages to Tutors first-->
+    @foreach (var msg in Model)
+    {
+        Html.RenderPartial("_Message", msg);
+        
+    }
+    </div>
+    <div class="chat-footer">
+        @using (Ajax.BeginForm("SendMessage", new AjaxOptions { HttpMethod = "Post", OnSuccess="sendMessage_Success", UpdateTargetId = "thread-wrapper", InsertionMode = InsertionMode.InsertAfter }))
+        {
+        @Html.TextArea("Message1", new { @class = "form-control" })
+        <input type="hidden" value="@ViewBag.receiverID" name="ReceiverID" />
+        <input type="hidden" value="@ViewBag.myUserID" name="SenderID" />
+
+        <div class="pull-right">
+            <button class="btn btn-primary" type="submit">Send</button>
+        </div>
+        }
+    </div>
+

@@ -166,6 +166,7 @@
     <Compile Include="Models\Message.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MessageUserViewModel.cs" />
     <Compile Include="Models\password.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
@@ -209,6 +210,7 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\Messages.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -831,8 +833,10 @@
     <Content Include="Views\Search\ViewTutor.cshtml" />
     <Content Include="Views\Meeting\_EditAttendee.cshtml" />
     <Content Include="Views\Meeting\_Attendee.cshtml" />
-    <Content Include="Views\User\Messaging.cshtml" />
+    <Content Include="Views\Message\MessageList.cshtml" />
     <Content Include="Views\Message\Compose.cshtml" />
+    <Content Include="Views\Message\MessageCenter.cshtml" />
+    <Content Include="Views\Message\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

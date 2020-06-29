@@ -47,6 +47,12 @@ namespace Alllive.Controllers
         }
         public ActionResult ViewTutor(int tutorID)
         {
+            if (Session["AllliveUser"] != null)
+            {
+                var myUser = (UserModel)Session["AllliveUser"];
+                ViewBag.myUserID = myUser.UserId;
+            }
+
             var tutor = Dc.TutorProfiles.Find(tutorID);
             if (tutor != null)
             {

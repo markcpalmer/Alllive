@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Alllive.Models.MessageUserViewModel>
+    <div class="container">
+        <h2>Messaging</h2>
+        <div class="row">
+            <div class="col-md-3">
+                @foreach (var messageUser in Model)
+                {
+                    <div class="message-user" onclick="messageUser_Click(@messageUser.User.UserID, this)">
+                        <div>
+                            <label>
+                                @messageUser.User.FirstName @messageUser.User.LastName
+                            </label>
+                        </div>
+                        <div>
+                            <em>
+                                @messageUser.TimeStamp.ToString("MM/dd/yyyy hh:mm tt")
+                            </em>
+                        </div>
+                        <hr />
+                    </div>
+                }
+            </div>
+            <div class="col-md-9">
+                <div id="thread-container">
+                    @if (((int?)ViewBag.receiverID).HasValue)
+                    {
+                        Html.RenderAction("MessageList", new { userID = ViewBag.receiverID.Value });
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+@section scripts{
+    <script>
+        function messageUser_Click(userID,el) {
+            $(".message-user").removeClass("highlighted");
+            $(el).addClass("highlighted");
+            $.ajax({
+                url: '@Url.Action("MessageList")?userID='+userID,
+                method: "GET",
+                success: function (Result) {
+                    $("#thread-container").html(Result);
+                }
+            })
+        } 
+        function sendMessage_Success() {
+            $("#Message1").val("");
+        }
+    </script>
+}

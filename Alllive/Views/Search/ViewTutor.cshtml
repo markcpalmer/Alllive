@@ -12,10 +12,12 @@
         <p>
         <a class="btn btn-primary" href="@Url.Action("Request","Schedule",new {tutorProfileID=Model.TutorProfile.TutorProfileID })">Schedule</a>
         </p>
-        
-        <p>
-        <a class="btn btn-primary" href="@Url.Action("Compose","Message",new {recieverID=Model.User.UserID,tutorProfileID=Model.TutorProfile.TutorProfileID })">Message Tutor</a>
-         </p>
+        @if (ViewBag.myUserID != null)
+        {
+            <p>
+            <a class="btn btn-primary" href="@Url.Action("Compose", "Message", new { recieverID = Model.User.UserID, senderID = ViewBag.myUserID })">Message Tutor</a>
+             </p>
+        }
     </div>
 
 <div class="container">

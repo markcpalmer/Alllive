@@ -10,67 +10,79 @@
     foreach (var item in Model)
     {
     <div class="container @(item.Active == "N" ?"cancelled":"")">
-        <div class="row  ">
-            <div class="col">
-                @if(item.Active == "N")
-                {
-                    <em>Cancelled</em>
-                }
-                <!--<b>@item.SessionID</b>-->
-                <b>@item.StartTime.ToString("MM/dd/yyyy")</b>
-                <br />
-                <b>@item.StartTime.ToString("hh:mm tt")</b>
-            </div>
-            <div class="col">
-                <b>@item.SessionName</b>
-            </div>
-            <div class="col">
+        <table class="table table-bordered table-responsive table-hover">
+            <tr>
+                <th>
+                    Start Time
+                </th>
+                <th>
+                    Session Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    anything
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @if (item.Active == "N")
+                    {
+                        <em>Cancelled</em>
+                    }
+                    <!--<b>@item.SessionID</b>-->
+                    <b>@item.StartTime.ToString("MM/dd/yyyy")</b>
+                    <br />
+                    <b>@item.StartTime.ToString("hh:mm tt")</b>
+                </td>
+                <td>
+                    <b>@item.SessionName</b>
+                </td>
+                <td>
+                    <b>@item.Description</b>
 
-            </div>
-            <div class="col">
-                
-            </div>
-        </div>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                   
+                    <b>Attendees:</b>
+                       @String.Join(", ", item.Attendees.Select(a => a.Name))
+
+                </td>
+            </tr>
+        </table> 
+        <table>
+            <tr>
+                <td>
+                    <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
+                    <br />
+                    @if (item.Active == "Y")
+                    {
+                        @Html.ActionLink("Cancel", "CancelMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Edit", "ScheduleMeeting", "Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
+
+
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Reactivate", "ReactivateMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-primary" })
+
+                    }
+                </td>
+            </tr>
+        </table>
         <div class="row">
             <div class="col-sm-8">
-                <b>@item.Description</b>
-            </div>
-            <div class="col-sm-4">
-                @*@item.StartTime.Value.ToShortDateString()
-                -
-                @item.EndTime.Value.ToShortDateString()*@
-            </div>            
-        </div>
-        <div class="row">
-            <div class="col-sm-8">
-                @String.Join(", ",item.Attendees.Select(a=>a.Name))
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
-            </div>
-            <div class="col">
-                @if (item.Active == "Y")
-                {
-                    @Html.ActionLink("Cancel", "CancelMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Edit", "ScheduleMeeting", "Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
-
-
-                }
-                else
-                {
-                    @Html.ActionLink("Reactivate", "ReactivateMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-primary" })
-
-                }
-                @*<button type="button" onclick="location.href='@Url.Action("CancelMeeting","User", new { ID = item.SessionID })'">Cancel</button>
-        <button type="button" onclick="location.href='@Url.Action("EditMeeting","User", new { ID = item.SessionID })'">Edit</button>*@
-
-            </div>
-
-        </div>
+       
     </div>
-    <hr />
+    
     }
 }
 else

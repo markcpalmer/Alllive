@@ -37,7 +37,8 @@ namespace Alllive
                       "~/Content/bootstrap.css",
                       "~/Content/jquery-ui.*",
                       "~/Content/bootstrap-datetimepicker.css",
-                      "~/Content/Site.css"));
+                      "~/Content/Site.css",
+                      "~/Content/Messages.css"));
         }
     }
 }

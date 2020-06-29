@@ -1,0 +1,66 @@
+﻿.message-user{
+    padding: 5px;
+
+}
+.highlighted {
+    background-color: darkblue;
+    color: #eee;
+}
+.chat-thread-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left:1px solid #333;
+}
+
+.chat-msg-wrapper {
+    padding: 2px 0px;
+}
+
+    .chat-msg-wrapper div.clear {
+        clear: both;
+    }
+
+    .chat-msg-wrapper > .chat-bubble {
+        position: relative;
+        border-radius: 0.4em;
+        padding: 5px;
+    }
+
+        .chat-msg-wrapper > .chat-bubble small {
+            font-size: 0.6em;
+        }
+
+        .chat-msg-wrapper > .chat-bubble::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-bottom: 0;
+            margin-top: -5px;
+        }
+
+        .chat-msg-wrapper > .chat-bubble.left {
+            float: left;
+            background-color: greenyellow;
+        }
+
+            .chat-msg-wrapper > .chat-bubble.left::after {
+                left: 0;
+                border-right-color: greenyellow;
+                border-left: 0;
+                margin-left: -10px;
+            }
+
+        .chat-msg-wrapper > .chat-bubble.right {
+            float: right;
+            background-color: skyblue;
+        }
+
+            .chat-msg-wrapper > .chat-bubble.right::after {
+                right: 0;
+                border-left-color: skyblue;
+                border-right: 0;
+                margin-right: -10px;
+            }
