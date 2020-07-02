@@ -25,6 +25,7 @@ namespace Alllive.Models
         public string UserName { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
+        public string TimeZone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<password> passwords { get; set; }

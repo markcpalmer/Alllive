@@ -36,6 +36,7 @@ namespace Alllive.Models
         public virtual DbSet<Attendee> Attendees { get; set; }
         public virtual DbSet<ScheduleMeeting> ScheduleMeetings { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<MessageCenter> MessageCenters { get; set; }
     
         public virtual int CancelMeeting(Nullable<int> sessionID)
         {

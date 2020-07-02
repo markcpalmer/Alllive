@@ -47,5 +47,5 @@ namespace Alllive.Helpers
             return options.Select(o => new SelectListItem { Value = o, Text = o });
 
         }
-    }
+           }
 }

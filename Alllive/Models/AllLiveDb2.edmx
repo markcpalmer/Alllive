@@ -24,6 +24,15 @@
           <Property Name="FilePath" Type="nvarchar" MaxLength="255" />
           <Property Name="FileThumbPath" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="MessageCenter">
+          <Key>
+            <PropertyRef Name="MessageSessionID" />
+          </Key>
+          <Property Name="MessageSessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Messages">
           <Key>
             <PropertyRef Name="MessageID" />
@@ -154,6 +163,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="UserName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="255" />
           <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="TimeZone" Type="varchar(max)" />
         </EntityType>
         <Association Name="FK_Attendee_ScheduleMeeting">
           <End Role="ScheduleMeeting" Type="Self.ScheduleMeeting" Multiplicity="1" />
@@ -264,6 +274,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
         <EntityContainer Name="AllliveDBModelStoreContainer">
           <EntitySet Name="Attendee" EntityType="Self.Attendee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessageCenter" EntityType="Self.MessageCenter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="password" EntityType="Self.password" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
@@ -328,6 +339,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="passwords" Relationship="Self.FK_Password_UserID" FromRole="Users" ToRole="password" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_UserID" FromRole="Users" ToRole="Schedule" />
+          <Property Name="TimeZone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SearchTutor">
           <Key>
@@ -469,6 +481,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
             <End Role="Attendee" EntitySet="Attendees" />
           </AssociationSet>
           <EntitySet Name="Messages" EntityType="AllliveDBModel.Message" />
+          <EntitySet Name="MessageCenters" EntityType="AllliveDBModel.MessageCenter" />
         </EntityContainer>
         <ComplexType Name="UserSchedule_Result">
           <Property Type="Int32" Name="UserID" Nullable="false" />
@@ -614,6 +627,15 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="ReceiverID" Type="Int32" Nullable="false" />
           <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="MessageCenter">
+          <Key>
+            <PropertyRef Name="MessageSessionID" />
+          </Key>
+          <Property Name="MessageSessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -640,6 +662,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="AllliveDBModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -802,6 +825,16 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
                 <ScalarProperty Name="Message1" ColumnName="Message" />
                 <ScalarProperty Name="MessageSessionID" ColumnName="MessageSessionID" />
                 <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageCenters">
+            <EntityTypeMapping TypeName="AllliveDBModel.MessageCenter">
+              <MappingFragment StoreEntitySet="MessageCenter">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="MessageSessionID" ColumnName="MessageSessionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

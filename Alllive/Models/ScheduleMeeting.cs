@@ -11,8 +11,7 @@ namespace Alllive.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class ScheduleMeeting
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,15 +21,10 @@ namespace Alllive.Models
         }
     
         public int SessionID { get; set; }
-        [Required(ErrorMessage ="Session Name is Required")]
         public string SessionName { get; set; }
         public string Description { get; set; }
-        [Required]
         public System.DateTime Date { get; set; }
-
-        [RegularExpression(@"^(0[1-9]|1[0-2]):[0-5][0-9] (am|pm|AM|PM)$", ErrorMessage = "Invalid Time.")]
         public System.DateTime StartTime { get; set; }
-        [RegularExpression(@"^(0[1-9]|1[0-2]):[0-5][0-9] (am|pm|AM|PM)$", ErrorMessage = "Invalid Time.")]
         public System.DateTime EndTime { get; set; }
         public string TimeZone { get; set; }
         public bool Recurr { get; set; }

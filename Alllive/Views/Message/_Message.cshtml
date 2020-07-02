@@ -1,7 +1,7 @@
-﻿@model Alllive.Models.Message
+﻿@model Message
     <div class="chat-msg-wrapper">
         <div class="chat-bubble @(Model.SenderID == ViewBag.myUserID ? "left":"right")">
-            <em>@Model.TimeStamp.ToString("MM/dd/yyyy hh:mm tt")</em>
+            <em>@Model.TimeStamp.GetLocalTime((string)ViewBag.MyTimeZone).ToString("MM/dd/yyyy hh:mm tt")</em>
             <br />
             <div>
                 @Model.Message1

@@ -52,6 +52,13 @@ namespace Alllive.Controllers
         {
             ViewBag.Message = "Registration Page";
             ViewBag.minuteOptions = Utilities.GetTimeFrames();
+            ViewBag.TimeZones = TimeZoneInfo.GetSystemTimeZones().Select(a => new SelectListItem() { Text = a.DisplayName, Value = a.Id });
+            var m = new UserModel()
+            {
+                TimeZone = "Eastern Standard Time"
+            };
+
+
             return View();
         }
 
@@ -198,7 +205,8 @@ namespace Alllive.Controllers
             {
                 UserId = model.UserID,
                 UserName = model.UserName,
-                Password = model.passwords.ToString()
+                Password = model.passwords.ToString(),
+                TimeZone = model.TimeZone
             };
 
             /// Assigning the session variables (password/username) into the UserModel 
@@ -322,8 +330,23 @@ namespace Alllive.Controllers
             {
                 tutorVM = new TutorViewModel();
             }
+            if (string.IsNullOrEmpty(tutorVM.User.TimeZone))
+            {
+                tutorVM.User.TimeZone = "Eastern Standard Time";
+            }
+            ViewBag.TimeZones = TimeZoneInfo.GetSystemTimeZones().Select(a => new SelectListItem() { Text = a.DisplayName, Value = a.Id });
+
             return View(tutorVM);
 
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult SaveUserProfile(User user)
+        {
+            Dc.Users.Attach(user);
+            Dc.Entry(user).State = EntityState.Modified;
+            Dc.SaveChanges();
+            return Json(new { });
         }
 
     }

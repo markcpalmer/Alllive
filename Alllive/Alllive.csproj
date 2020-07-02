@@ -52,6 +52,7 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -64,6 +65,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -140,6 +142,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Email.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\AllLiveDb2.Context.cs">
       <AutoGen>True</AutoGen>
@@ -164,6 +168,9 @@
     </Compile>
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Message.cs">
+      <DependentUpon>AllLiveDb2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MessageCenter.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MessageUserViewModel.cs" />

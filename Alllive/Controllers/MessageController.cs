@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Net.Mail;
 using System.Web.Mvc;
+using Alllive.Helpers;
 using Alllive.Models;
 
 namespace Alllive.Controllers
@@ -38,7 +40,9 @@ namespace Alllive.Controllers
 
             Dc.Messages.Add(getMessage);
             Dc.SaveChanges();
-
+            ViewBag.MyTimeZone = currentUser.TimeZone;
+            string displayName = Dc.Users.Where(a => a.UserID == getMessage.SenderID).Select(a => a.FirstName + " " + a.LastName).FirstOrDefault();
+            SendEmailToUsers(new List<int> { getMessage.ReceiverID }, displayName);
             return PartialView("_Message",getMessage);
         }
 
@@ -48,13 +52,15 @@ namespace Alllive.Controllers
             ViewBag.receiverID = userID;
 
             int myID = currentUser.UserId;
+            ViewBag.MyTimeZone = currentUser.TimeZone;
+
             var storeMessages = Dc.Messages.Where(a => (a.ReceiverID == userID && a.SenderID == myID) || (a.ReceiverID == myID && a.SenderID == userID)).ToList();
             return PartialView(storeMessages);
         }
         public ActionResult MessageCenter(int? userID)
         {
             int myID = currentUser.UserId;
-
+            ViewBag.MyTimeZone = currentUser.TimeZone;
             ViewBag.myUserID = currentUser.UserId;
             var messageUsers = Dc.Messages
                 .Where(a => a.ReceiverID == myID)
@@ -74,6 +80,24 @@ namespace Alllive.Controllers
             ViewBag.recieverID = userID;
             return View(messageUsers);
 
+
+
+        }
+        private void SendEmailToUsers(List<int> To, string Host)
+        {
+
+            foreach (var person in To)
+            {
+                var ToPerson = Dc.Users.FirstOrDefault(a => a.UserID == person);
+                if (ToPerson != null)
+                {
+                    MailMessage message = Email.GetEmailMessage(ToPerson.UserName, ToPerson.FirstName + " " + ToPerson.LastName, string.Empty, string.Empty);
+                    message.Subject = "You have received a message";
+                    message.Body = "You have received a message from " + Host;
+                    Email.SendMessage(message);
+                }
+
+            }
 
 
         }

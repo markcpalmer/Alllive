@@ -14,6 +14,7 @@ namespace Alllive.Models
         [Required(ErrorMessage = "Email required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string UserName { get; set; }
+        public string TimeZone { get; set; }
 
         [Required(ErrorMessage = "Last Name Required")]
         public string LastName { get; set; }

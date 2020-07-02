@@ -18,6 +18,8 @@ namespace Alllive.Controllers
         public ActionResult ScheduleMeeting(int sessionID = 0)
         {
             ViewBag.minuteOptions = Utilities.GetTimeFrames();
+            ViewBag.TimeZones = TimeZoneInfo.GetSystemTimeZones().Select(a => new SelectListItem() { Text = a.DisplayName, Value = a.Id });
+
             var profile = Dc.TutorProfiles.FirstOrDefault(a => a.UserID == currentUser.UserId);
             if (profile != null)
             {
@@ -30,12 +32,12 @@ namespace Alllive.Controllers
             }
             else
             {
-                m.StartTime = DateTime.UtcNow;
-                m.EndTime = DateTime.UtcNow.AddMinutes(45);
+                m.StartTime = DateTime.UtcNow.GetLocalTime(currentUser.TimeZone);
+                m.EndTime = DateTime.UtcNow.AddMinutes(45).GetLocalTime(currentUser.TimeZone);
                 m.EndDateBy = DateTime.UtcNow.AddMonths(1);
                 m.HostUserID = currentUser.UserId;
                 //todo: find users default timezone
-                m.TimeZone = "";
+                m.TimeZone = currentUser.TimeZone;
             }
 
 
@@ -54,6 +56,8 @@ namespace Alllive.Controllers
                 //TimeSpan Start, End = new TimeSpan();
                 //Start = m.StartTime.TimeOfDay;
                 //End = m.EndTime.TimeOfDay;
+                m.StartTime = m.StartTime.GetFromLocalTime(m.TimeZone);
+                m.EndTime = m.EndTime.GetFromLocalTime(m.TimeZone);
 
                 //TimeZone
                 if (m.SessionID > 0)
@@ -66,6 +70,7 @@ namespace Alllive.Controllers
                 {
                     m.HostUserID = currentUser.UserId;
                     m.Active = "Y";
+                    m.Date = m.StartTime.Date;
                     //meeting link
                     string meetingID = Membership.GeneratePassword(10, 2);
 
@@ -85,7 +90,7 @@ namespace Alllive.Controllers
                     {
                         m.Frequency = 0; m.RepeatDaily = 0; m.RepeatWeekly = 0; m.RepeatMonthly = 0; m.Sunday = false; m.Monday = false; m.Tuesday = false;
                         m.Wednesday = false; m.Thursday = false; m.Friday = false; m.Saturday = false; m.RepeatMonthRadio1 = false;
-                        m.RepeatMonthRadio2 = false; m.Radio2List1 = 0; m.Radio2List2 = 0; m.EndDateBy = new DateTime(); m.EndDateAfter = 0;
+                        m.RepeatMonthRadio2 = false; m.Radio2List1 = 0; m.Radio2List2 = 0; m.EndDateBy = DateTime.UtcNow; m.EndDateAfter = 0;
 
                     }
 
@@ -205,30 +210,18 @@ namespace Alllive.Controllers
         }
         public void SendEmailToUsers(List<int> To, string Host)
         {
-            MailMessage Mail = new MailMessage();
-
-            Mail.From = new MailAddress("Mail@itsalllive.com");
-             
+                         
             foreach(var person in To)
             {
-                var personID = Dc.Users.Where(a => a.UserID == person).Select(b=>b.UserName).FirstOrDefault();
-                Mail.To.Add(personID);
-                Mail.Subject = "Your meeting has been cancelled";
-                Mail.Body = "Your meeting with " + Host + " has been cancelled.";
-
-                using (var smtp = new SmtpClient())
+                var ToPerson = Dc.Users.FirstOrDefault(a => a.UserID == person);
+                if(ToPerson != null)
                 {
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "Mail@itsalllive.com",
-                        Password = "G00gl3!@"
-                    };
-                    smtp.Port = 587;
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtpout.secureserver.net";
-                    smtp.EnableSsl = false;
-                    smtp.Send(Mail);
+                    MailMessage message = Email.GetEmailMessage(ToPerson.UserName, ToPerson.FirstName + " " + ToPerson.LastName, string.Empty, string.Empty);
+                    message.Subject = "Your meeting has been cancelled";
+                    message.Body = "Your meeting with " + Host + " has been cancelled.";
+                    Email.SendMessage(message);
                 }
+               
             }
             
             
