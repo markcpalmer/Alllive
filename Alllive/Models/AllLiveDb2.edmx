@@ -69,7 +69,7 @@
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="StartTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="TimeZone" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="TimeZone" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Recurr" Type="bit" Nullable="false" />
           <Property Name="Frequency" Type="int" Nullable="false" />
           <Property Name="RepeatDaily" Type="int" Nullable="false" />
@@ -579,7 +579,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="TimeZone" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="TimeZone" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Recurr" Type="Boolean" Nullable="false" />
           <Property Name="Frequency" Type="Int32" Nullable="false" />
           <Property Name="RepeatDaily" Type="Int32" Nullable="false" />

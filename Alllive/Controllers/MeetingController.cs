@@ -52,68 +52,90 @@ namespace Alllive.Controllers
 
             if (ModelState.IsValid)
             {
-                //Time Sessions
+                try
+                {
+
+                
+                               //Time Sessions
                 //TimeSpan Start, End = new TimeSpan();
                 //Start = m.StartTime.TimeOfDay;
                 //End = m.EndTime.TimeOfDay;
                 m.StartTime = m.StartTime.GetFromLocalTime(m.TimeZone);
                 m.EndTime = m.EndTime.GetFromLocalTime(m.TimeZone);
 
-                //TimeZone
-                if (m.SessionID > 0)
-                {
-                    Dc.ScheduleMeetings.Attach(m);
-                    Dc.Entry(m).State = System.Data.Entity.EntityState.Modified;
-                    Dc.SaveChanges();
-                }
-                else
-                {
-                    m.HostUserID = currentUser.UserId;
-                    m.Active = "Y";
-                    m.Date = m.StartTime.Date;
-                    //meeting link
-                    string meetingID = Membership.GeneratePassword(10, 2);
-
-                    m.MeetingLink = "https://www.groupworld.net/room/3437/" + meetingID + "?show_timer=true&timer_two_users=true";
-
-                    //Radio button logic
-                    //You MUST get ALL the values for Recurr
-                    if (m.Recurr == true)
+                    //TimeZone
+                    if (m.SessionID > 0)
                     {
-                        //Monthly
-                        if (m.Frequency == 3)
+                        Dc.ScheduleMeetings.Attach(m);
+                        Dc.Entry(m).State = System.Data.Entity.EntityState.Modified;
+                        Dc.SaveChanges();
+                    }
+                    else
+                    {
+                        m.HostUserID = currentUser.UserId;
+                        m.Active = "Y";
+                        m.Date = m.StartTime.Date;
+                        //meeting link
+                        string meetingID = Membership.GeneratePassword(10, 2);
+
+                        m.MeetingLink = "https://www.groupworld.net/room/3437/" + meetingID + "?show_timer=true&timer_two_users=true";
+
+                        //Radio button logic
+                        //You MUST get ALL the values for Recurr
+                        if (m.Recurr == true)
                         {
-                            //m.RepeatFrequency
+                            //Monthly
+                            if (m.Frequency == 3)
+                            {
+                                //m.RepeatFrequency
+                            }
+                        }
+                        else // sets the following to defaults
+                        {
+                            m.Frequency = 0; m.RepeatDaily = 0; m.RepeatWeekly = 0; m.RepeatMonthly = 0; m.Sunday = false; m.Monday = false; m.Tuesday = false;
+                            m.Wednesday = false; m.Thursday = false; m.Friday = false; m.Saturday = false; m.RepeatMonthRadio1 = false;
+                            m.RepeatMonthRadio2 = false; m.Radio2List1 = 0; m.Radio2List2 = 0; m.EndDateBy = DateTime.UtcNow; m.EndDateAfter = 0;
+                        }
+
+
+                        Dc.ScheduleMeetings.Add(m);
+                        Dc.SaveChanges();
+                        var schedule = new Schedule()
+                        {
+                            SessionID = m.SessionID,
+                            UserID = currentUser.UserId
+                        };
+                        Dc.Schedules.Add(schedule);
+                        Dc.SaveChanges();
+                        ModelState.Clear();
+                        // needs to input into the schedule table because thats the table that is populating
+                        // the schedule
+                        //
+                        //redirects user to different action"                    
+                        //This needs to change (Either Success view or take user to "Add to Calendar Page/Review Meeting Page"
+
+                        // jquery is preventing any kind of action
+                        // return RedirectToAction("Schedule", "User", new { ID = currentUser.UserId });//redirects user to different action"                    
+                    }
+                
+            }
+                catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                {
+                    Exception raise = ex;
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string message = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            // raise a new exception nesting  
+                            // the current instance as InnerException  
+                            raise = new InvalidOperationException(message, raise);
                         }
                     }
-                    else // sets the following to defaults
-                    {
-                        m.Frequency = 0; m.RepeatDaily = 0; m.RepeatWeekly = 0; m.RepeatMonthly = 0; m.Sunday = false; m.Monday = false; m.Tuesday = false;
-                        m.Wednesday = false; m.Thursday = false; m.Friday = false; m.Saturday = false; m.RepeatMonthRadio1 = false;
-                        m.RepeatMonthRadio2 = false; m.Radio2List1 = 0; m.Radio2List2 = 0; m.EndDateBy = DateTime.UtcNow; m.EndDateAfter = 0;
-
-                    }
-
-
-                    Dc.ScheduleMeetings.Add(m);
-                    Dc.SaveChanges();
-                    var schedule = new Schedule()
-                    {
-                        SessionID = m.SessionID,
-                        UserID = currentUser.UserId
-                    };
-                    Dc.Schedules.Add(schedule);
-                    Dc.SaveChanges();
-                    ModelState.Clear();
-                    // needs to input into the schedule table because thats the table that is populating
-                    // the schedule
-                    //
-                    //redirects user to different action"                    
-                    //This needs to change (Either Success view or take user to "Add to Calendar Page/Review Meeting Page"
-
-                    // jquery is preventing any kind of action
-                    // return RedirectToAction("Schedule", "User", new { ID = currentUser.UserId });//redirects user to different action"                    
                 }
+
                 m.Attendees = Dc.Attendees.Where(a => a.SessionID == m.SessionID).ToList();
             }
             //m.EndDateBy = new DateTime();
