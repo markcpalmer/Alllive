@@ -51,8 +51,7 @@ namespace Alllive.Controllers
         public ActionResult Register()
         {
             ViewBag.Message = "Registration Page";
-            ViewBag.minuteOptions = Utilities.GetTimeFrames();
-            ViewBag.TimeZones = TimeZoneInfo.GetSystemTimeZones().Select(a => new SelectListItem() { Text = a.DisplayName, Value = a.Id });
+           
             var m = new UserModel()
             {
                 TimeZone = "Eastern Standard Time"
@@ -334,7 +333,6 @@ namespace Alllive.Controllers
             {
                 tutorVM.User.TimeZone = "Eastern Standard Time";
             }
-            ViewBag.TimeZones = TimeZoneInfo.GetSystemTimeZones().Select(a => new SelectListItem() { Text = a.DisplayName, Value = a.Id });
 
             return View(tutorVM);
 

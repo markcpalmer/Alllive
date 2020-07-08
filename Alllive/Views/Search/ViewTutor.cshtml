@@ -10,12 +10,12 @@
 
     <div class="pull-right">
         <p>
-        <a class="btn btn-primary" href="@Url.Action("Request","Schedule",new {tutorProfileID=Model.TutorProfile.TutorProfileID })">Schedule</a>
+        <a class="btn btn-primary" href="@Url.Action("RequestTutor","Schedule",new {tutorProfileID=Model.TutorProfile.TutorProfileID })">Request</a>
         </p>
         @if (ViewBag.myUserID != null)
         {
             <p>
-            <a class="btn btn-primary" href="@Url.Action("Compose", "Message", new { recieverID = Model.User.UserID, senderID = ViewBag.myUserID })">Message Tutor</a>
+            <a class="btn btn-primary" href="@Url.Action("MessageCenter", "Message", new { userID = Model.User.UserID })">Message Tutor</a>
              </p>
         }
     </div>
@@ -116,7 +116,6 @@
                         </div>
                         <div class="col-md-2">
                             @Model.TutorProfile.TuesdayEnd
-
                         </div>
                     }
                 </div>

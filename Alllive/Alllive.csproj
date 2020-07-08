@@ -137,6 +137,7 @@
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -844,6 +845,7 @@
     <Content Include="Views\Message\Compose.cshtml" />
     <Content Include="Views\Message\MessageCenter.cshtml" />
     <Content Include="Views\Message\_Message.cshtml" />
+    <Content Include="Views\Schedule\RequestTutor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

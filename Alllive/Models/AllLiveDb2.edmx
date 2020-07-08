@@ -473,7 +473,6 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Images" EntityType="AllliveDBModel.Image" />
-          <EntitySet Name="TutorProfiles" EntityType="AllliveDBModel.TutorProfile" />
           <EntitySet Name="Attendees" EntityType="AllliveDBModel.Attendee" />
           <EntitySet Name="ScheduleMeetings" EntityType="AllliveDBModel.ScheduleMeeting" />
           <AssociationSet Name="FK_Attendee_ScheduleMeeting" Association="AllliveDBModel.FK_Attendee_ScheduleMeeting">
@@ -482,6 +481,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           </AssociationSet>
           <EntitySet Name="Messages" EntityType="AllliveDBModel.Message" />
           <EntitySet Name="MessageCenters" EntityType="AllliveDBModel.MessageCenter" />
+          <EntitySet Name="TutorProfiles" EntityType="AllliveDBModel.TutorProfile" />
         </EntityContainer>
         <ComplexType Name="UserSchedule_Result">
           <Property Type="Int32" Name="UserID" Nullable="false" />
@@ -520,42 +520,6 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="FileThumbPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="TutorProfile">
-          <Key>
-            <PropertyRef Name="TutorProfileID" />
-          </Key>
-          <Property Name="TutorProfileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="HeadLine" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Rate" Type="Double" Nullable="false" />
-          <Property Name="Sunday" Type="Boolean" Nullable="false" />
-          <Property Name="Monday" Type="Boolean" Nullable="false" />
-          <Property Name="Tuesday" Type="Boolean" Nullable="false" />
-          <Property Name="Wednesday" Type="Boolean" Nullable="false" />
-          <Property Name="Thursday" Type="Boolean" Nullable="false" />
-          <Property Name="Friday" Type="Boolean" Nullable="false" />
-          <Property Name="Saturday" Type="Boolean" Nullable="false" />
-          <Property Name="StudentLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Math" Type="Boolean" Nullable="false" />
-          <Property Name="Reading" Type="Boolean" Nullable="false" />
-          <Property Name="Science" Type="Boolean" Nullable="false" />
-          <Property Name="ImageID" Type="Int32" />
-          <Property Name="SundayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SundayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MondayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MondayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TuesdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TuesdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="WednesdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="WednesdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ThursdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ThursdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FridayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FridayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SaturdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SaturdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Attendee">
           <Key>
@@ -635,6 +599,42 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="TutorProfile">
+          <Key>
+            <PropertyRef Name="TutorProfileID" />
+          </Key>
+          <Property Name="TutorProfileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="HeadLine" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="Double" Nullable="false" />
+          <Property Name="Sunday" Type="Boolean" Nullable="false" />
+          <Property Name="Monday" Type="Boolean" Nullable="false" />
+          <Property Name="Tuesday" Type="Boolean" Nullable="false" />
+          <Property Name="Wednesday" Type="Boolean" Nullable="false" />
+          <Property Name="Thursday" Type="Boolean" Nullable="false" />
+          <Property Name="Friday" Type="Boolean" Nullable="false" />
+          <Property Name="Saturday" Type="Boolean" Nullable="false" />
+          <Property Name="StudentLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Math" Type="Boolean" Nullable="false" />
+          <Property Name="Reading" Type="Boolean" Nullable="false" />
+          <Property Name="Science" Type="Boolean" Nullable="false" />
+          <Property Name="ImageID" Type="Int32" />
+          <Property Name="SundayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SundayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MondayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MondayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TuesdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TuesdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WednesdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WednesdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ThursdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ThursdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FridayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FridayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SaturdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SaturdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -732,43 +732,6 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TutorProfiles">
-            <EntityTypeMapping TypeName="AllliveDBModel.TutorProfile">
-              <MappingFragment StoreEntitySet="TutorProfile">
-                <ScalarProperty Name="SaturdayEnd" ColumnName="SaturdayEnd" />
-                <ScalarProperty Name="SaturdayStart" ColumnName="SaturdayStart" />
-                <ScalarProperty Name="FridayEnd" ColumnName="FridayEnd" />
-                <ScalarProperty Name="FridayStart" ColumnName="FridayStart" />
-                <ScalarProperty Name="ThursdayEnd" ColumnName="ThursdayEnd" />
-                <ScalarProperty Name="ThursdayStart" ColumnName="ThursdayStart" />
-                <ScalarProperty Name="WednesdayEnd" ColumnName="WednesdayEnd" />
-                <ScalarProperty Name="WednesdayStart" ColumnName="WednesdayStart" />
-                <ScalarProperty Name="TuesdayEnd" ColumnName="TuesdayEnd" />
-                <ScalarProperty Name="TuesdayStart" ColumnName="TuesdayStart" />
-                <ScalarProperty Name="MondayEnd" ColumnName="MondayEnd" />
-                <ScalarProperty Name="MondayStart" ColumnName="MondayStart" />
-                <ScalarProperty Name="SundayEnd" ColumnName="SundayEnd" />
-                <ScalarProperty Name="SundayStart" ColumnName="SundayStart" />
-                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
-                <ScalarProperty Name="Science" ColumnName="Science" />
-                <ScalarProperty Name="Reading" ColumnName="Reading" />
-                <ScalarProperty Name="Math" ColumnName="Math" />
-                <ScalarProperty Name="StudentLevel" ColumnName="StudentLevel" />
-                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
-                <ScalarProperty Name="Friday" ColumnName="Friday" />
-                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
-                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
-                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
-                <ScalarProperty Name="Monday" ColumnName="Monday" />
-                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="Bio" ColumnName="Bio" />
-                <ScalarProperty Name="HeadLine" ColumnName="HeadLine" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="TutorProfileID" ColumnName="TutorProfileID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Attendees">
             <EntityTypeMapping TypeName="AllliveDBModel.Attendee">
               <MappingFragment StoreEntitySet="Attendee">
@@ -835,6 +798,43 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="MessageSessionID" ColumnName="MessageSessionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TutorProfiles">
+            <EntityTypeMapping TypeName="AllliveDBModel.TutorProfile">
+              <MappingFragment StoreEntitySet="TutorProfile">
+                <ScalarProperty Name="SaturdayEnd" ColumnName="SaturdayEnd" />
+                <ScalarProperty Name="SaturdayStart" ColumnName="SaturdayStart" />
+                <ScalarProperty Name="FridayEnd" ColumnName="FridayEnd" />
+                <ScalarProperty Name="FridayStart" ColumnName="FridayStart" />
+                <ScalarProperty Name="ThursdayEnd" ColumnName="ThursdayEnd" />
+                <ScalarProperty Name="ThursdayStart" ColumnName="ThursdayStart" />
+                <ScalarProperty Name="WednesdayEnd" ColumnName="WednesdayEnd" />
+                <ScalarProperty Name="WednesdayStart" ColumnName="WednesdayStart" />
+                <ScalarProperty Name="TuesdayEnd" ColumnName="TuesdayEnd" />
+                <ScalarProperty Name="TuesdayStart" ColumnName="TuesdayStart" />
+                <ScalarProperty Name="MondayEnd" ColumnName="MondayEnd" />
+                <ScalarProperty Name="MondayStart" ColumnName="MondayStart" />
+                <ScalarProperty Name="SundayEnd" ColumnName="SundayEnd" />
+                <ScalarProperty Name="SundayStart" ColumnName="SundayStart" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+                <ScalarProperty Name="Science" ColumnName="Science" />
+                <ScalarProperty Name="Reading" ColumnName="Reading" />
+                <ScalarProperty Name="Math" ColumnName="Math" />
+                <ScalarProperty Name="StudentLevel" ColumnName="StudentLevel" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="HeadLine" ColumnName="HeadLine" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TutorProfileID" ColumnName="TutorProfileID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

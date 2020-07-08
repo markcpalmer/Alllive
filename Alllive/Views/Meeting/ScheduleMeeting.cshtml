@@ -77,7 +77,7 @@
             @Html.Label("Time Zone")
         </div>
         <div class="col-sm-6">
-            @Html.DropDownListFor(a => a.TimeZone, (IEnumerable<SelectListItem>)ViewBag.TimeZones
+            @Html.DropDownListFor(a => a.TimeZone, Utilities.GetTimeZones()
        //{
        //   new SelectListItem{ Text="(GMT -12:00) Eniwetok, Kwajalein", Value = "-12:00" },
        //   new SelectListItem{ Text="(GMT -11:00) Midway Island, Samoa", Value = "-11:00" },

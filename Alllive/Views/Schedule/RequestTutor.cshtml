@@ -1,0 +1,289 @@
+﻿@model Alllive.Models.TutorViewModel
+@{
+    ViewBag.Title = "";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            @if (Model.TutorProfile.ImageID.HasValue)
+            {
+                <img width="70" height="70" src="@Url.Action("Index","Images",new {imageID=Model.TutorProfile.ImageID.Value })" />
+            }
+            else
+            {
+                <img width="70" height="70" src="~/Images/silhoutte.png" />
+            }
+            <div class="list-group-item-text">
+                <h5>@Model.TutorProfile.HeadLine</h5>
+                <hr />
+                <p>@Model.TutorProfile.Bio</p>
+
+            </div>
+
+            @if (Model.TutorProfile != null)
+            {
+
+                <div class="row">
+                    <div class="col-md-1">
+                        <label>Rate</label>
+                    </div>
+                    <div class="col-md-1">
+                        $@Model.TutorProfile.Rate /Hr
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1">
+                        Subjects
+                    </div>
+                    <div class="col-md-1">
+                        @if (@Model.TutorProfile.Reading)
+                        {
+                            <h6>Reading</h6>
+                        }
+                        @if (@Model.TutorProfile.Math)
+                        {
+                            <h6>Maths</h6>
+                        }
+                        @if (@Model.TutorProfile.Science)
+                        {
+                            <h6>Science</h6>
+                        }
+                    </div>
+                </div>
+                <hr />
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Availability</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Start Time</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label>End Time</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+
+                        <span>Monday: </span>
+
+                    </div>
+                    @if (Model.TutorProfile.Monday)
+                    {
+                        <div class="col-md-2">
+                            @Model.TutorProfile.MondayStart
+                        </div>
+                        <div class="col-md-2">
+                            @Model.TutorProfile.MondayEnd
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2">Unavailable</div>
+                        <div class="col-md-2">Unavailable</div>}
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+
+                        <span>Tuesday: </span>
+
+                    </div>
+                    @if (Model.TutorProfile.Tuesday)
+                    {
+                        <div class="col-md-2">
+                            @Model.TutorProfile.TuesdayStart
+                        </div>
+                        <div class="col-md-2">
+                            @Model.TutorProfile.TuesdayEnd
+
+                        </div>
+                    }
+                    else { 
+                    <div class="col-md-2">Unavailable</div>
+                    <div class="col-md-2">Unavailable</div>}
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+
+                        <span>Wednesday: </span>
+
+                    </div>
+                    @if (Model.TutorProfile.Wednesday)
+                    {
+
+
+                        <div class="col-md-2">
+                            @Model.TutorProfile.WednesdayStart
+                        </div>
+                        <div class="col-md-2">
+                            @Model.TutorProfile.WednesdayEnd
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2">Unavailable</div>
+                        <div class="col-md-2">Unavailable</div>}
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+
+                        <span>Thursday: </span>
+
+                    </div>
+                    @if (Model.TutorProfile.Thursday)
+                    {
+
+
+                        <div class="col-md-2">
+                            @Model.TutorProfile.ThursdayStart
+                        </div>
+                        <div class="col-md-2">
+                            @Model.TutorProfile.ThursdayEnd
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2">Unavailable</div>
+                        <div class="col-md-2">Unavailable</div>}
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+
+                        <span>Friday: </span>
+
+                    </div>
+                    @if (Model.TutorProfile.Friday)
+                    {
+
+
+                        <div class="col-md-2">
+                            @Model.TutorProfile.FridayStart
+                        </div>
+                        <div class="col-md-2">
+                            @Model.TutorProfile.FridayEnd
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2">Unavailable</div>
+                        <div class="col-md-2">Unavailable</div>}
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+
+                        <span>Saturday: </span>
+
+                    </div>
+                    @if (Model.TutorProfile.Saturday)
+                    {
+
+
+                        <div class="col-md13">
+                            @Model.TutorProfile.SaturdayStart
+                        </div>
+                        <div class="col-md-2">
+                            @Model.TutorProfile.SaturdayEnd
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2">Unavailable</div>
+                        <div class="col-md-2">Unavailable</div>}
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+
+                        <span>Sunday: </span>
+
+                    </div>
+                    @if (Model.TutorProfile.Sunday)
+                    {
+
+
+                        <div class="col-md-2">
+                            @Model.TutorProfile.SundayStart
+                        </div>
+                        <div class="col-md-2">
+                            @Model.TutorProfile.SundayEnd
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2">Unavailable</div>
+                        <div class="col-md-2">Unavailable</div>}
+                </div>
+
+
+                @*<a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfile.TutorProfileID })">Edit</a>*@
+            }
+        </div>
+@using (Html.BeginForm("RequestTutor", "Schedule", FormMethod.Post))
+{
+
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-sm-2">
+                    @Html.Label("Start Time")
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group date">
+                        @*@Html.TextBoxFor(a => a.StartTime, new { @class = "form-control" })*@
+                        @Html.TextBox("StartTime", null, new { @class = "form-control" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    @Html.Label("End Time")
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group date">
+                        @*@Html.TextBoxFor(a => a.EndTime, new { @class = "form-control" })*@
+                        @Html.TextBox("EndTime", null, new { @class = "form-control" })
+
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Send Request</button>
+            </div>
+        </div>
+}
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        function datetimechange(e) {
+            $("input", this).val(e.date); // sets input to selected date
+        }
+        $(document).ready(function () {
+            $("#StartTime").datetimepicker({ locale: "en" }).on("dp.change", datetimechange);
+            $("#EndTime").datetimepicker({locale:"en"}).on("dp.change", datetimechange);
+
+        });
+    </script>
+}

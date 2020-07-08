@@ -31,7 +31,7 @@
 
                 </div>
                 <div class="col-sm-9">
-                    @Html.DropDownListFor(a => a.User.TimeZone, (IEnumerable<SelectListItem>)ViewBag.TimeZones, new { @class = "form-control", @placeholder = "Time Zone" })
+                    @Html.DropDownListFor(a => a.User.TimeZone, Utilities.GetTimeZones(), new { @class = "form-control", @placeholder = "Time Zone" })
                 </div>
             </div>
 

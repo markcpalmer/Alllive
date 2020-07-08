@@ -108,7 +108,7 @@
                     @Html.Label("TimeZone")
                 </div>
                 <div class="col-sm-7">
-                    @Html.DropDownListFor(a => a.TimeZone,(IEnumerable<SelectListItem>) ViewBag.TimeZones, new { @class = "form-control", @placeholder = "Time Zone" })
+                    @Html.DropDownListFor(a => a.TimeZone,Utilities.GetTimeZones(), new { @class = "form-control", @placeholder = "Time Zone" })
                 </div>
             </div>
 
@@ -209,10 +209,10 @@
                         </label>
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.MonStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.MonStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.MonEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.MonEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                 </div>
                 <div class="row">
@@ -223,10 +223,10 @@
                         </label>
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.TueStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.TueStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.TueEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.TueEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                 </div>
                 <div class="row">
@@ -237,10 +237,10 @@
                         </label>
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.WedStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.WedStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.WedEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.WedEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                 </div>
                 <div class="row">
@@ -251,10 +251,10 @@
                         </label>
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.ThuStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.ThuStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.ThuEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.ThuEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                 </div>
                 <div class="row">
@@ -265,10 +265,10 @@
                         </label>
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.FriStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.FriStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.FriEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.FriEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                 </div>
                 <div class="row">
@@ -279,10 +279,10 @@
                         </label>
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.SatStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.SatStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.SatEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.SatEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                 </div>
                 <div class="row">
@@ -293,10 +293,10 @@
                         </label>
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.SunStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.SunStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownListFor(a => a.SunEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                        @Html.DropDownListFor(a => a.SunEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
                     </div>
                 </div>
 

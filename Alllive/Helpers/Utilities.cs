@@ -8,6 +8,12 @@ namespace Alllive.Helpers
 {
     public class Utilities
     {
+        public static IEnumerable<SelectListItem> GetTimeZones()
+        {
+            return TimeZoneInfo.GetSystemTimeZones().Select(a => new SelectListItem() { Text = a.DisplayName, Value = a.Id });
+
+        }
+
         public static IEnumerable<SelectListItem> GetTimeFrames()
         {
             string[] minutes = new string[]

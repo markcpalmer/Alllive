@@ -17,8 +17,6 @@ namespace Alllive.Controllers
         [Authorize]
         public ActionResult ScheduleMeeting(int sessionID = 0)
         {
-            ViewBag.minuteOptions = Utilities.GetTimeFrames();
-            ViewBag.TimeZones = TimeZoneInfo.GetSystemTimeZones().Select(a => new SelectListItem() { Text = a.DisplayName, Value = a.Id });
 
             var profile = Dc.TutorProfiles.FirstOrDefault(a => a.UserID == currentUser.UserId);
             if (profile != null)
@@ -107,7 +105,6 @@ namespace Alllive.Controllers
                         };
                         Dc.Schedules.Add(schedule);
                         Dc.SaveChanges();
-                        ModelState.Clear();
                         // needs to input into the schedule table because thats the table that is populating
                         // the schedule
                         //

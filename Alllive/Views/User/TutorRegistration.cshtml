@@ -1,6 +1,6 @@
 ﻿@model Alllive.Models.TutorProfile
 
-@using (Html.BeginForm("SaveTutor", "User", FormMethod.Post))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
+@using (Ajax.BeginForm("SaveTutor", "User", new AjaxOptions { HttpMethod="Post"} ))  // how does it know this is the usercontroller since it says user? Is it because of the @model statment at the top?
 {
     @Html.HiddenFor(m => m.UserID)
     @Html.HiddenFor(m => m.TutorProfileID)
@@ -72,10 +72,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.MondayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.MondayStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.MondayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.MondayEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -86,10 +86,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.TuesdayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.TuesdayStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.TuesdayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.TuesdayEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -100,10 +100,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.WednesdayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.WednesdayStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.WednesdayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.WednesdayEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -114,10 +114,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.ThursdayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.ThursdayStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.ThursdayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.ThursdayEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -128,10 +128,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.FridayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.FridayStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.FridayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.FridayEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -142,10 +142,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.SaturdayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.SaturdayStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.SaturdayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.SaturdayEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
         </div>
         <div class="row">
@@ -156,10 +156,10 @@
                 </label>
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.SundayStart, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.SundayStart, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(a => a.SundayEnd, (IEnumerable<SelectListItem>)ViewBag.minuteOptions, new { @class = "form-control timep" })
+                @Html.DropDownListFor(a => a.SundayEnd, Utilities.GetTimeFrames(), new { @class = "form-control timep" })
             </div>
         </div>
 
@@ -171,7 +171,7 @@
     </p>
     <br />
 
-    <input type="submit" value="Submit" />
+    <button type="submit" class="btn btn-primary">Save Tutor Profile</button>
 
 
 }

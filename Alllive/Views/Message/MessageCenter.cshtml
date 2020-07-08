@@ -5,7 +5,7 @@
             <div class="col-md-3">
                 @foreach (var messageUser in Model)
                 {
-                    <div class="message-user" onclick="messageUser_Click(@messageUser.User.UserID, this)">
+                    <div class="message-user @(ViewBag.receiverID == messageUser.User.UserID?"highlighted":"")" onclick="messageUser_Click(@messageUser.User.UserID, this)">
                         <div>
                             <label>
                                 @messageUser.User.FirstName @messageUser.User.LastName
@@ -13,7 +13,7 @@
                         </div>
                         <div>
                             <em>
-                                @messageUser.TimeStamp.ToString("MM/dd/yyyy hh:mm tt")
+                                @messageUser.TimeStamp.GetLocalTime((string)ViewBag.MyTimeZone).ToString("MM/dd/yyyy hh:mm tt")
                             </em>
                         </div>
                         <hr />
@@ -24,7 +24,7 @@
                 <div id="thread-container">
                     @if (((int?)ViewBag.receiverID).HasValue)
                     {
-                        Html.RenderAction("MessageList", new { userID = ViewBag.receiverID.Value });
+                        Html.RenderAction("MessageList", new { userID = ViewBag.receiverID });
                     }
                 </div>
             </div>

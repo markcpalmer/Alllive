@@ -75,9 +75,14 @@ namespace Alllive.Controllers
                     m=>m.userID,
                     u=>u.UserID,
                     (m, u) => new MessageUserViewModel(){User=u,TimeStamp=m.TimeStamp}
-                );
+                ).ToList();
+            if(userID.HasValue && !messageUsers.Any(a=>a.User.UserID == userID.Value))
+            {
+                var receiver = Dc.Users.Find(userID.Value);
+                messageUsers.Add(new MessageUserViewModel() { User = receiver, TimeStamp = DateTime.UtcNow });
+            }
 
-            ViewBag.recieverID = userID;
+            ViewBag.receiverID = userID;
             return View(messageUsers);
 
 
