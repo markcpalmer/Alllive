@@ -229,10 +229,10 @@
                 @*<a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfile.TutorProfileID })">Edit</a>*@
             }
         </div>
-@using (Html.BeginForm("RequestTutor", "Schedule", FormMethod.Post))
+@using (Html.BeginForm("RequestTutor", "Schedule", FormMethod.Post, new { @onsubmit = "return requestTutorFormSubmit()"}))
 {
 
-
+    @Html.Hidden("receiverID", Model.User.UserID);
         <div class="col-md-8">
             <div class="row">
                 <div class="col-sm-2">
@@ -241,7 +241,7 @@
                 <div class="col-sm-4">
                     <div class="input-group date">
                         @*@Html.TextBoxFor(a => a.StartTime, new { @class = "form-control" })*@
-                        @Html.TextBox("StartTime", null, new { @class = "form-control" })
+                        @Html.TextBox("StartTime", null, new { @class = "form-control", @required = true})
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-time"></span>
                         </span>
@@ -256,7 +256,7 @@
                 <div class="col-sm-4">
                     <div class="input-group date">
                         @*@Html.TextBoxFor(a => a.EndTime, new { @class = "form-control" })*@
-                        @Html.TextBox("EndTime", null, new { @class = "form-control" })
+                        @Html.TextBox("EndTime", null, new { @class = "form-control", @required = true })
 
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-time"></span>
@@ -279,6 +279,25 @@
     <script>
         function datetimechange(e) {
             $("input", this).val(e.date); // sets input to selected date
+        }
+        function requestTutorFormSubmit() {
+            var startTime = $("#StartTime").val();
+            var endTime = $("#EndTime").val();
+            if (startTime && endTime) {
+                startTime = new Date(startTime);
+                endTime = new Date(endTime);
+                if (startTime > endTime) {
+                    let validation = Toastify({ text: "start time should be after end time", duration: 2000 });
+                    validation.showToast();
+                    return false;
+                }
+            }
+            else {
+                let validation = Toastify({ text: "start and end time required", duration: 2000 });
+                validation.showToast();
+                return false;
+            }
+
         }
         $(document).ready(function () {
             $("#StartTime").datetimepicker({ locale: "en" }).on("dp.change", datetimechange);

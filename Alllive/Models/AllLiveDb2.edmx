@@ -16,6 +16,32 @@
           <Property Name="UserID" Type="int" />
           <Property Name="Rate" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="BilledMeeting">
+          <Key>
+            <PropertyRef Name="BilledMeetingID" />
+          </Key>
+          <Property Name="BilledMeetingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="StudentUserID" Type="int" Nullable="false" />
+          <Property Name="TutorUserID" Type="int" Nullable="false" />
+          <Property Name="Summary" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="GeneralLedger">
+          <Key>
+            <PropertyRef Name="LedgerID" />
+          </Key>
+          <Property Name="LedgerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BilledMeetingID" Type="int" />
+          <Property Name="TxType" Type="nchar" MaxLength="20" />
+          <Property Name="UserAccountID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BankReference" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="Images">
           <Key>
             <PropertyRef Name="ImageID" />
@@ -155,6 +181,14 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="SaturdayStart" Type="nvarchar" MaxLength="20" />
           <Property Name="SaturdayEnd" Type="nvarchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="BankReference" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
@@ -164,6 +198,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="LastName" Type="varchar" MaxLength="255" />
           <Property Name="FirstName" Type="varchar" MaxLength="255" />
           <Property Name="TimeZone" Type="varchar(max)" />
+          <Property Name="isTutor" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Attendee_ScheduleMeeting">
           <End Role="ScheduleMeeting" Type="Self.ScheduleMeeting" Multiplicity="1" />
@@ -273,6 +308,8 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
         </Function>
         <EntityContainer Name="AllliveDBModelStoreContainer">
           <EntitySet Name="Attendee" EntityType="Self.Attendee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BilledMeeting" EntityType="Self.BilledMeeting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneralLedger" EntityType="Self.GeneralLedger" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MessageCenter" EntityType="Self.MessageCenter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
@@ -280,6 +317,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduleMeeting" EntityType="Self.ScheduleMeeting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TutorProfile" EntityType="Self.TutorProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SearchTutor" EntityType="Self.SearchTutor" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -340,6 +378,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <NavigationProperty Name="passwords" Relationship="Self.FK_Password_UserID" FromRole="Users" ToRole="password" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_UserID" FromRole="Users" ToRole="Schedule" />
           <Property Name="TimeZone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isTutor" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SearchTutor">
           <Key>
@@ -482,6 +521,9 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySet Name="Messages" EntityType="AllliveDBModel.Message" />
           <EntitySet Name="MessageCenters" EntityType="AllliveDBModel.MessageCenter" />
           <EntitySet Name="TutorProfiles" EntityType="AllliveDBModel.TutorProfile" />
+          <EntitySet Name="BilledMeetings" EntityType="AllliveDBModel.BilledMeeting" />
+          <EntitySet Name="GeneralLedgers" EntityType="AllliveDBModel.GeneralLedger" />
+          <EntitySet Name="UserAccounts" EntityType="AllliveDBModel.UserAccount" />
         </EntityContainer>
         <ComplexType Name="UserSchedule_Result">
           <Property Type="Int32" Name="UserID" Nullable="false" />
@@ -636,6 +678,40 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="SaturdayStart" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="SaturdayEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="BilledMeeting">
+          <Key>
+            <PropertyRef Name="BilledMeetingID" />
+          </Key>
+          <Property Name="BilledMeetingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="StudentUserID" Type="Int32" Nullable="false" />
+          <Property Name="TutorUserID" Type="Int32" Nullable="false" />
+          <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GeneralLedger">
+          <Key>
+            <PropertyRef Name="LedgerID" />
+          </Key>
+          <Property Name="LedgerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BilledMeetingID" Type="Int32" />
+          <Property Name="TxType" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="UserAccountID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="BankReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="BankReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -662,6 +738,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="AllliveDBModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="isTutor" ColumnName="isTutor" />
                 <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -835,6 +912,43 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
                 <ScalarProperty Name="HeadLine" ColumnName="HeadLine" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="TutorProfileID" ColumnName="TutorProfileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BilledMeetings">
+            <EntityTypeMapping TypeName="AllliveDBModel.BilledMeeting">
+              <MappingFragment StoreEntitySet="BilledMeeting">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="TutorUserID" ColumnName="TutorUserID" />
+                <ScalarProperty Name="StudentUserID" ColumnName="StudentUserID" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="BilledMeetingID" ColumnName="BilledMeetingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneralLedgers">
+            <EntityTypeMapping TypeName="AllliveDBModel.GeneralLedger">
+              <MappingFragment StoreEntitySet="GeneralLedger">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="BankReference" ColumnName="BankReference" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="TxType" ColumnName="TxType" />
+                <ScalarProperty Name="BilledMeetingID" ColumnName="BilledMeetingID" />
+                <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="AllliveDBModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="BankReference" ColumnName="BankReference" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

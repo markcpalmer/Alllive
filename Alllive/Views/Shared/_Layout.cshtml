@@ -31,7 +31,10 @@
 
                     @if (Session["AllLiveUser"] != null)
                     {
-                    <li>@Html.ActionLink("New Meeting", "ScheduleMeeting", "Meeting")</li>
+                        if (ViewBag.isTutor == true)
+                        {
+                            <li>@Html.ActionLink("New Meeting", "ScheduleMeeting", "Meeting")</li>
+                        }
                     <li>@Html.ActionLink("Schedule", "Index", "Home")</li>
                     }
                     <li>@Html.ActionLink("Join Meeting", "JoinMeeting", "Meeting")</li>

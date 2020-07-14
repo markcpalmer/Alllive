@@ -11,7 +11,7 @@ namespace Alllive.Controllers
     {
         protected UserModel currentUser;
         protected AllliveDBEntities Dc = new AllliveDBEntities();
-        
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
@@ -19,17 +19,21 @@ namespace Alllive.Controllers
             {
                 currentUser = (UserModel)filterContext.HttpContext.Session["AllliveUser"];
                 ViewBag.myUserID = currentUser.UserId;
+                ViewBag.isTutor = currentUser.isTutor;
             }
             var actionDescriptor = filterContext.ActionDescriptor.GetCustomAttributes(true);
             //var controllerDecriptor = filterContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(true);
             if (actionDescriptor.Any(a => a.GetType() == typeof(AuthorizeAttribute)))
-            { 
-                if(currentUser==null)
+            {
+                if (currentUser == null)
                 {
                     filterContext.Result = RedirectToAction("Login", "User");
                 }
             }
         }
-
+        public void SetUser(UserModel user)
+        {
+            currentUser = user;
+        }
     }
 }

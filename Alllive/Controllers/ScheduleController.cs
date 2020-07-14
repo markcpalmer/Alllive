@@ -1,7 +1,9 @@
-﻿using Alllive.Models;
+﻿using Alllive.Helpers;
+using Alllive.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,13 +35,28 @@ namespace Alllive.Controllers
         }
 
         [HttpPost]
-        public ActionResult RequestTutor(string StartTime, string EndTime)
+        public ActionResult RequestTutor(string StartTime, string EndTime, int receiverID)
         {
-            var sendMessage = new MessageController();
+           
             var m = new Message();
-
+            m.SenderID = currentUser.UserId;
+            m.ReceiverID = receiverID;
+            var sender = Dc.Users.Find(m.SenderID);
+            var receiver = Dc.Users.Find(m.ReceiverID);
+            if(sender != null && receiver != null)
+            {
+                string body = sender.FirstName + " " + sender.LastName + " wants to schedule a session\r\n";
+                body += StartTime + " to " + EndTime + "\r\n";
+                m.Message1 = body;
+                m.TimeStamp = DateTime.UtcNow;
+                Dc.Messages.Add(m);
+                Dc.SaveChanges();
+                MailMessage message = Email.GetEmailMessage(receiver.UserName, receiver.FirstName + " " + receiver.LastName, "you have recieved a message", body);
+                Email.SendMessage(message);
+            }
+           
             //need to populate message object and then send it using message controller
-            return View();
+            return RedirectToAction("MessageCenter","Message",new { userID = receiverID});
         }
     }
 }

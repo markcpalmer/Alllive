@@ -74,7 +74,8 @@ namespace Alllive.Models
         public string SunEnd { get; set; }
         public double Rate { get; set; }
         public string StudentLevel { get; set; }
-
+        public bool isTutor { get; set; }
+        
 
 
 

@@ -37,6 +37,9 @@ namespace Alllive.Models
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<MessageCenter> MessageCenters { get; set; }
         public virtual DbSet<TutorProfile> TutorProfiles { get; set; }
+        public virtual DbSet<BilledMeeting> BilledMeetings { get; set; }
+        public virtual DbSet<GeneralLedger> GeneralLedgers { get; set; }
+        public virtual DbSet<UserAccount> UserAccounts { get; set; }
     
         public virtual int CancelMeeting(Nullable<int> sessionID)
         {

@@ -18,6 +18,9 @@
         <EntityTypeShape EntityType="AllliveDBModel.Message" Width="1.5" PointX="10.375" PointY="0.75" />
         <EntityTypeShape EntityType="AllliveDBModel.MessageCenter" Width="1.5" PointX="8.375" PointY="4.75" />
         <EntityTypeShape EntityType="AllliveDBModel.TutorProfile" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="AllliveDBModel.BilledMeeting" Width="1.5" PointX="10.375" PointY="3.75" />
+        <EntityTypeShape EntityType="AllliveDBModel.GeneralLedger" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="AllliveDBModel.UserAccount" Width="1.5" PointX="10.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

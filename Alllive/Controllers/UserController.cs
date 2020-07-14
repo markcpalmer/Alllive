@@ -9,6 +9,7 @@ using Alllive.Helpers;
 using fs = System.IO;
 using System.Configuration;
 using System.Data.Entity;
+using Stripe;
 
 namespace Alllive.Controllers
 {
@@ -85,8 +86,9 @@ namespace Alllive.Controllers
                 {
                     UserName = RegisteredUser.UserName,
                     FirstName = RegisteredUser.FirstName,
-                    LastName = RegisteredUser.LastName
-
+                    LastName = RegisteredUser.LastName,
+                    TimeZone = RegisteredUser.TimeZone,
+                    isTutor = RegisteredUser.RegisterAsTutor
                 };
                 Dc.Users.Add(newUser);
                 Dc.SaveChanges();
@@ -205,9 +207,10 @@ namespace Alllive.Controllers
                 UserId = model.UserID,
                 UserName = model.UserName,
                 Password = model.passwords.ToString(),
-                TimeZone = model.TimeZone
+                TimeZone = model.TimeZone,
+                isTutor = model.isTutor
             };
-
+            ViewBag.isTutor = model.isTutor;
             /// Assigning the session variables (password/username) into the UserModel 
             /// to reference valid user within each controller of the project.
             /// AUTHENTICATION.  the website knows who the user is at all times
@@ -347,5 +350,67 @@ namespace Alllive.Controllers
             return Json(new { });
         }
 
+        public ActionResult StripeSendMoney()
+        {
+            //Stripe.CustomerCreateOptions customer = new CustomerCreateOptions();
+            //customer.Email = "mark.palmer@itsalllive.com";
+
+            Stripe.CreditCardOptions card = new CreditCardOptions();
+            card.Name = "Mark Palmer";
+            card.Number = "4242 4242 4242 4242";
+            card.ExpYear = 2021;
+            card.ExpMonth = 07;
+            card.Cvc = "483";
+            Stripe.TokenCreateOptions tokenCreate = new TokenCreateOptions();
+            tokenCreate.Card = card;
+            Stripe.TokenService tokenService = new TokenService();
+            Stripe.Token token = tokenService.Create(tokenCreate);
+
+            Stripe.CustomerCreateOptions customer = new CustomerCreateOptions();
+            customer.Email = "mark.palmer@itsalllive.com";
+            customer.Source = token.Id;
+            customer.Phone = "4409359237";
+            var custService = new Stripe.CustomerService();
+            Stripe.Customer stpCustomer = custService.Create(customer);
+
+
+
+
+
+
+
+
+            // Set your secret key. Remember to switch to your live secret key in production!
+            // See your keys here: https://dashboard.stripe.com/account/apikeys
+            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+
+            var options = new Stripe.ChargeCreateOptions
+            {
+                Amount = Convert.ToInt32(100),
+                Currency = "usd",
+                ReceiptEmail = customer.Email,
+                Customer = stpCustomer.Id
+                
+
+            };
+            var service = new Stripe.ChargeService();
+            Stripe.Charge charge = service.Create(options);
+
+            //var options = new PaymentIntentCreateOptions
+            //{
+            //    Amount = Convert.ToInt32(5),
+            //    //Customer = "",
+            //    Currency = "usd",
+            //    PaymentMethodTypes = new List<string>
+            //      {
+            //        "card",
+            //      },
+            //    ReceiptEmail = "mark.palmer@itsalllive.com",
+            //};
+
+            //var service = new PaymentIntentService();
+            //var paymentIntent = service.Create(options);
+            return RedirectToAction("Index","Home");
+        }
     }
 }
