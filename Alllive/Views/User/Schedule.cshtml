@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Alllive.Models.ScheduleMeeting>
+﻿@model IEnumerable<Alllive.Models.MeetingViewModel>
     @{
     ViewBag.Title = "Schedule";
     }
@@ -11,7 +11,7 @@
     foreach (var item in Model)
     {
     <div class="container @(item.Active == "N" ?"cancelled":"")">
-        <table class="table table-bordered table-responsive table-hover">
+        <table class="table table-bordered table-responsive">
             <tr>
                 <th>
                     Start Time
@@ -23,7 +23,7 @@
                     Description
                 </th>
                 <th>
-                    anything
+                    Host
                 </th>
             </tr>
             <tr>
@@ -33,19 +33,19 @@
                         <em>Cancelled</em>
                     }
                     <!--<b>@item.SessionID</b>-->
-                    <b>@item.StartTime.ToString("MM/dd/yyyy")</b>
+                    @item.StartTime.ToString("MM/dd/yyyy")
                     <br />
-                    <b>@item.StartTime.ToString("hh:mm tt")</b>
+                   @item.StartTime.ToString("hh:mm tt")
                 </td>
                 <td>
-                    <b>@item.SessionName</b>
+                    @item.SessionName
                 </td>
                 <td>
-                    <b>@item.Description</b>
+                    @item.Description
 
                 </td>
                 <td>
-
+                    @item.Host
                 </td>
             </tr>
             <tr>
@@ -62,17 +62,20 @@
                 <td>
                     <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
                     <br />
-                    @if (item.Active == "Y")
+                    @if (item.HostUserID == ViewBag.myUserID)
                     {
-                        @Html.ActionLink("Cancel", "CancelMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
-                        @Html.ActionLink("Edit", "ScheduleMeeting", "Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
+                       if (item.Active == "Y")
+                        {
+                            @Html.ActionLink("Cancel", "CancelMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Edit", "ScheduleMeeting", "Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
 
 
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Reactivate", "ReactivateMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-primary" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Reactivate", "ReactivateMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-primary" })
 
+                        }
                     }
                 </td>
             </tr>

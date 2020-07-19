@@ -10,9 +10,18 @@ using fs = System.IO;
 using System.Configuration;
 using System.Data.Entity;
 using Stripe;
+using Newtonsoft.Json;
 
 namespace Alllive.Controllers
 {
+    public class ConfirmPaymentRequest
+    {
+        [JsonProperty("payment_method_id")]
+        public string PaymentMethodId { get; set; }
+
+        [JsonProperty("payment_intent_id")]
+        public string PaymentIntentId { get; set; }
+    }
     public class UserController : AllLiveControllerBase
     {
 
@@ -231,14 +240,26 @@ namespace Alllive.Controllers
           //  currentUser = (UserModel)(Session["AllliveUser"]);
             int UserID = currentUser.UserId;
             //var DisplaySchedule = Dc.UserSchedule(ID);
-            var DisplaySchedule = Dc.Schedules.Join( Dc.ScheduleMeetings,
-               a =>a.SessionID,
+            DateTime todaysDate = DateTime.Now;
+            todaysDate = todaysDate.AddDays(-30);
+            var DisplaySchedule = Dc.Schedules.Join(Dc.ScheduleMeetings,
+               a => a.SessionID,
                b => b.SessionID,
-               (a,b) => new { a, b }
-                ).Where(a=>a.a.UserID == UserID)
-                .Select(a=>a.b)
-                .Include(a=>a.Attendees);
-            return View(DisplaySchedule);
+               (a, b) => new { a, b }
+                ).Where(a => a.a.UserID == UserID && a.b.Active == "Y" && a.b.StartTime >= todaysDate) 
+                
+                .Select(a => a.b)
+                .Include(a => a.Attendees)
+                .OrderBy(a => a.StartTime)
+                .ToList();
+            var meetingList = new List<MeetingViewModel>();
+            foreach(var meeting in DisplaySchedule)
+            {
+                var user = Dc.Users.Find(meeting.HostUserID);
+                meetingList.Add(new MeetingViewModel(meeting, user));
+            }
+                
+            return View(meetingList);
         }
         
         #endregion
@@ -350,28 +371,32 @@ namespace Alllive.Controllers
             return Json(new { });
         }
 
+        public ActionResult SubmitPayment(string cc, string exp, string cvc)
+        {
+            return StripeSendMoney();
+        }
         public ActionResult StripeSendMoney()
         {
+            ////Stripe.CustomerCreateOptions customer = new CustomerCreateOptions();
+            ////customer.Email = "mark.palmer@itsalllive.com";
+
+            //Stripe.CreditCardOptions card = new CreditCardOptions();
+            //card.Name = "Mark Palmer";
+            //card.Number = "4242 4242 4242 4242";
+            //card.ExpYear = 2021;
+            //card.ExpMonth = 07;
+            //card.Cvc = "483";
+            //Stripe.TokenCreateOptions tokenCreate = new TokenCreateOptions();
+            //tokenCreate.Card = card;
+            //Stripe.TokenService tokenService = new TokenService();
+            //Stripe.Token token = tokenService.Create(tokenCreate);
+
             //Stripe.CustomerCreateOptions customer = new CustomerCreateOptions();
             //customer.Email = "mark.palmer@itsalllive.com";
-
-            Stripe.CreditCardOptions card = new CreditCardOptions();
-            card.Name = "Mark Palmer";
-            card.Number = "4242 4242 4242 4242";
-            card.ExpYear = 2021;
-            card.ExpMonth = 07;
-            card.Cvc = "483";
-            Stripe.TokenCreateOptions tokenCreate = new TokenCreateOptions();
-            tokenCreate.Card = card;
-            Stripe.TokenService tokenService = new TokenService();
-            Stripe.Token token = tokenService.Create(tokenCreate);
-
-            Stripe.CustomerCreateOptions customer = new CustomerCreateOptions();
-            customer.Email = "mark.palmer@itsalllive.com";
-            customer.Source = token.Id;
-            customer.Phone = "4409359237";
-            var custService = new Stripe.CustomerService();
-            Stripe.Customer stpCustomer = custService.Create(customer);
+            //customer.Source = token.Id;
+            //customer.Phone = "4409359237";
+            //var custService = new Stripe.CustomerService();
+            //Stripe.Customer stpCustomer = custService.Create(customer);
 
 
 
@@ -380,21 +405,21 @@ namespace Alllive.Controllers
 
 
 
-            // Set your secret key. Remember to switch to your live secret key in production!
-            // See your keys here: https://dashboard.stripe.com/account/apikeys
-            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+            //// Set your secret key. Remember to switch to your live secret key in production!
+            //// See your keys here: https://dashboard.stripe.com/account/apikeys
+            //StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
 
-            var options = new Stripe.ChargeCreateOptions
-            {
-                Amount = Convert.ToInt32(100),
-                Currency = "usd",
-                ReceiptEmail = customer.Email,
-                Customer = stpCustomer.Id
-                
+            //var options = new Stripe.ChargeCreateOptions
+            //{
+            //    Amount = Convert.ToInt32(100),
+            //    Currency = "usd",
+            //    ReceiptEmail = customer.Email,
+            //    Customer = stpCustomer.Id
 
-            };
-            var service = new Stripe.ChargeService();
-            Stripe.Charge charge = service.Create(options);
+
+            //};
+            //var service = new Stripe.ChargeService();
+            //Stripe.Charge charge = service.Create(options);
 
             //var options = new PaymentIntentCreateOptions
             //{
@@ -410,7 +435,53 @@ namespace Alllive.Controllers
 
             //var service = new PaymentIntentService();
             //var paymentIntent = service.Create(options);
-            return RedirectToAction("Index","Home");
+            // Set your secret key. Remember to switch to your live secret key in production!
+            // See your keys here: https://dashboard.stripe.com/account/apikeys
+            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+
+            var options = new PaymentIntentCreateOptions
+            {
+                Amount = 100,
+                Currency = "usd",
+                // Verify your integration in this guide by including this parameter
+                Metadata = new Dictionary<string, string>
+    {
+      { "accept_a_payment", "accept_a_payment" },
+    },
+            };
+
+            var service = new PaymentIntentService();
+            var paymentIntent = service.Create(options);
+            //return RedirectToAction("Index","Home");
+            return generatePaymentResponse(paymentIntent);
+        }
+        private ActionResult generatePaymentResponse(PaymentIntent intent)
+        {
+            // Note that if your API version is before 2019-02-11, 'requires_action'
+            // appears as 'requires_source_action'.
+            if (intent.Status == "requires_action" &&
+                intent.NextAction.Type == "use_stripe_sdk")
+            {
+                // Tell the client to handle the action
+                return Json(new
+                {
+                    requires_action = true,
+                    payment_intent_client_secret = intent.ClientSecret
+                });
+            }
+            else if (intent.Status == "succeeded")
+            {
+                // The payment didn’t need any additional actions and completed!
+                // Handle post-payment fulfillment
+                return Json(new { success = true });
+            }
+            else
+            {
+                // Invalid status
+                ModelState.AddModelError("", "Invalid PaymentIntent status");
+                return View();
+              //  return StatusCode(500, new { error = "Invalid PaymentIntent status" });
+            }
         }
     }
 }

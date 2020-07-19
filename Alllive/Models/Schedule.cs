@@ -14,6 +14,7 @@ namespace Alllive.Models
     
     public partial class Schedule
     {
+        public int ScheduleID { get; set; }
         public int SessionID { get; set; }
         public int UserID { get; set; }
     

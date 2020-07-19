@@ -147,6 +147,15 @@ namespace Alllive.Controllers
         {
             if (m.SessionID > 0)
             {
+                var findUser = Dc.Users.FirstOrDefault(u => u.UserName.ToLower() == m.Email.ToLower());
+                if (findUser != null)
+                {
+                    m.UserID = findUser.UserID;
+                }
+                else
+                {
+                    m.UserID = null;
+                }
                 if (m.AttendeeID > 0)
                 {
                     Dc.Attendees.Attach(m);
@@ -156,6 +165,7 @@ namespace Alllive.Controllers
                 {
                     Dc.Attendees.Add(m);
                 }
+
                 if (m.UserID.HasValue && m.UserID.Value>0)
                 {
                     var findSchedule = Dc.Schedules.FirstOrDefault(a => a.UserID == m.UserID.Value && a.SessionID == m.SessionID);

@@ -80,8 +80,9 @@
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
-            <PropertyRef Name="SessionID" />
+            <PropertyRef Name="ScheduleID" />
           </Key>
+          <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SessionID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
@@ -359,14 +360,6 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Password_UserID" FromRole="password" ToRole="Users" />
         </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="SessionID" />
-          </Key>
-          <Property Name="SessionID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Schedule_UserID" FromRole="Schedule" ToRole="Users" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -376,9 +369,9 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="passwords" Relationship="Self.FK_Password_UserID" FromRole="Users" ToRole="password" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_UserID" FromRole="Users" ToRole="Schedule" />
           <Property Name="TimeZone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="isTutor" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Schedules" Relationship="AllliveDBModel.FK_Schedule_UserID" FromRole="User" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="SearchTutor">
           <Key>
@@ -416,30 +409,13 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Schedule_UserID">
-          <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="AllliveDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="passwords" EntityType="Self.password" />
-          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="SearchTutors" EntityType="Self.SearchTutor" />
           <AssociationSet Name="FK_Password_UserID" Association="Self.FK_Password_UserID">
             <End Role="Users" EntitySet="Users" />
             <End Role="password" EntitySet="passwords" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Schedule_UserID" Association="Self.FK_Schedule_UserID">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
           <FunctionImport Name="CancelMeeting">
           <Parameter Name="SessionID" Mode="In" Type="Int32" />
@@ -524,6 +500,11 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySet Name="BilledMeetings" EntityType="AllliveDBModel.BilledMeeting" />
           <EntitySet Name="GeneralLedgers" EntityType="AllliveDBModel.GeneralLedger" />
           <EntitySet Name="UserAccounts" EntityType="AllliveDBModel.UserAccount" />
+          <EntitySet Name="Schedules" EntityType="AllliveDBModel.Schedule" />
+          <AssociationSet Name="FK_Schedule_UserID" Association="AllliveDBModel.FK_Schedule_UserID">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="UserSchedule_Result">
           <Property Type="Int32" Name="UserID" Nullable="false" />
@@ -712,6 +693,27 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="BankReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="AllliveDBModel.FK_Schedule_UserID" FromRole="Schedule" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Schedule_UserID">
+          <End Type="AllliveDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="AllliveDBModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -723,14 +725,6 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
               <MappingFragment StoreEntitySet="password">
                 <ScalarProperty Name="passwordID" ColumnName="passwordID" />
                 <ScalarProperty Name="password1" ColumnName="password" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Schedules">
-            <EntityTypeMapping TypeName="AllliveDBModel.Schedule">
-              <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -949,6 +943,15 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
                 <ScalarProperty Name="BankReference" ColumnName="BankReference" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="AllliveDBModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

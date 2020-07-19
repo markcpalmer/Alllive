@@ -6,11 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="f13a67718a754e5988afc7419f79a280" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="AllliveDBModel.password" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="AllliveDBModel.Schedule" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AllliveDBModel.User" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="AllliveDBModel.SearchTutor" Width="1.5" PointX="7.875" PointY="7.5" IsExpanded="true" />
         <AssociationConnector Association="AllliveDBModel.FK_Password_UserID" ManuallyRouted="false" />
-        <AssociationConnector Association="AllliveDBModel.FK_Schedule_UserID" ManuallyRouted="false" />
         <EntityTypeShape EntityType="AllliveDBModel.Image" Width="1.5" PointX="5.375" PointY="7.75" />
         <EntityTypeShape EntityType="AllliveDBModel.Attendee" Width="1.5" PointX="8.375" PointY="0.75" />
         <EntityTypeShape EntityType="AllliveDBModel.ScheduleMeeting" Width="1.5" PointX="6.125" PointY="0.625" />
@@ -21,6 +19,8 @@
         <EntityTypeShape EntityType="AllliveDBModel.BilledMeeting" Width="1.5" PointX="10.375" PointY="3.75" />
         <EntityTypeShape EntityType="AllliveDBModel.GeneralLedger" Width="1.5" PointX="3.375" PointY="10.75" />
         <EntityTypeShape EntityType="AllliveDBModel.UserAccount" Width="1.5" PointX="10.375" PointY="7.75" />
+        <EntityTypeShape EntityType="AllliveDBModel.Schedule" Width="1.5" PointX="3" PointY="4.375" />
+        <AssociationConnector Association="AllliveDBModel.FK_Schedule_UserID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
