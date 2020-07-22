@@ -9,6 +9,7 @@
 
 namespace Alllive.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -16,6 +17,8 @@ namespace Alllive.Models
     {
         public int UserAccountID { get; set; }
         public int UserID { get; set; }
+        [JsonIgnore]
         public string BankReference { get; set; }
+        public string AccountName { get; set; }
     }
 }

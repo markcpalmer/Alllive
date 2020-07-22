@@ -1,0 +1,10 @@
+﻿@model IEnumerable<UserAccount>
+    @foreach(var account in Model)
+    {
+        <div>
+            @account.AccountName
+            <div class="pull-right">
+                <button class="btn btn-danger" onclick="accountDelete_Click(@account.UserAccountID)"><i class="fa fa-trash"></i></button>
+            </div>
+        </div>
+    }

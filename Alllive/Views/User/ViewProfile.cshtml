@@ -52,6 +52,9 @@
             </div>
         }
     </div>
+<div>
+    <h3>Accounts &nbsp; <a class="btn btn-primary" href="@Url.Action("AddAccount","Billing")"><i class="fa fa-plus"></i></a></h3>
+</div>
 <div class="container">
     @if (Model.TutorProfile != null)
     {
@@ -191,6 +194,9 @@
 </div>
 @section Scripts{
     <script>
+        function accountDelete_Click(userAccountId) {
+
+        }
         function SaveUserProfile_Success() {
             var myToast = Toastify({
                 text: "The profile has been saved",

@@ -252,14 +252,17 @@ namespace Alllive.Controllers
                 .Include(a => a.Attendees)
                 .OrderBy(a => a.StartTime)
                 .ToList();
-            var meetingList = new List<MeetingViewModel>();
+            
             foreach(var meeting in DisplaySchedule)
             {
                 var user = Dc.Users.Find(meeting.HostUserID);
-                meetingList.Add(new MeetingViewModel(meeting, user));
+                if (user != null)
+                {
+                    meeting.Host = user.FirstName + " " + user.LastName;
+                }
             }
                 
-            return View(meetingList);
+            return View(DisplaySchedule);
         }
         
         #endregion
