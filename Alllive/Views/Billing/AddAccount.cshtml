@@ -3,7 +3,174 @@
     ViewBag.Title = "AddAccount";
 }
 
-<h2>AddAccount</h2>
-<form>
-    
+<link rel="stylesheet" href="~/Content/global.css" />
+
+<h2>Add Account</h2>
+<form id="payment-form">
+    <label>Billing Address</label>
+    <div><input class="form-control" type="text" name="line1" id="line1" placeholder="Street Address"/></div>
+    <div><input class="form-control" type="text" name="line2" id="line2"/></div>
+    <div class="row">
+        <div class="col-md-6">
+            <input class="form-control" type="text" name="city" id="city" placeholder="City"/>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="state" id="state"></select>
+        </div>
+        <div class="col-md-4">
+            <input class="form-control" type="text" name="postal_code" id="postal_code" placeholder="Zip Code"/>
+        </div>
+    </div>
+    <label>Card Information</label>
+    <div>
+        <input type="text" class="form-control" name="name_on_card" id="name_on_card" placeholder="Name on Card"/>
+    </div>
+    <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+
+
+    <button id="submit" class="btn btn-primary">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Save Account</span>
+    </button>
+    <p id="card-error" role="alert"></p>
+    <p class="result-message hidden">
+        Account added succesfully, see the result in your
+        <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+    </p>
 </form>
+<script src="https://js.stripe.com/v3/"></script>
+@section scripts {
+    <script>
+        // A reference to Stripe.js initialized with your real test publishable API key.
+        var stripe = Stripe("pk_test_51H4bEIAVJDEhYcbPU91ptYjI6hYmZX34HPXrmLZRKxebFiFpPFaNILR0QFMQ5h4B6J8AmU7Zl0HxBAXiEMVjeiIu00xru9Wq5O");
+
+        // The items the customer wants to buy
+        var purchase = {
+            items: [{ id: "xl-tshirt" }]
+        };
+
+        // Disable the button until we have Stripe set up on the page
+        document.querySelector("button").disabled = true;
+        //fetch("/create-payment-intent", {
+        //  method: "POST",
+        //  headers: {
+        //    "Content-Type": "application/json"
+        //  },
+        //  body: JSON.stringify(purchase)
+        //})
+        //  .then(function(result) {
+        //    return result.json();
+        //  })
+        //  .then(function(data) {
+        var elements = stripe.elements();
+
+        var style = {
+            base: {
+                color: "#32325d",
+                fontFamily: 'Arial, sans-serif',
+                fontSmoothing: "antialiased",
+                fontSize: "16px",
+                "::placeholder": {
+                    color: "#32325d"
+                }
+            },
+            invalid: {
+                fontFamily: 'Arial, sans-serif',
+                color: "#fa755a",
+                iconColor: "#fa755a"
+            }
+        };
+
+        var card = elements.create("card", { style: style });
+        // Stripe injects an iframe into the DOM
+        card.mount("#card-element");
+
+        card.on("change", function (event) {
+            // Disable the Pay button if there are no card details in the Element
+            document.querySelector("button").disabled = event.empty;
+            document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
+        });
+
+        var form = document.getElementById("payment-form");
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            // Complete payment when the submit button is clicked
+            payWithCard(stripe, card, data.clientSecret);
+        });
+        //});
+
+        // Calls stripe.confirmCardPayment
+        // If the card requires authentication Stripe shows a pop-up modal to
+        // prompt the user to enter authentication details without leaving your page.
+        var payWithCard = function (stripe, card, clientSecret) {
+            loading(true);
+            stripe
+                .createPaymentMethod(clientSecret, {
+                    type:"card",
+                    card: card,
+                    billing_details: {
+                        name: $("#name_on_card").val(),
+                        address: {
+                            line1: $("#line1").val(),
+                            line2: $("#line2").val(),
+                            city: $("#city").val(),
+                            state: $("#state").val(),
+                            postal_code:$("#postal_code").val()
+                        }
+                    }
+                    
+                })
+                .then(function (result) {
+                    if (result.error) {
+                        // Show error to your customer
+                        showError(result.error.message);
+                    } else {
+                        // The payment succeeded!
+                        orderComplete(result.id);
+                    }
+                });
+        };
+
+        /* ------- UI helpers ------- */
+
+        // Shows a success message when the payment is complete
+        var orderComplete = function (paymentMethodId) {
+            loading(false);
+            $.ajax({
+                url: '@Url.Action("CreatePaymentMethod","Billing")',
+                type: "POST",
+                data: paymentMethodId,
+                success: function (result) {
+                    document.querySelector(".result-message").classList.remove("hidden");
+                    document.location.href = '@Url.Action("ViewProfile","User")';
+                }
+            });
+            
+        };
+
+        // Show the customer the error from Stripe if their card fails to charge
+        var showError = function (errorMsgText) {
+            loading(false);
+            var errorMsg = document.querySelector("#card-error");
+            errorMsg.textContent = errorMsgText;
+            setTimeout(function () {
+                errorMsg.textContent = "";
+            }, 4000);
+        };
+
+        // Show a spinner on payment submission
+        var loading = function (isLoading) {
+            if (isLoading) {
+                // Disable the button and show a spinner
+                document.querySelector("button").disabled = true;
+                document.querySelector("#spinner").classList.remove("hidden");
+                document.querySelector("#button-text").classList.add("hidden");
+            } else {
+                document.querySelector("button").disabled = false;
+                document.querySelector("#spinner").classList.add("hidden");
+                document.querySelector("#button-text").classList.remove("hidden");
+            }
+        };
+
+    </script>
+}
