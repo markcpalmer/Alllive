@@ -9,13 +9,67 @@
 <form id="payment-form">
     <label>Billing Address</label>
     <div><input class="form-control" type="text" name="line1" id="line1" placeholder="Street Address"/></div>
-    <div><input class="form-control" type="text" name="line2" id="line2"/></div>
+    <div><input class="form-control" type="text" name="line2" id="line2" placeholder="Address line 2"/></div>
     <div class="row">
         <div class="col-md-6">
             <input class="form-control" type="text" name="city" id="city" placeholder="City"/>
         </div>
         <div class="col-md-2">
-            <select class="form-control" name="state" id="state"></select>
+            <select class="form-control" name="state" id="state">
+              
+                        <option value="AL">AL</option>,
+                        <option value="AK">AK</option>},
+                        @*<option value="Arizona", Value="AZ"},
+                        <option value="Arkansas", Value="AR"},
+                        <option value="California", Value="CA"},
+                        <option value="Colorado", Value="CO"},
+                        <option value="Connecticut", Value="CT"},
+                        <option value="District of Columbia", Value="DC"},
+                        <option value="Delaware", Value="DE"},
+                        <option value="Florida", Value="FL"},
+                        <option value="Georgia", Value="GA"},
+                        <option value="Hawaii", Value="HI"},
+                        <option value="Idaho", Value="ID"},
+                        <option value="Illinois", Value="IL"},
+                        <option value="Indiana", Value="IN"},
+                        <option value="Iowa", Value="IA"},
+                        <option value="Kansas", Value="KS"},
+                        <option value="Kentucky", Value="KY"},
+                        <option value="Louisiana", Value="LA"},
+                        <option value="Maine", Value="ME"},
+                        <option value="Maryland", Value="MD"},
+                        <option value="Massachusetts", Value="MA"},
+                        <option value="Michigan", Value="MI"},
+                        <option value="Minnesota", Value="MN"},
+                        <option value="Mississippi", Value="MS"},
+                        <option value="Missouri", Value="MO"},
+                        <option value="Montana", Value="MT"},
+                        <option value="Nebraska", Value="NE"},
+                        <option value="Nevada", Value="NV"},
+                        <option value="New Hampshire", Value="NH"},
+                        <option value="New Jersey", Value="NJ"},
+                        <option value="New Mexico", Value="NM"},
+                        <option value="New York", Value="NY"},
+                        <option value="North Carolina", Value="NC"},
+                        <option value="North Dakota", Value="ND"},
+                        <option value="Ohio", Value="OH"},
+                        <option value="Oklahoma", Value="OK"},
+                        <option value="Oregon", Value="OR"},
+                        <option value="Pennsylvania", Value="PA"},
+                        <option value="Rhode Island", Value="RI"},
+                        <option value="South Carolina", Value="SC"},
+                        <option value="South Dakota", Value="SD"},
+                        <option value="Tennessee", Value="TN"},
+                        <option value="Texas", Value="TX"},
+                        <option value="Utah", Value="UT"},
+                        <option value="Vermont", Value="VT"},
+                        <option value="Virginia", Value="VA"},
+                        <option value="Washington", Value="WA"},
+                        <option value="West Virginia", Value="WV"},
+                        <option value="Wisconsin", Value="WI"},
+                        <option value="Wyoming", Value="WY"}
+                        };*@
+            </select>
         </div>
         <div class="col-md-4">
             <input class="form-control" type="text" name="postal_code" id="postal_code" placeholder="Zip Code"/>
@@ -46,7 +100,19 @@
 
         // The items the customer wants to buy
         var purchase = {
-            items: [{ id: "xl-tshirt" }]
+            items: [{
+                line1: $("#line1").val(),
+                line2: $("#line2").val(),
+                city: $("#city").val(),
+                state: $("#state").val(),
+                postal_code: $("#postal_code").val(),
+                name_on_card: $("#name_on_card").val(),
+                cc:$("input[name=cardnumber]").value,
+                exp:$("input[name=exp-date]").value,
+                cvc:$("input[name=cvc]").value,
+                postal:$("input[name=postal]").value
+                       
+            }]
         };
 
         // Disable the button until we have Stripe set up on the page
@@ -95,6 +161,8 @@
         form.addEventListener("submit", function (event) {
             event.preventDefault();
             // Complete payment when the submit button is clicked
+           console.log(purchase);
+           
             payWithCard(stripe, card, data.clientSecret);
         });
         //});
