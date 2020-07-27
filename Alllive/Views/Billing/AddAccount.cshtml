@@ -18,57 +18,57 @@
             <select class="form-control" name="state" id="state">
               
                         <option value="AL">AL</option>,
-                        <option value="AK">AK</option>},
-                        @*<option value="Arizona", Value="AZ"},
-                        <option value="Arkansas", Value="AR"},
-                        <option value="California", Value="CA"},
-                        <option value="Colorado", Value="CO"},
-                        <option value="Connecticut", Value="CT"},
-                        <option value="District of Columbia", Value="DC"},
-                        <option value="Delaware", Value="DE"},
-                        <option value="Florida", Value="FL"},
-                        <option value="Georgia", Value="GA"},
-                        <option value="Hawaii", Value="HI"},
-                        <option value="Idaho", Value="ID"},
-                        <option value="Illinois", Value="IL"},
-                        <option value="Indiana", Value="IN"},
-                        <option value="Iowa", Value="IA"},
-                        <option value="Kansas", Value="KS"},
-                        <option value="Kentucky", Value="KY"},
-                        <option value="Louisiana", Value="LA"},
-                        <option value="Maine", Value="ME"},
-                        <option value="Maryland", Value="MD"},
-                        <option value="Massachusetts", Value="MA"},
-                        <option value="Michigan", Value="MI"},
-                        <option value="Minnesota", Value="MN"},
-                        <option value="Mississippi", Value="MS"},
-                        <option value="Missouri", Value="MO"},
-                        <option value="Montana", Value="MT"},
-                        <option value="Nebraska", Value="NE"},
-                        <option value="Nevada", Value="NV"},
-                        <option value="New Hampshire", Value="NH"},
-                        <option value="New Jersey", Value="NJ"},
-                        <option value="New Mexico", Value="NM"},
-                        <option value="New York", Value="NY"},
-                        <option value="North Carolina", Value="NC"},
-                        <option value="North Dakota", Value="ND"},
-                        <option value="Ohio", Value="OH"},
-                        <option value="Oklahoma", Value="OK"},
-                        <option value="Oregon", Value="OR"},
-                        <option value="Pennsylvania", Value="PA"},
-                        <option value="Rhode Island", Value="RI"},
-                        <option value="South Carolina", Value="SC"},
-                        <option value="South Dakota", Value="SD"},
-                        <option value="Tennessee", Value="TN"},
-                        <option value="Texas", Value="TX"},
-                        <option value="Utah", Value="UT"},
-                        <option value="Vermont", Value="VT"},
-                        <option value="Virginia", Value="VA"},
-                        <option value="Washington", Value="WA"},
-                        <option value="West Virginia", Value="WV"},
-                        <option value="Wisconsin", Value="WI"},
-                        <option value="Wyoming", Value="WY"}
-                        };*@
+                        <option value="AK">AK</option>,
+                        <option Value="AZ"></option>},
+                        <option Value="AR"></option>},
+                        <option Value="CA></option>},
+                        <option Value="CO"></option>},
+                        <option Value="CT"></option>},
+                        <option Value="DC"></option>},
+                        @*<option Value="DE"</option>},
+                        <option Value="FL"</option>},
+                        <option Value="GA"</option>},
+                        <option Value="HI"</option>},
+                        <option Value="ID"</option>},
+                        <option Value="IL"</option>},
+                        <option Value="IN"</option>},
+                        <option Value="IA"</option>},
+                        <option Value="KS"</option>},
+                        <option Value="KY"</option>},
+                        <option Value="LA"</option>},
+                        <option, Value="ME"</option>},
+                        <option Value="MD"</option>},
+                        <option Value="MA"</option>},
+                        <option Value="MI"</option>},
+                        <option Value="MN"</option>},
+                        <option Value="MS"</option>},
+                        <option Value="MO"</option>},
+                        <option Value="MT"</option>},
+                        <option Value="NE"</option>},
+                        <option Value="NV"</option>},
+                        <option Value="NH"</option>},
+                        <option Value="NJ"</option>},
+                        <option Value="NM"</option>},
+                        <option Value="NY"</option>},
+                        <option Value="NC"</option>},
+                        <option Value="ND"</option>},
+                        <option Value="OH"</option>},
+                        <option Value="OK"</option>},
+                        <option Value="OR"</option>},
+                        <option Value="PA"</option>},
+                        <option Value="RI"</option>},
+                        <option Value="SC"</option>},
+                        <option Value="SD"</option>},
+                        <option Value="TN"</option>},
+                        <option Value="TX"</option>},
+                        <option Value="UT"</option>},
+                        <option Value="VT"</option>},
+                        <option Value="VA"</option>},
+                        <option Value="WA"</option>},
+                        <option Value="WV"</option>},
+                        <option Value="WI"</option>},
+                        <option Value="WY</option>},*@
+                        };
             </select>
         </div>
         <div class="col-md-4">
@@ -163,7 +163,7 @@
             // Complete payment when the submit button is clicked
            console.log(purchase);
            
-            payWithCard(stripe, card, data.clientSecret);
+            payWithCard(stripe, card/*, data.clientSecret*/);
         });
         //});
 
@@ -172,42 +172,57 @@
         // prompt the user to enter authentication details without leaving your page.
         var payWithCard = function (stripe, card, clientSecret) {
             loading(true);
-            stripe
-                .createPaymentMethod(clientSecret, {
-                    type:"card",
-                    card: card,
-                    billing_details: {
-                        name: $("#name_on_card").val(),
-                        address: {
-                            line1: $("#line1").val(),
-                            line2: $("#line2").val(),
-                            city: $("#city").val(),
-                            state: $("#state").val(),
-                            postal_code:$("#postal_code").val()
-                        }
-                    }
+            //stripe
+            //    .createPaymentMethod(clientSecret, {
+            //        type:"card",
+            //        card: card,
+            //        billing_details: {
+            //            name: $("#name_on_card").val(),
+            //            address: {
+            //                line1: $("#line1").val(),
+            //                line2: $("#line2").val(),
+            //                city: $("#city").val(),
+            //                state: $("#state").val(),
+            //                postal_code:$("#postal_code").val()
+            //            }
+            //        }
                     
-                })
-                .then(function (result) {
-                    if (result.error) {
-                        // Show error to your customer
-                        showError(result.error.message);
-                    } else {
-                        // The payment succeeded!
-                        orderComplete(result.id);
-                    }
-                });
+            //    })
+            //    .then(function (result) {
+            //        if (result.error) {
+            //            // Show error to your customer
+            //            showError(result.error.message);
+            //        } else {
+            //            // The payment succeeded!
+            //            orderComplete(result.id);
+            //        }
+            //    });
+            orderComplete(card);
         };
 
         /* ------- UI helpers ------- */
 
         // Shows a success message when the payment is complete
-        var orderComplete = function (paymentMethodId) {
+        var orderComplete = function (card)
+        {
+            var cardInfo = {
+                NameOnCard: $("#name_on_card").val(),
+
+                AddressLine1: $("#line1").val(),
+                AddressLine2: $("#line2").val(),
+                City: $("#city").val(),
+                State: $("#state").val(),
+                PostalCode: $("#postal_code").val(),
+                CardNumber: card.card_number,
+                ExpMonth: card.exp_month,
+                ExpYear: card.exp_year,
+                CvcCode: card.cvc
+            };
             loading(false);
             $.ajax({
                 url: '@Url.Action("CreatePaymentMethod","Billing")',
                 type: "POST",
-                data: paymentMethodId,
+                data: cardInfo,
                 success: function (result) {
                     document.querySelector(".result-message").classList.remove("hidden");
                     document.location.href = '@Url.Action("ViewProfile","User")';
