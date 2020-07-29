@@ -11,6 +11,28 @@ namespace Alllive.Controllers
 {
     public class BillingController : AllLiveControllerBase
     {
+        public ActionResult Index()
+        {
+            //TODO: need to save customer
+            var options = new SetupIntentCreateOptions
+            {
+                Customer = createACustomer()
+            };
+            var service = new SetupIntentService();
+            var intent = service.Create(options);
+            ViewData["ClientSecret"] = intent.ClientSecret;
+            return View();
+
+        }
+        public string createACustomer()
+        {
+            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+
+            var options = new CustomerCreateOptions { };
+            var service = new CustomerService();
+            var customer = service.Create(options);
+            return customer.Id;
+        }
         // GET: Billing
         public ActionResult AccountList()
         {

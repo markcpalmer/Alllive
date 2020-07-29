@@ -4,82 +4,84 @@
 }
 
 <link rel="stylesheet" href="~/Content/global.css" />
+<script src="https://js.stripe.com/v3/"></script>
+
 
 <h2>Add Account</h2>
-<form id="payment-form">
+<form id="payment-form" data-secret='@ViewData=["ClientSecret"]'>
     <label>Billing Address</label>
-    <div><input class="form-control" type="text" name="line1" id="line1" placeholder="Street Address"/></div>
-    <div><input class="form-control" type="text" name="line2" id="line2" placeholder="Address line 2"/></div>
+    <div><input class="form-control" type="text" name="line1" id="line1" placeholder="Street Address" /></div>
+    <div><input class="form-control" type="text" name="line2" id="line2" placeholder="Address line 2" /></div>
     <div class="row">
         <div class="col-md-6">
-            <input class="form-control" type="text" name="city" id="city" placeholder="City"/>
+            <input class="form-control" type="text" name="city" id="city" placeholder="City" />
         </div>
         <div class="col-md-2">
             <select class="form-control" name="state" id="state">
-              
-                        <option value="AL">AL</option>,
-                        <option value="AK">AK</option>,
-                        <option Value="AZ"></option>},
-                        <option Value="AR"></option>},
-                        <option Value="CA></option>},
-                        <option Value="CO"></option>},
-                        <option Value="CT"></option>},
-                        <option Value="DC"></option>},
-                        @*<option Value="DE"</option>},
-                        <option Value="FL"</option>},
-                        <option Value="GA"</option>},
-                        <option Value="HI"</option>},
-                        <option Value="ID"</option>},
-                        <option Value="IL"</option>},
-                        <option Value="IN"</option>},
-                        <option Value="IA"</option>},
-                        <option Value="KS"</option>},
-                        <option Value="KY"</option>},
-                        <option Value="LA"</option>},
-                        <option, Value="ME"</option>},
-                        <option Value="MD"</option>},
-                        <option Value="MA"</option>},
-                        <option Value="MI"</option>},
-                        <option Value="MN"</option>},
-                        <option Value="MS"</option>},
-                        <option Value="MO"</option>},
-                        <option Value="MT"</option>},
-                        <option Value="NE"</option>},
-                        <option Value="NV"</option>},
-                        <option Value="NH"</option>},
-                        <option Value="NJ"</option>},
-                        <option Value="NM"</option>},
-                        <option Value="NY"</option>},
-                        <option Value="NC"</option>},
-                        <option Value="ND"</option>},
-                        <option Value="OH"</option>},
-                        <option Value="OK"</option>},
-                        <option Value="OR"</option>},
-                        <option Value="PA"</option>},
-                        <option Value="RI"</option>},
-                        <option Value="SC"</option>},
-                        <option Value="SD"</option>},
-                        <option Value="TN"</option>},
-                        <option Value="TX"</option>},
-                        <option Value="UT"</option>},
-                        <option Value="VT"</option>},
-                        <option Value="VA"</option>},
-                        <option Value="WA"</option>},
-                        <option Value="WV"</option>},
-                        <option Value="WI"</option>},
-                        <option Value="WY</option>},*@
-                        };
+
+                <option value="AL">AL</option>,
+                <option value="AK">AK</option>,
+                <option Value="AZ"></option>},
+                <option Value="AR"></option>},
+                <option Value="CA></option>},
+                <option Value="CO"></option>},
+                <option Value="CT"></option>},
+                <option Value="DC"></option>},
+                @*<option Value="DE"</option>},
+                    <option Value="FL"</option>},
+                    <option Value="GA"</option>},
+                    <option Value="HI"</option>},
+                    <option Value="ID"</option>},
+                    <option Value="IL"</option>},
+                    <option Value="IN"</option>},
+                    <option Value="IA"</option>},
+                    <option Value="KS"</option>},
+                    <option Value="KY"</option>},
+                    <option Value="LA"</option>},
+                    <option, Value="ME"</option>},
+                    <option Value="MD"</option>},
+                    <option Value="MA"</option>},
+                    <option Value="MI"</option>},
+                    <option Value="MN"</option>},
+                    <option Value="MS"</option>},
+                    <option Value="MO"</option>},
+                    <option Value="MT"</option>},
+                    <option Value="NE"</option>},
+                    <option Value="NV"</option>},
+                    <option Value="NH"</option>},
+                    <option Value="NJ"</option>},
+                    <option Value="NM"</option>},
+                    <option Value="NY"</option>},
+                    <option Value="NC"</option>},
+                    <option Value="ND"</option>},
+                    <option Value="OH"</option>},
+                    <option Value="OK"</option>},
+                    <option Value="OR"</option>},
+                    <option Value="PA"</option>},
+                    <option Value="RI"</option>},
+                    <option Value="SC"</option>},
+                    <option Value="SD"</option>},
+                    <option Value="TN"</option>},
+                    <option Value="TX"</option>},
+                    <option Value="UT"</option>},
+                    <option Value="VT"</option>},
+                    <option Value="VA"</option>},
+                    <option Value="WA"</option>},
+                    <option Value="WV"</option>},
+                    <option Value="WI"</option>},
+                    <option Value="WY</option>},*@
+                };
             </select>
         </div>
         <div class="col-md-4">
-            <input class="form-control" type="text" name="postal_code" id="postal_code" placeholder="Zip Code"/>
+            <input class="form-control" type="text" name="postal_code" id="postal_code" placeholder="Zip Code" />
         </div>
     </div>
     <label>Card Information</label>
     <div>
-        <input type="text" class="form-control" name="name_on_card" id="name_on_card" placeholder="Name on Card"/>
+        <input type="text" class="form-control" name="name_on_card" id="name_on_card" placeholder="Name on Card" />
     </div>
-    <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+    <div id="card-element" name="cardNumber"><!--Stripe.js injects the Card Element--></div>
 
 
     <button id="submit" class="btn btn-primary">
@@ -110,24 +112,25 @@
                 cc:$("input[name=cardnumber]").value,
                 exp:$("input[name=exp-date]").value,
                 cvc:$("input[name=cvc]").value,
-                postal:$("input[name=postal]").value
-                       
+                postal: $("input[name=postal]").value,
+                card: card 
+
             }]
         };
 
         // Disable the button until we have Stripe set up on the page
         document.querySelector("button").disabled = true;
-        //fetch("/create-payment-intent", {
-        //  method: "POST",
-        //  headers: {
-        //    "Content-Type": "application/json"
-        //  },
-        //  body: JSON.stringify(purchase)
-        //})
-        //  .then(function(result) {
-        //    return result.json();
-        //  })
-        //  .then(function(data) {
+        fetch("/create-payment-intent", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(purchase)
+        })
+            .then(function (result) {
+                return result.json();
+            })
+            .then(function (data) { })
         var elements = stripe.elements();
 
         var style = {
@@ -161,8 +164,8 @@
         form.addEventListener("submit", function (event) {
             event.preventDefault();
             // Complete payment when the submit button is clicked
-           console.log(purchase);
-           
+//           console.log(purchase);
+
             payWithCard(stripe, card/*, data.clientSecret*/);
         });
         //});
@@ -186,7 +189,7 @@
             //                postal_code:$("#postal_code").val()
             //            }
             //        }
-                    
+
             //    })
             //    .then(function (result) {
             //        if (result.error) {
@@ -205,6 +208,7 @@
         // Shows a success message when the payment is complete
         var orderComplete = function (card)
         {
+            console.log(card);
             var cardInfo = {
                 NameOnCard: $("#name_on_card").val(),
 
@@ -216,7 +220,7 @@
                 CardNumber: card.card_number,
                 ExpMonth: card.exp_month,
                 ExpYear: card.exp_year,
-                CvcCode: card.cvc
+                CvcCode: card.id
             };
             loading(false);
             $.ajax({
@@ -228,7 +232,7 @@
                     document.location.href = '@Url.Action("ViewProfile","User")';
                 }
             });
-            
+
         };
 
         // Show the customer the error from Stripe if their card fails to charge

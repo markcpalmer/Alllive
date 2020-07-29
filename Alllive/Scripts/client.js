@@ -50,7 +50,8 @@ fetch("/create-payment-intent", {
 
     var form = document.getElementById("payment-form");
     form.addEventListener("submit", function(event) {
-      event.preventDefault();
+        event.preventDefault();
+        consol.log(card);
       // Complete payment when the submit button is clicked
       payWithCard(stripe, card, data.clientSecret);
     });
