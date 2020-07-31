@@ -69,32 +69,41 @@ namespace Alllive.Controllers
             // people from directly manipulating the amount on the client
             return 1400;
         }
+
+        [HttpPost]
         public ActionResult CreatePaymentMethod(PaymentMethodViewModel m)
         {
-            m.AccountName = m.CardType + " ending in " + m.CardNumber.Substring(m.CardNumber.Length - 4);
-            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
-            var paymentMethodService = new PaymentMethodService();
-            var paymentMethod = paymentMethodService.Create(new PaymentMethodCreateOptions
-            {
-                Type = "card",
-                Card = new PaymentMethodCardCreateOptions
+            if (ModelState.IsValid) {
+                m.AccountName = m.CardType + " ending in " + m.CardNumber.Substring(m.CardNumber.Length - 4);
+                StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+                var paymentMethodService = new PaymentMethodService();
+                var paymentMethod = paymentMethodService.Create(new PaymentMethodCreateOptions
                 {
-                    Number = m.CardNumber,
-                    Cvc = m.CvcCode,
-                    ExpMonth = m.ExpMonth,
-                    ExpYear = m.ExpYear
-                }
+                    Type = "card",
+                    Card = new PaymentMethodCardCreateOptions
+                    {
+                        Number = m.CardNumber,
+                        Cvc = m.CvcCode,
+                        ExpMonth = m.ExpMonth,
+                        ExpYear = m.ExpYear
+                    }
 
-            });
-            var userAccount = new UserAccount()
-            {
-                AccountName = m.AccountName,
-                BankReference = paymentMethod.Id,
-                UserID = currentUser.UserId
-            };
-            Dc.UserAccounts.Add(userAccount);
-            Dc.SaveChanges();
-            return RedirectToAction("ViewProfile", "User");
+                });
+
+                ModelState.AddModelError(String.Empty, paymentMethod.Id);
+
+                /*
+                var userAccount = new UserAccount()
+                {
+                    AccountName = m.AccountName,
+                    BankReference = paymentMethod.Id,
+                    UserID = currentUser.UserId
+                };
+                Dc.UserAccounts.Add(userAccount);
+                Dc.SaveChanges();
+                */
+            }
+            return View(m);
 
         }
         public class Item

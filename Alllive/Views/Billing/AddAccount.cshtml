@@ -10,78 +10,45 @@
 <h2>Add Account</h2>
 <form id="payment-form" data-secret='@ViewData=["ClientSecret"]'>
     <label>Billing Address</label>
-    <div><input class="form-control" type="text" name="line1" id="line1" placeholder="Street Address" /></div>
-    <div><input class="form-control" type="text" name="line2" id="line2" placeholder="Address line 2" /></div>
+    <div>
+        @*<input class="form-control" type="text" name="line1" id="line1" placeholder="Street Address" />*@
+        @*<input type="text" class="form-control" name="username" placeholder="Username" required="required">*@
+        @Html.TextBoxFor(a => a.AddressLine1, new { @class = "form-control", name = "addresLine1", placeholder = "Address Line 1", required = "required" })
+    </div>
+    <div>
+        @*<input class="form-control" type="text" name="line2" id="line2" placeholder="Address line 2" /*@
+        @Html.TextBoxFor(a => a.AddressLine2, new { @class = "form-control", name = "addresLine2", placeholder = "Address Line 2" })
+    </div>
     <div class="row">
         <div class="col-md-6">
-            <input class="form-control" type="text" name="city" id="city" placeholder="City" />
+            @Html.TextBoxFor(a => a.City, new { @class = "form-control", name = "city", placeholder = "City", required = "required" })
+            <!--<input class="form-control" type="text" name="city" id="city" placeholder="City" />-->
         </div>
         <div class="col-md-2">
-            <select class="form-control" name="state" id="state">
-
-                <option value="AL">AL</option>,
-                <option value="AK">AK</option>,
-                <option Value="AZ"></option>},
-                <option Value="AR"></option>},
-                <option Value="CA></option>},
-                <option Value="CO"></option>},
-                <option Value="CT"></option>},
-                <option Value="DC"></option>},
-                @*<option Value="DE"</option>},
-                    <option Value="FL"</option>},
-                    <option Value="GA"</option>},
-                    <option Value="HI"</option>},
-                    <option Value="ID"</option>},
-                    <option Value="IL"</option>},
-                    <option Value="IN"</option>},
-                    <option Value="IA"</option>},
-                    <option Value="KS"</option>},
-                    <option Value="KY"</option>},
-                    <option Value="LA"</option>},
-                    <option, Value="ME"</option>},
-                    <option Value="MD"</option>},
-                    <option Value="MA"</option>},
-                    <option Value="MI"</option>},
-                    <option Value="MN"</option>},
-                    <option Value="MS"</option>},
-                    <option Value="MO"</option>},
-                    <option Value="MT"</option>},
-                    <option Value="NE"</option>},
-                    <option Value="NV"</option>},
-                    <option Value="NH"</option>},
-                    <option Value="NJ"</option>},
-                    <option Value="NM"</option>},
-                    <option Value="NY"</option>},
-                    <option Value="NC"</option>},
-                    <option Value="ND"</option>},
-                    <option Value="OH"</option>},
-                    <option Value="OK"</option>},
-                    <option Value="OR"</option>},
-                    <option Value="PA"</option>},
-                    <option Value="RI"</option>},
-                    <option Value="SC"</option>},
-                    <option Value="SD"</option>},
-                    <option Value="TN"</option>},
-                    <option Value="TX"</option>},
-                    <option Value="UT"</option>},
-                    <option Value="VT"</option>},
-                    <option Value="VA"</option>},
-                    <option Value="WA"</option>},
-                    <option Value="WV"</option>},
-                    <option Value="WI"</option>},
-                    <option Value="WY</option>},*@
-                };
-            </select>
+            @Html.DropDownListFor(a => a.State,
+                    new SelectList(Enum.GetValues(typeof(Utilities.States))),
+                    "Select State",
+                    new { @class = "form-control", required = "required" })
         </div>
         <div class="col-md-4">
-            <input class="form-control" type="text" name="postal_code" id="postal_code" placeholder="Zip Code" />
+            <!--<input class="form-control" type="text" name="postal_code" id="postal_code" placeholder="Zip Code" />-->
+            @Html.TextBoxFor(a => a.PostalCode, new { @class = "form-control", name = "postal code", placeholder = "Postal Code", required = "required" })
         </div>
     </div>
     <label>Card Information</label>
     <div>
-        <input type="text" class="form-control" name="name_on_card" id="name_on_card" placeholder="Name on Card" />
+        @Html.TextBoxFor(a => a.NameOnCard, new { @class = "form-control", name = "Name on Card", placeholder = "Name on Card", required = "required" })
     </div>
-    <div id="card-element" name="cardNumber"><!--Stripe.js injects the Card Element--></div>
+    <div>
+        @Html.TextBoxFor(a => a.CardNumber, new { @class = "form-control", name = "Card Number", placeholder = "Card Number", required = "required" })
+    </div>
+    <div>
+        @Html.TextBoxFor(a => a.CvcCode, new { @class = "form-control", name = "cvv", placeholder = "cvv", required = "required" })
+    </div>
+    <div>
+        @Html.TextBoxFor(a => a.ExpMonth, new { @class = "form-control", name = "exp month", placeholder = "Expiration Month", required = "required" })
+        @Html.TextBoxFor(a => a.ExpYear, new { @class = "form-control", name = "exp year", placeholder = "Expiration Year", required = "required" })
+    </div>
 
 
     <button id="submit" class="btn btn-primary">
@@ -94,7 +61,6 @@
         <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
     </p>
 </form>
-<script src="https://js.stripe.com/v3/"></script>
 @section scripts {
     <script>
         // A reference to Stripe.js initialized with your real test publishable API key.
@@ -119,7 +85,8 @@
         };
 
         // Disable the button until we have Stripe set up on the page
-        document.querySelector("button").disabled = true;
+        //document.querySelector("button").disabled = true;
+
         fetch("/create-payment-intent", {
             method: "POST",
             headers: {
@@ -160,14 +127,16 @@
             document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
         });
 
+        /*
         var form = document.getElementById("payment-form");
         form.addEventListener("submit", function (event) {
             event.preventDefault();
             // Complete payment when the submit button is clicked
 //           console.log(purchase);
 
-            payWithCard(stripe, card/*, data.clientSecret*/);
+            payWithCard(stripe, card/*, data.clientSecret);
         });
+        */
         //});
 
         // Calls stripe.confirmCardPayment
@@ -175,6 +144,20 @@
         // prompt the user to enter authentication details without leaving your page.
         var payWithCard = function (stripe, card, clientSecret) {
             loading(true);
+            console.log("hello");
+            stripe
+              .createPaymentMethod({
+                type: 'card',
+                card: card,
+                billing_details: {
+                  name: $("#name_on_card").val()
+                },
+              })
+              .then(function(result) {
+                // Handle result.error or result.paymentMethod
+                  loading(false);
+                  console.log(result);
+              });
             //stripe
             //    .createPaymentMethod(clientSecret, {
             //        type:"card",
@@ -200,7 +183,7 @@
             //            orderComplete(result.id);
             //        }
             //    });
-            orderComplete(card);
+            //orderComplete(card);
         };
 
         /* ------- UI helpers ------- */
@@ -208,6 +191,7 @@
         // Shows a success message when the payment is complete
         var orderComplete = function (card)
         {
+            @*console.log(orderComplete);
             console.log(card);
             var cardInfo = {
                 NameOnCard: $("#name_on_card").val(),
@@ -216,13 +200,15 @@
                 AddressLine2: $("#line2").val(),
                 City: $("#city").val(),
                 State: $("#state").val(),
-                PostalCode: $("#postal_code").val(),
-                CardNumber: card.card_number,
-                ExpMonth: card.exp_month,
-                ExpYear: card.exp_year,
-                CvcCode: card.id
+                PostalCode: $("#postal_code").val()
+                
             };
+            //CardNumber: card.card_number,
+            //    ExpMonth: card.exp_month,
+            //    ExpYear: card.exp_year,
+            //    CvcCode: card.id
             loading(false);
+            console.log(cardInfo);
             $.ajax({
                 url: '@Url.Action("CreatePaymentMethod","Billing")',
                 type: "POST",
@@ -231,7 +217,7 @@
                     document.querySelector(".result-message").classList.remove("hidden");
                     document.location.href = '@Url.Action("ViewProfile","User")';
                 }
-            });
+            });*@
 
         };
 
