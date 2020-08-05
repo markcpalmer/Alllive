@@ -12,12 +12,15 @@ namespace Alllive.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserAccount
+    public partial class SubmitMeeting
     {
-        public int UserAccountID { get; set; }
-        public int UserID { get; set; }
-        public string BankReference { get; set; }
-        public string AccountName { get; set; }
-        public string Customer { get; set; }
+        public int Id { get; set; }
+        public int TutorProfileID { get; set; }
+        public System.DateTime Date { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime EndTime { get; set; }
+        public string Subject { get; set; }
+        public string LessonReview { get; set; }
+        public double HourlyRate { get; set; }
     }
 }

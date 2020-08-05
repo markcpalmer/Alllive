@@ -146,6 +146,19 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="Saturday" Type="bit" Nullable="false" />
           <Property Name="StudentLevel" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SubmitMeeting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TutorProfileID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="StartTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="LessonReview" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HourlyRate" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="TutorProfile">
           <Key>
             <PropertyRef Name="TutorProfileID" />
@@ -190,6 +203,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="BankReference" Type="nvarchar(max)" />
           <Property Name="AccountName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -318,6 +332,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySet Name="password" EntityType="Self.password" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduleMeeting" EntityType="Self.ScheduleMeeting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubmitMeeting" EntityType="Self.SubmitMeeting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TutorProfile" EntityType="Self.TutorProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -506,6 +521,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
             <End Role="User" EntitySet="Users" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
+          <EntitySet Name="SubmitMeetings" EntityType="AllliveDBModel.SubmitMeeting" />
         </EntityContainer>
         <ComplexType Name="UserSchedule_Result">
           <Property Type="Int32" Name="UserID" Nullable="false" />
@@ -694,6 +710,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="BankReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Customer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -716,6 +733,19 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SubmitMeeting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TutorProfileID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LessonReview" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HourlyRate" Type="Double" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -942,6 +972,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySetMapping Name="UserAccounts">
             <EntityTypeMapping TypeName="AllliveDBModel.UserAccount">
               <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
                 <ScalarProperty Name="AccountName" ColumnName="AccountName" />
                 <ScalarProperty Name="BankReference" ColumnName="BankReference" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -955,6 +986,20 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SessionID" ColumnName="SessionID" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubmitMeetings">
+            <EntityTypeMapping TypeName="AllliveDBModel.SubmitMeeting">
+              <MappingFragment StoreEntitySet="SubmitMeeting">
+                <ScalarProperty Name="HourlyRate" ColumnName="HourlyRate" />
+                <ScalarProperty Name="LessonReview" ColumnName="LessonReview" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TutorProfileID" ColumnName="TutorProfileID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

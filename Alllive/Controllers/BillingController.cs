@@ -34,14 +34,21 @@ namespace Alllive.Controllers
             return customer.Id;
         }
         // GET: Billing
-        public ActionResult AccountList()
+        public ActionResult AccountList(UserAccount ua)
         {
-            var accounts = Dc.UserAccounts.Where(a => a.UserID == currentUser.UserId);
+            if (ua != null)
+            {
 
+            }
+            var accounts = Dc.UserAccounts.Where(a => a.UserID == currentUser.UserId);
+            //3 = american express/diners club 4= visa 5 = master 6= discover
             return PartialView(accounts);
         }
+
+        [HttpGet]
         public ActionResult AddAccount()
         {
+            //if user is not here then send back to login page
             var m = new PaymentMethodViewModel() { UserID = currentUser.UserId };
             return View(m);
         }
@@ -50,17 +57,44 @@ namespace Alllive.Controllers
         [Route("create-payment-intent")]
         public ActionResult CheckOut(PaymentIntentCreateRequest request)
         {
-            return View();
-            //StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+            // return View();
+            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
 
-            //var paymentIntents = new PaymentIntentService();
-            //var paymentIntent = paymentIntents.Create(new PaymentIntentCreateOptions
-            //{
-            //    Amount = CalculateOrderAmount(request.Items),
-            //    Currency = "usd",
-            //});
+            var paymentIntentOptions = new PaymentIntentCreateOptions
+            {
+                Amount = 100,//CalculateOrderAmount(request.Items),
+                Currency = "usd",
+                PaymentMethodTypes = new List<string>
+                {
+                    "card"
+                },
+                TransferGroup ="{ORDER10}"
+               // Source = 
+            };
+            var paymentIntentService = new PaymentIntentService();
+            var paymentIntents = new PaymentIntentService();
 
-            //return Json(new { clientSecret = paymentIntent.ClientSecret },JsonRequestBehavior.AllowGet);
+            var transferOptions = new TransferCreateOptions
+            {
+                Amount = 50,
+                Currency = "usd",
+                Destination = "{{addStripeAccountID}}",
+                TransferGroup = "{ORDER10}",
+            };
+
+            var transferService = new TransferService();
+            var transfer = transferService.Create(transferOptions);
+
+            var secondTransferOptions = new TransferCreateOptions
+            {
+                Amount = 50,
+                Currency = "usd",
+                Destination = "{{addStripeAccountID}}",//NOTE : need to set up account for tutors
+                TransferGroup = "{ORDER10}",
+            };
+            var secondTransfer = transferService.Create(secondTransferOptions);
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
         private int CalculateOrderAmount(Item[] items)
         {
@@ -71,8 +105,10 @@ namespace Alllive.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePaymentMethod(PaymentMethodViewModel m)
+        public ActionResult AddAccount(PaymentMethodViewModel m)
         {
+            var expMonthInt = Int32.Parse(m.ExpMonth);
+            var expYearInt = Int32.Parse(m.ExpYear);
             if (ModelState.IsValid) {
                 m.AccountName = m.CardType + " ending in " + m.CardNumber.Substring(m.CardNumber.Length - 4);
                 StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
@@ -84,24 +120,33 @@ namespace Alllive.Controllers
                     {
                         Number = m.CardNumber,
                         Cvc = m.CvcCode,
-                        ExpMonth = m.ExpMonth,
-                        ExpYear = m.ExpYear
+                        ExpMonth = expMonthInt,
+                        ExpYear = expYearInt,
                     }
 
                 });
 
                 ModelState.AddModelError(String.Empty, paymentMethod.Id);
 
-                /*
+                var options = new CustomerCreateOptions
+                {
+                    Description = m.AccountName
+                };
+                var services = new CustomerService();
+                var cust=services.Create(options);
+
+
                 var userAccount = new UserAccount()
                 {
                     AccountName = m.AccountName,
                     BankReference = paymentMethod.Id,
-                    UserID = currentUser.UserId
+                    UserID = currentUser.UserId,
+                    Customer = cust.Id
                 };
                 Dc.UserAccounts.Add(userAccount);
                 Dc.SaveChanges();
-                */
+
+                return RedirectToAction("AccountList", "Billing", userAccount);//redirects user to different action"                    
             }
             return View(m);
 

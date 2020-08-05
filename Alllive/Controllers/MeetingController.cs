@@ -213,6 +213,16 @@ namespace Alllive.Controllers
             var DisplaySchedule = Dc.UserSchedule(ID);
             return View(DisplaySchedule);
         }
+        public ActionResult Meeting(string queryString)
+        {
+            //TODO: NEED to grab queryString from the meeting app/website
+            ViewBag.Url = queryString;
+            return View();
+        }
+        public ActionResult SubmitMeeting(ScheduleMeeting meeting)
+        {
+            return View();
+        }
         public ActionResult CancelMeeting(int ID)
         {
             Dc.CancelMeeting(ID);

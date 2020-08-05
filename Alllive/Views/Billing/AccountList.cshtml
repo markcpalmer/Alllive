@@ -1,10 +1,22 @@
 ﻿@model IEnumerable<UserAccount>
-    @foreach(var account in Model)
-    {
-        <div>
-            @account.AccountName
-            <div class="pull-right">
-                <button class="btn btn-danger" onclick="accountDelete_Click(@account.UserAccountID)"><i class="fa fa-trash"></i></button>
-            </div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+@foreach (var account in Model)
+{
+<div class="row-md-6">
+    <div col-md-3 w-25>
+
+        <i class="fa fa-cc-visa" aria-hidden="true">
+        </i>
+        @account.AccountName
+
+        <div class="pull-right">
+            <button class="btn btn-danger" onclick="accountDelete_Click(@account.UserAccountID)"><i class="fa fa-trash"></i></button>
         </div>
-    }
+    </div>
+    <br />
+</div>
+        }
+
+    

@@ -40,6 +40,7 @@ namespace Alllive.Models
         public virtual DbSet<GeneralLedger> GeneralLedgers { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<SubmitMeeting> SubmitMeetings { get; set; }
     
         public virtual int CancelMeeting(Nullable<int> sessionID)
         {

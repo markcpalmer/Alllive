@@ -215,6 +215,9 @@
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SearchTutorModel.cs" />
+    <Compile Include="Models\SubmitMeeting.cs">
+      <DependentUpon>AllLiveDb2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TutorProfile.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
@@ -881,6 +884,7 @@
     <Content Include="Views\Billing\AccountList.cshtml" />
     <Content Include="Views\Billing\AddAccount.cshtml" />
     <Content Include="Views\Billing\CheckOut.cshtml" />
+    <Content Include="Views\Meeting\Meeting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

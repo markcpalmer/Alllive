@@ -10,8 +10,8 @@ namespace Alllive.Models
         public string AccountName { get; set; }
         public string CardType { get; set; }
         public string CardNumber { get; set; }
-        public int ExpMonth { get; set; }
-        public int ExpYear { get; set; }
+        public string ExpMonth { get; set; }
+        public string ExpYear { get; set; }
         public string NameOnCard { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

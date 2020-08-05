@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Meeting";
+}
+
+<h2>Meeting</h2>
+
+<iframe src=@ViewBag.Url>
+
+</iframe>
+@using (Html.BeginForm("SubmitMeeting", "Meeting", FormMethod.Post))
+{
+
+}
+<input type="submit"/>
