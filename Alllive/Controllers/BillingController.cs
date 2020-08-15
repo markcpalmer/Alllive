@@ -42,7 +42,7 @@ namespace Alllive.Controllers
             }
             var accounts = Dc.UserAccounts.Where(a => a.UserID == currentUser.UserId);
             //3 = american express/diners club 4= visa 5 = master 6= discover
-            return PartialView(accounts);
+            return View(accounts);
         }
 
         [HttpGet]
@@ -55,14 +55,15 @@ namespace Alllive.Controllers
 
         [HttpGet]
         [Route("create-payment-intent")]
-        public ActionResult CheckOut(PaymentIntentCreateRequest request)
+        public ActionResult CheckOut(long rate)
         {
             // return View();
             StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
 
             var paymentIntentOptions = new PaymentIntentCreateOptions
             {
-                Amount = 100,//CalculateOrderAmount(request.Items),
+                //Note: need to fix amounts. come up with a calculated amount
+                Amount = CalculateOrderAmount(rate),
                 Currency = "usd",
                 PaymentMethodTypes = new List<string>
                 {
@@ -96,12 +97,11 @@ namespace Alllive.Controllers
 
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
-        private int CalculateOrderAmount(Item[] items)
+        private long CalculateOrderAmount(long rate)
         {
-            // Replace this constant with a calculation of the order's amount
-            // Calculate the order total on the server to prevent
-            // people from directly manipulating the amount on the client
-            return 1400;
+            
+            rate *= 100;
+            return rate;
         }
 
         [HttpPost]
@@ -113,6 +113,7 @@ namespace Alllive.Controllers
                 m.AccountName = m.CardType + " ending in " + m.CardNumber.Substring(m.CardNumber.Length - 4);
                 StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
                 var paymentMethodService = new PaymentMethodService();
+                //need to send the first digit of the card number to the account list and user account table
                 var paymentMethod = paymentMethodService.Create(new PaymentMethodCreateOptions
                 {
                     Type = "card",

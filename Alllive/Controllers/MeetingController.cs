@@ -92,7 +92,7 @@ namespace Alllive.Controllers
                         {
                             m.Frequency = 0; m.RepeatDaily = 0; m.RepeatWeekly = 0; m.RepeatMonthly = 0; m.Sunday = false; m.Monday = false; m.Tuesday = false;
                             m.Wednesday = false; m.Thursday = false; m.Friday = false; m.Saturday = false; m.RepeatMonthRadio1 = false;
-                            m.RepeatMonthRadio2 = false; m.Radio2List1 = 0; m.Radio2List2 = 0; m.EndDateBy = DateTime.UtcNow; m.EndDateAfter = 0;
+                            m.RepeatMonthRadio2 = false; m.Radio2List1 = 0; m.Radio2List2 = 0; m.EndDateBy = DateTime.UtcNow; m.EndDateAfter = 0; m.Subject = "";
                         }
 
 
@@ -213,14 +213,48 @@ namespace Alllive.Controllers
             var DisplaySchedule = Dc.UserSchedule(ID);
             return View(DisplaySchedule);
         }
-        public ActionResult Meeting(string queryString)
+        public ActionResult Meeting()
         {
             //TODO: NEED to grab queryString from the meeting app/website
-            ViewBag.Url = queryString;
+            //Need to pass meetingId instead of URL
+            //
+            var id= Request.QueryString["id"];
+            var getMeeting = Dc.ScheduleMeetings.FirstOrDefault(a => a.SessionID.ToString() == id);
+            ViewBag.Url = getMeeting.MeetingLink;
+      
             return View();
         }
-        public ActionResult SubmitMeeting(ScheduleMeeting meeting)
+
+       [HttpGet]
+        public ActionResult SubmitMeeting(string type)
         {
+            var getMeeting = Dc.ScheduleMeetings.FirstOrDefault(a => a.MeetingLink == type);
+
+            //getting the hourly rate
+            var Rate = Dc.TutorProfiles.FirstOrDefault(a => a.TutorProfileID == getMeeting.HostUserID).Rate;
+            SubmitMeeting submitMeeting = new SubmitMeeting()
+            { 
+                TutorProfileID = getMeeting.HostUserID ??0,
+                Date = getMeeting.Date,
+                StartTime = getMeeting.StartTime,
+                EndTime = getMeeting.EndTime,
+                HourlyRate = Rate,
+                Subject = getMeeting.Subject,
+
+            };
+
+            
+
+
+            return View(submitMeeting);
+        }
+
+        [HttpPost]
+        public ActionResult SubmitMeeting(SubmitMeeting meeting)
+        {
+            BillingController billing = new BillingController();
+            billing.CheckOut(Convert.ToInt64(meeting.HourlyRate));
+            //create a review page in meeting folder
             return View();
         }
         public ActionResult CancelMeeting(int ID)

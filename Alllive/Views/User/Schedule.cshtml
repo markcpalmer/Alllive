@@ -60,7 +60,7 @@
         <table>
             <tr>
                 <td>
-                    <a href=@item.MeetingLink target="_blank">Click to Join Meeting</a>
+                    <a href="/Meeting/Meeting/?id=@item.SessionID" target="_blank">Click to Join Meeting</a>
                     <br />
                     @if (item.HostUserID == ViewBag.myUserID)
                     {

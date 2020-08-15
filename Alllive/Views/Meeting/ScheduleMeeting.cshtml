@@ -10,27 +10,36 @@
     OnSuccess="SaveMeeting_Success",UpdateTargetId="mainBody", InsertionMode=InsertionMode.Replace }))
 {
     @Html.HiddenFor(a=>a.SessionID)
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-2">
-                @Html.Label("Session Name")
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.Label("Session Name")
 
-            </div>
-            <div class="col-sm-4">
-                @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block;",required = "required" })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(a => a.SessionName, "", new { @class="text-danger" })
-            </div>
         </div>
-        <div class="row">
-            <div class="col-sm-2">
-                @Html.Label("Description")
-            </div>
-            <div class="col-sm-4">
-                @Html.TextAreaFor(a => a.Description, new { @class="form-control",@rows=4})
-            </div>
+        <div class="col-sm-4">
+            @Html.TextBoxFor(a => a.SessionName, new { @class = "form-control", @style = "display:inline-block;", required = "required" })
         </div>
+        <div>
+            @Html.ValidationMessageFor(a => a.SessionName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.Label("Description")
+        </div>
+        <div class="col-sm-4">
+            @Html.TextAreaFor(a => a.Description, new { @class = "form-control", @rows = 4 })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.Label("Subject")
+        </div>
+        <div class="col-sm-4">
+            @Html.TextBoxFor(a => a.Subject, new { @class = "form-control"})
+        </div>
+    </div>
+
     @*<div class="row">
             <div class="col-sm-2">
                 @Html.Label("Date")
@@ -123,8 +132,8 @@
                 , new { @style = "width: 90%", @class = "form-control" })
         </div>
     </div>
-       @if (Model.SessionID > 0)
-       {
+    @if (Model.SessionID > 0)
+    {
         <h4>Attendees&nbsp;<a class="btn btn-success" onclick="Attendee_Add()" data-toggle="modal" data-target="#editAttendee"><i class="glyphicon glyphicon-plus"></i></a></h4>
         <div id="attendeeList">
             @foreach (var attendee in Model.Attendees)
@@ -132,7 +141,7 @@
                 @Html.Partial("_Attendee", attendee)
             }
         </div>
-       }
+    }
 
     <div class="row">
         <div class="col-sm-2">
@@ -183,7 +192,7 @@
                         new SelectListItem{Text="14", Value="14"},
                         new SelectListItem{Text="15", Value="15"}
 
-               }, new {@class = "form-control" })
+               }, new { @class = "form-control" })
                 </div>
                 <div class="col-sm-2">
 
@@ -303,15 +312,15 @@
                         new SelectListItem{ Text="30", Value = "30" },
                         new SelectListItem{ Text="31", Value = "31" }
                     }, new { @ID = "MonthlyFrequency", @class = "form-control" })
-                    </div>
-                 <div class="col-sm-2">
+                </div>
+                <div class="col-sm-2">
 
                     @Html.Label("Of the Month")
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
-                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn2",@class="pull-right"})
+                    @Html.RadioButtonFor(a => a.RepeatMonthRadio1, false, new { @ID = "rbtn2", @class = "pull-right" })
 
                 </div>
                 <div class="col-sm-2">
@@ -337,7 +346,7 @@
                         new SelectListItem{ Text="Thursday", Value = "5" },
                         new SelectListItem{ Text="Friday", Value = "6" },
                         new SelectListItem{ Text="Saturday", Value="7"}
-                    }, new {@class = "form-control" })
+                    }, new { @class = "form-control" })
                 </div>
                 <div class="col-sm-2">
 
@@ -350,11 +359,11 @@
                 End date
             </div>
             <div class="col-sm-1">
-              @Html.RadioButtonFor(a=>a.RepeatMonthRadio2,false, new { @ID = "rbtn3" , @class="form-check-input pull-right" })
+                @Html.RadioButtonFor(a => a.RepeatMonthRadio2, false, new { @ID = "rbtn3", @class = "form-check-input pull-right" })
             </div>
             <div class="col-sm-1">
-              @Html.Label("By", new { @class = "form-check-label" })
-                 </div>
+                @Html.Label("By", new { @class = "form-check-label" })
+            </div>
             <div class="col-sm-4">
                 <div class="input-group date">
                     @Html.TextBoxFor(a => a.EndDateBy, new { @class = "form-control" })
@@ -363,61 +372,61 @@
                     </span>
                 </div>
 
-           </div>
-         </div>
-                   <div class="row">
-                       <div class="col-sm-2">
-
-                            @Html.RadioButtonFor(a => a.RepeatMonthRadio2, false, new { @ID = "rbtn4", @class = "form-check-input pull-right" })
-
-                       </div>
-                       <div class="col-sm-1">
-                    @Html.Label("After", new { @class = "form-check-label" })
-                        </div>
-                       <div class="col-sm-2">
-                    @Html.DropDownListFor(a=>a.EndDateAfter,new List<SelectListItem>
-                    {
-                        new SelectListItem{ Text="Select a Value", Value = "0" },
-                        new SelectListItem{ Text="1", Value = "1" },
-                        new SelectListItem{ Text="2", Value = "2" },
-                        new SelectListItem{ Text="3", Value = "3" },
-                        new SelectListItem{ Text="4", Value = "4" },
-                        new SelectListItem{ Text="5", Value = "5" },
-                        new SelectListItem{ Text="6", Value = "6" },
-                        new SelectListItem{Text="7", Value="7"}
-                    }, new {@class="form-control"})
-                           </div>
-                       <div class="col-sm-3">
-                    @Html.Label("Occurances of meeting").
-                </div>
             </div>
-       
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+
+                @Html.RadioButtonFor(a => a.RepeatMonthRadio2, false, new { @ID = "rbtn4", @class = "form-check-input pull-right" })
+
+            </div>
+            <div class="col-sm-1">
+                @Html.Label("After", new { @class = "form-check-label" })
+            </div>
+            <div class="col-sm-2">
+                @Html.DropDownListFor(a => a.EndDateAfter, new List<SelectListItem>
+                {
+                    new SelectListItem{ Text="Select a Value", Value = "0" },
+                    new SelectListItem{ Text="1", Value = "1" },
+                    new SelectListItem{ Text="2", Value = "2" },
+                    new SelectListItem{ Text="3", Value = "3" },
+                    new SelectListItem{ Text="4", Value = "4" },
+                    new SelectListItem{ Text="5", Value = "5" },
+                    new SelectListItem{ Text="6", Value = "6" },
+                    new SelectListItem{Text="7", Value="7"}
+                }, new { @class = "form-control" })
+            </div>
+            <div class="col-sm-3">
+                @Html.Label("Occurances of meeting").
+            </div>
+        </div>
+
     </div>
 
 
     <!-- Validation Messages for Form-->
     @*<p>
-        @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'"})
-    <p>
-    <p>
-        @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })
-    </p>
-    <p>
-        @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
-    </p>*@
+            @Html.ValidationMessageFor(a => a.SessionName, "", new { @style = "color:'red'"})
+        <p>
+        <p>
+            @Html.ValidationMessageFor(a => a.DateTimeScheduledIn, "", new { @style = "color:red" })
+        </p>
+        <p>
+            @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
+        </p>*@
     <p>
         @*@Html.ValidationSummary()*@
     </p>
-        @Html.ActionLink("Back to schedule", "Schedule", "User",null,new { @class="btn btn-default"})
-    <input type="submit" value="Save" class="btn btn-primary"/>
+    @Html.ActionLink("Back to schedule", "Schedule", "User", null, new { @class = "btn btn-default" })
+    <input type="submit" value="Save" class="btn btn-primary" />
 
-    
-        
+
+
 
     @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>*@
 
     <!-- This handles Reoccurring opttions -->
-    </div>
+</div>
     }
 @Html.Partial("_EditAttendee")
     <script>

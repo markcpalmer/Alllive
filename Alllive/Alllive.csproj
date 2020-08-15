@@ -885,6 +885,7 @@
     <Content Include="Views\Billing\AddAccount.cshtml" />
     <Content Include="Views\Billing\CheckOut.cshtml" />
     <Content Include="Views\Meeting\Meeting.cshtml" />
+    <Content Include="Views\Meeting\SubmitMeeting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -49,6 +49,7 @@ namespace Alllive.Models
         public string MeetingLink { get; set; }
         public string Active { get; set; }
         public Nullable<int> HostUserID { get; set; }
+        public string Subject { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendee> Attendees { get; set; }

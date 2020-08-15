@@ -119,6 +119,7 @@
           <Property Name="MeetingLink" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="HostUserID" Type="int" />
+          <Property Name="Subject" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -607,6 +608,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="Active" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="HostUserID" Type="Int32" />
           <NavigationProperty Name="Attendees" Relationship="AllliveDBModel.FK_Attendee_ScheduleMeeting" FromRole="ScheduleMeeting" ToRole="Attendee" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Attendee_ScheduleMeeting">
           <End Type="AllliveDBModel.ScheduleMeeting" Role="ScheduleMeeting" Multiplicity="1" />
@@ -850,6 +852,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySetMapping Name="ScheduleMeetings">
             <EntityTypeMapping TypeName="AllliveDBModel.ScheduleMeeting">
               <MappingFragment StoreEntitySet="ScheduleMeeting">
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="HostUserID" ColumnName="HostUserID" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="MeetingLink" ColumnName="MeetingLink" />

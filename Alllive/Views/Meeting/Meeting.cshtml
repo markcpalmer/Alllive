@@ -1,15 +1,16 @@
-﻿
+﻿@model Alllive.Models.ScheduleMeeting
 @{
     ViewBag.Title = "Meeting";
 }
 
 <h2>Meeting</h2>
 
-<iframe src=@ViewBag.Url>
+@*<iframe src=@ViewBag.Url height="100%" width="100%" >
 
-</iframe>
-@using (Html.BeginForm("SubmitMeeting", "Meeting", FormMethod.Post))
+</iframe>*@
+<button target="_blank" onclick="window.open('@ViewBag.Url')">Start Meeting</button>
+@using (Html.BeginForm("SubmitMeeting", "Meeting", FormMethod.Get,null))
 {
-
+<input type="hidden" name="type" value="@ViewBag.Url" />
+<input type="submit" />
 }
-<input type="submit"/>
