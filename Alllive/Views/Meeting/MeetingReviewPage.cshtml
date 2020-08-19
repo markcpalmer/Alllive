@@ -1,0 +1,65 @@
+﻿@model Alllive.Models.SubmitMeeting
+
+@{
+    ViewBag.Title = "MeetingReviewPage";
+}
+
+<h2>MeetingReviewPage</h2>
+
+<div class="container">
+    <h2>SubmitMeeting</h2>
+   
+        @*//ToDo: prepopulate these fields and then grab data from previous view*@
+        @Html.HiddenFor(x => x.TutorProfileID)
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(x => x.Date)
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(x => x.Date, new { @class = "form-control", @style = "display:inline-block;", required = "required" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(x => x.StartTime)
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(x => x.StartTime, new { @class = "form-control", @style = "display:inline-block;", required = "required" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(x => x.EndTime)
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(x => x.EndTime)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(x => x.Subject)
+            </div>
+            <div class="col-md-1">
+                @Html.DisplayFor(x => x.Subject, new { })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(x => x.LessonReview)
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(x => x.LessonReview, new { @style = "width:360px" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(x => x.HourlyRate)
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(x => x.HourlyRate)
+            </div>
+        </div>
+
+        @*<button class="btn btn-primary" type="submit">Submit</button>*@
+</div>
+

@@ -2,6 +2,7 @@
 using Alllive.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -253,9 +254,30 @@ namespace Alllive.Controllers
         public ActionResult SubmitMeeting(SubmitMeeting meeting)
         {
             BillingController billing = new BillingController();
-            billing.CheckOut(Convert.ToInt64(meeting.HourlyRate));
+             billing.CheckOut(Convert.ToInt64(meeting.HourlyRate));
             //create a review page in meeting folder
-            return View();
+            // return View();  // do we need a redirect here to go to the meetingReviewPage?
+            meeting.Subject = "a";
+         //   Dc.SubmitMeetings.Add(meeting);
+            try
+            {
+                // Your code...
+                // Could also be before try if you know the exception occurs in SaveChanges
+
+          //      Dc.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+              
+                throw;
+            }
+            return RedirectToAction("MeetingReviewPage", "Meeting", new { meeting=meeting.Id });
+        }
+        public ActionResult MeetingReviewPage(int meeting)
+        {
+            var getMeeting = Dc.SubmitMeetings.FirstOrDefault(a => a.Id == meeting);
+
+            return View(getMeeting);
         }
         public ActionResult CancelMeeting(int ID)
         {

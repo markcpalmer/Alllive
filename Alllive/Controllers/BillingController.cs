@@ -41,7 +41,8 @@ namespace Alllive.Controllers
 
             }
             var accounts = Dc.UserAccounts.Where(a => a.UserID == currentUser.UserId);
-            //3 = american express/diners club 4= visa 5 = master 6= discover
+            //3 = american express/diners club 4= visa 5 = master 6= discover  I think i need to add a field to the database 
+            //for CardType and save the first digit of the card in there when an add is made
             return View(accounts);
         }
 
@@ -79,7 +80,7 @@ namespace Alllive.Controllers
             {
                 Amount = 50,
                 Currency = "usd",
-                Destination = "{{addStripeAccountID}}",
+                Destination = "pm_1HDJokAVJDEhYcbPfevZyjh5",// "{{addStripeAccountID}}",
                 TransferGroup = "{ORDER10}",
             };
 
@@ -90,7 +91,7 @@ namespace Alllive.Controllers
             {
                 Amount = 50,
                 Currency = "usd",
-                Destination = "{{addStripeAccountID}}",//NOTE : need to set up account for tutors
+                Destination = "pm_1HDJokAVJDEhYcbPfevZyjh5",//"{{addStripeAccountID}}",//NOTE : need to set up account for tutors
                 TransferGroup = "{ORDER10}",
             };
             var secondTransfer = transferService.Create(secondTransferOptions);
@@ -110,10 +111,13 @@ namespace Alllive.Controllers
             var expMonthInt = Int32.Parse(m.ExpMonth);
             var expYearInt = Int32.Parse(m.ExpYear);
             if (ModelState.IsValid) {
+                m.CardType = m.CardNumber.Substring(0,1);
+
                 m.AccountName = m.CardType + " ending in " + m.CardNumber.Substring(m.CardNumber.Length - 4);
                 StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
                 var paymentMethodService = new PaymentMethodService();
                 //need to send the first digit of the card number to the account list and user account table
+
                 var paymentMethod = paymentMethodService.Create(new PaymentMethodCreateOptions
                 {
                     Type = "card",
