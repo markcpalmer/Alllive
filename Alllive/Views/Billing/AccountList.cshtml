@@ -1,5 +1,4 @@
-﻿@model IEnumerable<PaymentMethodViewModel>
-@*//@model IEnumerable<UserAccount>*@
+﻿@model IEnumerable<UserAccount>
 
 <div class="row">
     <div class="col-md-3">
@@ -11,18 +10,34 @@
 
         @foreach (var account in Model)
         {
-            <div class="row single-card-row">
-                <div class="col-md-4"></div>
-                <div class="col-md-8">
+    <div class="row single-card-row">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            @*//3 = american express/diners club 4= visa 5 = master 6= discover*@
+            @if (account.CardType == "3")
+            {
+                <i class="fa fa-cc-amex fa-3x" aria-hidden="true"></i>
+            }
+            @if (account.CardType == "4")
+            {
+                <i class="fa fa-cc-visa fa-3x" aria-hidden="true"></i>
+            }
+            @if (account.CardType == "5")
+            {
+                <i class="fa fa-cc-mastercard fa-3x" aria-hidden="true"></i>
+            }
+            @if (account.CardType == "6")
+            {
+                <i class="fa fa-cc-discover fa-3x" aria-hidden="true"></i>
+            }
 
-                    <i class="fa fa-cc-visa" aria-hidden="true">
-                    </i>
-                    @account.AccountName
+        </div>
+        <div class="col-md-4" style="padding-top: 1em">
+            @account.AccountName
+        </div>
+        <button class="btn btn-danger" onclick="accountDelete_Click(@account.UserAccountID)"><i class="fa fa-trash" style="padding-top: 1em"></i></button>
 
-                    <button class="btn btn-danger" onclick="accountDelete_Click(@account.UserAccountID)"><i class="fa fa-trash"></i></button>
-
-                </div>
-            </div>
+    </div>
         }
     </div>
 </div>

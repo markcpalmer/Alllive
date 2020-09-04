@@ -1,0 +1,41 @@
+﻿@model IEnumerable<UserAccount>
+@{
+    ViewBag.Title = "ListTutorBankAccounts";
+}
+
+<h2>ListTutorBankAccounts</h2>
+<div class="row">
+    <div class="col-md-3">
+        <h5>Add Bank Account &nbsp; <a class="btn btn-primary" href="@Url.Action("AddBankAccount","Billing")"><i class="fa fa-plus"></i></a></h5>
+
+    </div>
+    <div class="col-md-4">
+        <div>Payment Methods</div>
+
+        @foreach (var account in Model)
+        {
+                var stripeAccountId = @account.StripeAccountID.Substring(account.StripeAccountID.Length - 4, 4);
+
+            <div class="row single-card-row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    @if (stripeAccountId != null)
+                    {
+                     <i class="fa fa-cc-stripe fa-3x" aria-hidden="true"></i>
+                     
+                    }
+                        
+            
+
+                    </div>
+                <div class="col-md-2" style="padding-top: 1em">
+                    <span> @stripeAccountId </span>
+                </div>
+                <button class="btn btn-danger" type="button" onclick="location.href='@Url.Action("removeAccount","Billing",new {accountId=stripeAccountId })'"><i class="fa fa-trash" style="padding-top: 1em"></i></button>
+
+            </div>
+        }
+    </div>
+</div>
+
+

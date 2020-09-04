@@ -19,5 +19,7 @@ namespace Alllive.Models
         public string BankReference { get; set; }
         public string AccountName { get; set; }
         public string Customer { get; set; }
+        public string CardType { get; set; }
+        public string StripeAccountID { get; set; }
     }
 }

@@ -33,6 +33,62 @@ namespace Alllive.Controllers
             var customer = service.Create(options);
             return customer.Id;
         }
+        public string createAnAccount()
+        {
+            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+            var option = new AccountCreateOptions
+            {
+                Type = "express"
+            };
+            var service = new AccountService();
+            var account = service.Create(option);
+            return account.Id;
+        }
+
+        public void deleteAccount(string accountId)
+        {
+            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+            var service = new AccountService();
+
+            var deleteAccount = Dc.UserAccounts.Where(x => x.UserID == currentUser.UserId && x.StripeAccountID.Substring(x.StripeAccountID.Length - 4) == accountId).FirstOrDefault();
+            service.Delete(deleteAccount.StripeAccountID);
+
+            Dc.UserAccounts.Remove(deleteAccount);
+            Dc.SaveChanges();
+
+
+        }
+        public ActionResult removeAccount(string accountId)
+        {
+            deleteAccount(accountId);
+            return RedirectToAction("listTutorBankAccounts","Billing");
+
+        }
+        public string createAcountLink(string account)
+        {
+            StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
+
+            var options = new AccountLinkCreateOptions
+            {
+                Account = account,
+                RefreshUrl = "https://example.com/reauth",
+                ReturnUrl = "https://localhost:44337/Billing/ListTutorBankAccounts",
+                Type = "account_onboarding",
+            };
+            var service = new AccountLinkService();
+            var accountLink = service.Create(options);
+
+            UserAccount newAccount = new UserAccount()
+            {
+                StripeAccountID = account,
+                UserID = currentUser.UserId
+            };
+            Dc.UserAccounts.Add(newAccount);
+            Dc.SaveChanges();
+
+
+            return accountLink.Url;
+        }
         // GET: Billing
         public ActionResult AccountList(UserAccount ua)
         {
@@ -45,6 +101,11 @@ namespace Alllive.Controllers
             //for CardType and save the first digit of the card in there when an add is made
             return View(accounts);
         }
+        public ActionResult ListTutorBankAccounts(UserAccount ua)
+        {
+            var accounts = Dc.UserAccounts.Where(a => a.UserID == currentUser.UserId).ToList();
+            return View(accounts);
+        }
 
         [HttpGet]
         public ActionResult AddAccount()
@@ -52,6 +113,16 @@ namespace Alllive.Controllers
             //if user is not here then send back to login page
             var m = new PaymentMethodViewModel() { UserID = currentUser.UserId };
             return View(m);
+        }
+
+        [HttpGet]
+        public ActionResult AddBankAccount()
+        {
+            var account = createAnAccount();
+            var accountLink = createAcountLink(account);
+            var m = new PaymentMethodViewModel() { UserID = currentUser.UserId };
+            return Redirect(accountLink);
+
         }
 
         [HttpGet]
@@ -113,7 +184,8 @@ namespace Alllive.Controllers
             if (ModelState.IsValid) {
                 m.CardType = m.CardNumber.Substring(0,1);
 
-                m.AccountName = m.CardType + " ending in " + m.CardNumber.Substring(m.CardNumber.Length - 4);
+                //m.AccountName = m.CardType + " ending in " + m.CardNumber.Substring(m.CardNumber.Length - 4);
+                m.AccountName = " ending in " + m.CardNumber.Substring(m.CardNumber.Length - 4);
                 StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
                 var paymentMethodService = new PaymentMethodService();
                 //need to send the first digit of the card number to the account list and user account table
@@ -140,11 +212,12 @@ namespace Alllive.Controllers
                 var services = new CustomerService();
                 var cust=services.Create(options);
 
-
+                // why do we need to create a useraccount object instead of just using paymentmethodviewmodel object?
                 var userAccount = new UserAccount()
                 {
                     AccountName = m.AccountName,
                     BankReference = paymentMethod.Id,
+                    CardType = m.CardType,
                     UserID = currentUser.UserId,
                     Customer = cust.Id
                 };
@@ -155,6 +228,15 @@ namespace Alllive.Controllers
             }
             return View(m);
 
+        }
+
+        [HttpPost]
+        public ActionResult AddBankAccount(BankAccountViewModel m)
+        {
+            var account = createAnAccount();
+            var accountLink = createAcountLink(account);
+
+            return View(m);
         }
         public class Item
         {

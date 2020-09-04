@@ -182,6 +182,7 @@
     <Compile Include="Models\Attendee.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BankAccountViewModel.cs" />
     <Compile Include="Models\BilledMeeting.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
@@ -887,6 +888,8 @@
     <Content Include="Views\Meeting\Meeting.cshtml" />
     <Content Include="Views\Meeting\SubmitMeeting.cshtml" />
     <Content Include="Views\Meeting\MeetingReviewPage.cshtml" />
+    <Content Include="Views\Billing\ListTutorBankAccounts.cshtml" />
+    <Content Include="Views\Billing\AddBankAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
