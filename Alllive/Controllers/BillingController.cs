@@ -127,52 +127,40 @@ namespace Alllive.Controllers
 
         [HttpGet]
         [Route("create-payment-intent")]
-        public ActionResult CheckOut(long rate)
+        public ActionResult CheckOut(int submitId)
         {
             // return View();
             StripeConfiguration.ApiKey = "sk_test_51H4bEIAVJDEhYcbP8AniC54IhmNxi8AOAkQpTgSCdwJjXwd8eoYEZmpBdZPOn7mpkBhQWkuzYYIFUv1y8Y3ncnKO008t1vsMSK";
-
-            var paymentIntentOptions = new PaymentIntentCreateOptions
-            {
-                //Note: need to fix amounts. come up with a calculated amount
-                Amount = CalculateOrderAmount(rate),
+            var service = new PaymentIntentService();
+            var createOptions = new PaymentIntentCreateOptions() {
+                PaymentMethodTypes = new List<string> { "card" },
+                Amount = CalculateOrderAmount(submitId)*100,
                 Currency = "usd",
-                PaymentMethodTypes = new List<string>
+                ApplicationFeeAmount = CalculateApplicationFee(submitId) * 100,
+                TransferData = new PaymentIntentTransferDataOptions
                 {
-                    "card"
-                },
-                TransferGroup ="{ORDER10}"
-               // Source = 
+                    Destination = "TutorAccountId",
+                }
             };
-            var paymentIntentService = new PaymentIntentService();
-            var paymentIntents = new PaymentIntentService();
-
-            var transferOptions = new TransferCreateOptions
-            {
-                Amount = 50,
-                Currency = "usd",
-                Destination = "pm_1HDJokAVJDEhYcbPfevZyjh5",// "{{addStripeAccountID}}",
-                TransferGroup = "{ORDER10}",
-            };
-
-            var transferService = new TransferService();
-            var transfer = transferService.Create(transferOptions);
-
-            var secondTransferOptions = new TransferCreateOptions
-            {
-                Amount = 50,
-                Currency = "usd",
-                Destination = "pm_1HDJokAVJDEhYcbPfevZyjh5",//"{{addStripeAccountID}}",//NOTE : need to set up account for tutors
-                TransferGroup = "{ORDER10}",
-            };
-            var secondTransfer = transferService.Create(secondTransferOptions);
-
-            return Json(new { }, JsonRequestBehavior.AllowGet);
+            service.Create(createOptions);
+            return RedirectToAction("Schedule","User");
         }
-        private long CalculateOrderAmount(long rate)
+        private long CalculateOrderAmount(int submitId)
         {
-            
-            rate *= 100;
+            var getMeeting = Dc.SubmitMeetings.Where(a => a.Id == submitId).FirstOrDefault();
+            long rate = Convert.ToInt64(getMeeting.HourlyRate);
+            var getDuration = getMeeting.EndTime.Subtract(getMeeting.StartTime).ToString();
+            long companyFee = Convert.ToInt64(.2);
+            rate = (rate * long.Parse(getDuration)) - (rate * long.Parse(getDuration) * companyFee);
+            return rate;
+        }
+        private long CalculateApplicationFee(int submitId)
+        {
+            var getMeeting = Dc.SubmitMeetings.Where(a => a.Id == submitId).FirstOrDefault();
+            long rate = Convert.ToInt64(getMeeting.HourlyRate);
+            var getDuration = getMeeting.EndTime.Subtract(getMeeting.StartTime).ToString();
+            long companyFee = Convert.ToInt64(.2);
+            rate = (rate * long.Parse(getDuration) * companyFee);
             return rate;
         }
 

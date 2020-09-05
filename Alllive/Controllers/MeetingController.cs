@@ -232,7 +232,7 @@ namespace Alllive.Controllers
             var getMeeting = Dc.ScheduleMeetings.FirstOrDefault(a => a.MeetingLink == type);
 
             //getting the hourly rate
-            var Rate = Dc.TutorProfiles.FirstOrDefault(a => a.TutorProfileID == getMeeting.HostUserID).Rate;
+            var Rate = Dc.TutorProfiles.FirstOrDefault(a => a.UserID == getMeeting.HostUserID).Rate;
             SubmitMeeting submitMeeting = new SubmitMeeting()
             { 
                 TutorProfileID = getMeeting.HostUserID ??0,
@@ -254,17 +254,15 @@ namespace Alllive.Controllers
         public ActionResult SubmitMeeting(SubmitMeeting meeting)
         {
             BillingController billing = new BillingController();
-             billing.CheckOut(Convert.ToInt64(meeting.HourlyRate));
-            //create a review page in meeting folder
-            // return View();  // do we need a redirect here to go to the meetingReviewPage?
+             billing.CheckOut(meeting.Id);
+           
             meeting.Subject = "a";
-         //   Dc.SubmitMeetings.Add(meeting);
             try
             {
                 // Your code...
                 // Could also be before try if you know the exception occurs in SaveChanges
 
-          //      Dc.SaveChanges();
+                Dc.SaveChanges();
             }
             catch (DbEntityValidationException e)
             {
