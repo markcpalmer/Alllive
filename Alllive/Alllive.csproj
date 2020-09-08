@@ -233,7 +233,6 @@
     <Compile Include="Models\UserSchedule_Result.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -399,6 +398,7 @@
     <Content Include="Models\AllLiveDb2.edmx.diagram">
       <DependentUpon>AllLiveDb2.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\client.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
