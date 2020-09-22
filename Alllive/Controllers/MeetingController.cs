@@ -54,9 +54,13 @@ namespace Alllive.Controllers
                 try
                 {
 
-               
-                m.StartTime = m.StartTime.GetFromLocalTime(m.TimeZone);
-                m.EndTime = m.EndTime.GetFromLocalTime(m.TimeZone);
+
+                    //Time Sessions
+                    //TimeSpan Start, End = new TimeSpan();
+                    //Start = m.StartTime.TimeOfDay;
+                    //End = m.EndTime.TimeOfDay;
+                    m.StartTime = m.StartTime.GetFromLocalTime(m.TimeZone);
+                    m.EndTime = m.EndTime.GetFromLocalTime(m.TimeZone);
 
                     //TimeZone
                     if (m.SessionID > 0)
@@ -111,8 +115,8 @@ namespace Alllive.Controllers
                         // jquery is preventing any kind of action
                         // return RedirectToAction("Schedule", "User", new { ID = currentUser.UserId });//redirects user to different action"                    
                     }
-                
-            }
+
+                }
                 catch (System.Data.Entity.Validation.DbEntityValidationException ex)
                 {
                     Exception raise = ex;
@@ -130,51 +134,7 @@ namespace Alllive.Controllers
                     }
                 }
 
-                //m.Attendees = Dc.Attendees.Where(a => a.SessionID == m.SessionID).ToList();
-                Attendee attend = new Attendee();
-                foreach(var item in m.Attendees)
-                {
-                    attend.Email = item.Email;
-                    attend.Name = item.Name;
-                    attend.Rate = item.Rate;
-                    attend.SessionID = item.SessionID;
-                    attend.UserID = item.UserID;
-                }
-                 
-                    var findUser = Dc.Users.FirstOrDefault(u => u.UserName.ToLower() == attend.Email.ToLower());
-                    if (findUser != null)
-                    {
-                    attend.UserID = findUser.UserID;
-                    }
-                    else
-                    {
-                    attend.UserID = null;
-                    }
-                    if (attend.AttendeeID > 0)
-                    {
-                        Dc.Attendees.Attach(attend);
-                        Dc.Entry(attend).State = System.Data.Entity.EntityState.Modified;
-                    }
-                    else
-                    {
-                        Dc.Attendees.Add(attend);
-                    }
-
-                    if (attend.UserID.HasValue && attend.UserID.Value > 0)
-                    {
-                        var findSchedule = Dc.Schedules.FirstOrDefault(a => a.UserID == attend.UserID.Value && a.SessionID == m.SessionID);
-                        if (findSchedule == null)
-                        {
-                            findSchedule = new Schedule()
-                            {
-                                SessionID = m.SessionID,
-                                UserID = attend.UserID.Value
-                            };
-                            Dc.Schedules.Add(findSchedule);
-                        }
-                    }
-                    Dc.SaveChanges();
-                
+                m.Attendees = Dc.Attendees.Where(a => a.SessionID == m.SessionID).ToList();
             }
             //m.EndDateBy = new DateTime();
             //m.EndDateAfter = new DateTime();
@@ -184,46 +144,46 @@ namespace Alllive.Controllers
 
         }
         [HttpPost]
-        //public ActionResult SaveAttendee(Attendee m)
-        //{
-        //    if (m.SessionID > 0)
-        //    {
-        //        var findUser = Dc.Users.FirstOrDefault(u => u.UserName.ToLower() == m.Email.ToLower());
-        //        if (findUser != null)
-        //        {
-        //            m.UserID = findUser.UserID;
-        //        }
-        //        else
-        //        {
-        //            m.UserID = null;
-        //        }
-        //        if (m.AttendeeID > 0)
-        //        {
-        //            Dc.Attendees.Attach(m);
-        //            Dc.Entry(m).State = System.Data.Entity.EntityState.Modified;
-        //        }
-        //        else
-        //        {
-        //            Dc.Attendees.Add(m);
-        //        }
+        public ActionResult SaveAttendee(Attendee m)
+        {
+            if (m.SessionID > 0)
+            {
+                var findUser = Dc.Users.FirstOrDefault(u => u.UserName.ToLower() == m.Email.ToLower());
+                if (findUser != null)
+                {
+                    m.UserID = findUser.UserID;
+                }
+                else
+                {
+                    m.UserID = null;
+                }
+                if (m.AttendeeID > 0)
+                {
+                    Dc.Attendees.Attach(m);
+                    Dc.Entry(m).State = System.Data.Entity.EntityState.Modified;
+                }
+                else
+                {
+                    Dc.Attendees.Add(m);
+                }
 
-        //        if (m.UserID.HasValue && m.UserID.Value>0)
-        //        {
-        //            var findSchedule = Dc.Schedules.FirstOrDefault(a => a.UserID == m.UserID.Value && a.SessionID == m.SessionID);
-        //            if (findSchedule == null)
-        //            {
-        //                findSchedule = new Schedule()
-        //                {
-        //                    SessionID = m.SessionID,
-        //                    UserID = m.UserID.Value
-        //                };
-        //                Dc.Schedules.Add(findSchedule);
-        //            }
-        //        }
-        //        Dc.SaveChanges();
-        //    }
-        //    return PartialView("_Attendee", m);
-        //}
+                if (m.UserID.HasValue && m.UserID.Value > 0)
+                {
+                    var findSchedule = Dc.Schedules.FirstOrDefault(a => a.UserID == m.UserID.Value && a.SessionID == m.SessionID);
+                    if (findSchedule == null)
+                    {
+                        findSchedule = new Schedule()
+                        {
+                            SessionID = m.SessionID,
+                            UserID = m.UserID.Value
+                        };
+                        Dc.Schedules.Add(findSchedule);
+                    }
+                }
+                Dc.SaveChanges();
+            }
+            return PartialView("_Attendee", m);
+        }
 
 
         public ActionResult DeleteAttendee(int attendeeID)
@@ -233,9 +193,9 @@ namespace Alllive.Controllers
             {
                 Dc.Attendees.Remove(attendee);
                 Dc.SaveChanges();
-                return Json(new { result = "ok" }, JsonRequestBehavior.AllowGet );
-        }
-            return Json(new { result = "error"}, JsonRequestBehavior.AllowGet );
+                return Json(new { result = "ok" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { result = "error" }, JsonRequestBehavior.AllowGet);
         }
         [OverrideAuthorization]
         public ActionResult JoinMeeting()
@@ -259,31 +219,23 @@ namespace Alllive.Controllers
             //TODO: NEED to grab queryString from the meeting app/website
             //Need to pass meetingId instead of URL
             //
-            var id= Request.QueryString["id"];
+            var id = Request.QueryString["id"];
             var getMeeting = Dc.ScheduleMeetings.FirstOrDefault(a => a.SessionID.ToString() == id);
             ViewBag.Url = getMeeting.MeetingLink;
-            if (currentUser.UserId == getMeeting.HostUserID)
-            {
-                ViewBag.UserId = getMeeting.HostUserID;
-            }
-            else
-            {
-                ViewBag.UserId = 0;
-            }
-      
+
             return View();
         }
 
-       [HttpGet]
-        public ActionResult SubmitMeeting(string type, string duration)
+        [HttpGet]
+        public ActionResult SubmitMeeting(string type)
         {
             var getMeeting = Dc.ScheduleMeetings.FirstOrDefault(a => a.MeetingLink == type);
 
             //getting the hourly rate
             var Rate = Dc.TutorProfiles.FirstOrDefault(a => a.UserID == getMeeting.HostUserID).Rate;
             SubmitMeeting submitMeeting = new SubmitMeeting()
-            { 
-                TutorProfileID = getMeeting.HostUserID ??0,
+            {
+                TutorProfileID = getMeeting.HostUserID ?? 0,
                 Date = getMeeting.Date,
                 StartTime = getMeeting.StartTime,
                 EndTime = getMeeting.EndTime,
@@ -292,7 +244,7 @@ namespace Alllive.Controllers
 
             };
 
-            
+
 
 
             return View(submitMeeting);
@@ -302,8 +254,8 @@ namespace Alllive.Controllers
         public ActionResult SubmitMeeting(SubmitMeeting meeting)
         {
             BillingController billing = new BillingController();
-             billing.CheckOut(meeting.Id);
-           
+            billing.CheckOut(meeting.Id);
+
             meeting.Subject = "a";
             try
             {
@@ -314,10 +266,10 @@ namespace Alllive.Controllers
             }
             catch (DbEntityValidationException e)
             {
-              
+
                 throw;
             }
-            return RedirectToAction("MeetingReviewPage", "Meeting", new { meeting=meeting.Id });
+            return RedirectToAction("MeetingReviewPage", "Meeting", new { meeting = meeting.Id });
         }
         public ActionResult MeetingReviewPage(int meeting)
         {
@@ -329,7 +281,7 @@ namespace Alllive.Controllers
         {
             Dc.CancelMeeting(ID);
             var getUser = Dc.Schedules.Where(a => a.SessionID == ID).FirstOrDefault();
-            var attendee = Dc.Attendees.Where(a => a.SessionID == ID).Select(b=>b.AttendeeID).ToList();
+            var attendee = Dc.Attendees.Where(a => a.SessionID == ID).Select(b => b.AttendeeID).ToList();
 
             SendEmailToUsers(attendee, getUser.User.FirstName + " " + getUser.User.LastName);
             return RedirectToAction("Schedule", "User");
@@ -337,11 +289,11 @@ namespace Alllive.Controllers
         public ActionResult ReactivateMeeting(int ID)
         {
             var meeting = Dc.ScheduleMeetings.Find(ID);
-            if(meeting != null)
+            if (meeting != null)
             {
                 meeting.Active = "Y";
                 Dc.SaveChanges();
-                return RedirectToAction("ScheduleMeeting",new {sessionID=ID });
+                return RedirectToAction("ScheduleMeeting", new { sessionID = ID });
             }
             else
             {
@@ -351,21 +303,21 @@ namespace Alllive.Controllers
         }
         public void SendEmailToUsers(List<int> To, string Host)
         {
-                         
-            foreach(var person in To)
+
+            foreach (var person in To)
             {
                 var ToPerson = Dc.Users.FirstOrDefault(a => a.UserID == person);
-                if(ToPerson != null)
+                if (ToPerson != null)
                 {
                     MailMessage message = Email.GetEmailMessage(ToPerson.UserName, ToPerson.FirstName + " " + ToPerson.LastName, string.Empty, string.Empty);
                     message.Subject = "Your meeting has been cancelled";
                     message.Body = "Your meeting with " + Host + " has been cancelled.";
                     Email.SendMessage(message);
                 }
-               
+
             }
-            
-            
+
+
         }
     }
 
