@@ -159,6 +159,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="Subject" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="LessonReview" Type="nvarchar(max)" Nullable="false" />
           <Property Name="HourlyRate" Type="float" Nullable="false" />
+          <Property Name="Duration" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="TutorProfile">
           <Key>
@@ -751,6 +752,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <Property Name="Subject" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="LessonReview" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HourlyRate" Type="Double" Nullable="false" />
+          <Property Name="Duration" Type="Double" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1001,6 +1003,7 @@ warning 6002: The table/view 'AllliveDB.dbo.SearchTutor' does not have a primary
           <EntitySetMapping Name="SubmitMeetings">
             <EntityTypeMapping TypeName="AllliveDBModel.SubmitMeeting">
               <MappingFragment StoreEntitySet="SubmitMeeting">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="HourlyRate" ColumnName="HourlyRate" />
                 <ScalarProperty Name="LessonReview" ColumnName="LessonReview" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />

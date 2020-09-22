@@ -1,16 +1,53 @@
 ﻿@model Alllive.Models.ScheduleMeeting
 @{
     ViewBag.Title = "Meeting";
+    var time = "";
+    var timeSite="";
+
 }
 
 <h2>Meeting</h2>
 
-@*<iframe src=@ViewBag.Url height="100%" width="100%" >
+<iframe src=@ViewBag.Url frameborder="0" marginheight="0" marginwidth="0" width="90%" height="90%" scrolling="auto">
 
-</iframe>*@
-<button target="_blank" onclick="window.open('@ViewBag.Url')">Start Meeting</button>
-@using (Html.BeginForm("SubmitMeeting", "Meeting", FormMethod.Get,null))
-{
-<input type="hidden" name="type" value="@ViewBag.Url" />
-<input type="submit" />
-}
+</iframe>
+
+<div>
+
+
+    @*<button target="_blank" onclick="window.open('@ViewBag.Url')">Start Meeting</button>*@
+    @using (Html.BeginForm("SubmitMeeting", "Meeting", FormMethod.Get, null))
+    {
+        <input type="hidden" name="type" value="@ViewBag.Url" />
+        <input type="hidden" name="duration" value="@timeSite" />
+
+        @if (Model.HostUserID == ViewBag.HostUserId)
+        {
+        <input type="submit" id="submit" />
+        }
+     }
+</div>
+<script>
+    var time, timeSite;
+    window.onload = function () {
+        time = new Date();
+
+    }
+    window.onbeforeunload = function () {
+        timeSite = (new Date() - time)/1000;
+        window.localStorage['timeSite'] = timeSite;
+    }
+
+    $(document).ready(function () {
+        $('#submit').click(function () {
+            $.ajax({
+                url: "Meeting/SubmitMeeting",
+                type: "GET",
+                data: {
+                    type: @ViewBag.Url,
+                    duration: timeSite
+                }
+            })
+        })
+    })
+</script>

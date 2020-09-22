@@ -54,11 +54,7 @@ namespace Alllive.Controllers
                 try
                 {
 
-                
-                               //Time Sessions
-                //TimeSpan Start, End = new TimeSpan();
-                //Start = m.StartTime.TimeOfDay;
-                //End = m.EndTime.TimeOfDay;
+               
                 m.StartTime = m.StartTime.GetFromLocalTime(m.TimeZone);
                 m.EndTime = m.EndTime.GetFromLocalTime(m.TimeZone);
 
@@ -134,7 +130,51 @@ namespace Alllive.Controllers
                     }
                 }
 
-                m.Attendees = Dc.Attendees.Where(a => a.SessionID == m.SessionID).ToList();
+                //m.Attendees = Dc.Attendees.Where(a => a.SessionID == m.SessionID).ToList();
+                Attendee attend = new Attendee();
+                foreach(var item in m.Attendees)
+                {
+                    attend.Email = item.Email;
+                    attend.Name = item.Name;
+                    attend.Rate = item.Rate;
+                    attend.SessionID = item.SessionID;
+                    attend.UserID = item.UserID;
+                }
+                 
+                    var findUser = Dc.Users.FirstOrDefault(u => u.UserName.ToLower() == attend.Email.ToLower());
+                    if (findUser != null)
+                    {
+                    attend.UserID = findUser.UserID;
+                    }
+                    else
+                    {
+                    attend.UserID = null;
+                    }
+                    if (attend.AttendeeID > 0)
+                    {
+                        Dc.Attendees.Attach(attend);
+                        Dc.Entry(attend).State = System.Data.Entity.EntityState.Modified;
+                    }
+                    else
+                    {
+                        Dc.Attendees.Add(attend);
+                    }
+
+                    if (attend.UserID.HasValue && attend.UserID.Value > 0)
+                    {
+                        var findSchedule = Dc.Schedules.FirstOrDefault(a => a.UserID == attend.UserID.Value && a.SessionID == m.SessionID);
+                        if (findSchedule == null)
+                        {
+                            findSchedule = new Schedule()
+                            {
+                                SessionID = m.SessionID,
+                                UserID = attend.UserID.Value
+                            };
+                            Dc.Schedules.Add(findSchedule);
+                        }
+                    }
+                    Dc.SaveChanges();
+                
             }
             //m.EndDateBy = new DateTime();
             //m.EndDateAfter = new DateTime();
@@ -144,46 +184,46 @@ namespace Alllive.Controllers
 
         }
         [HttpPost]
-        public ActionResult SaveAttendee(Attendee m)
-        {
-            if (m.SessionID > 0)
-            {
-                var findUser = Dc.Users.FirstOrDefault(u => u.UserName.ToLower() == m.Email.ToLower());
-                if (findUser != null)
-                {
-                    m.UserID = findUser.UserID;
-                }
-                else
-                {
-                    m.UserID = null;
-                }
-                if (m.AttendeeID > 0)
-                {
-                    Dc.Attendees.Attach(m);
-                    Dc.Entry(m).State = System.Data.Entity.EntityState.Modified;
-                }
-                else
-                {
-                    Dc.Attendees.Add(m);
-                }
+        //public ActionResult SaveAttendee(Attendee m)
+        //{
+        //    if (m.SessionID > 0)
+        //    {
+        //        var findUser = Dc.Users.FirstOrDefault(u => u.UserName.ToLower() == m.Email.ToLower());
+        //        if (findUser != null)
+        //        {
+        //            m.UserID = findUser.UserID;
+        //        }
+        //        else
+        //        {
+        //            m.UserID = null;
+        //        }
+        //        if (m.AttendeeID > 0)
+        //        {
+        //            Dc.Attendees.Attach(m);
+        //            Dc.Entry(m).State = System.Data.Entity.EntityState.Modified;
+        //        }
+        //        else
+        //        {
+        //            Dc.Attendees.Add(m);
+        //        }
 
-                if (m.UserID.HasValue && m.UserID.Value>0)
-                {
-                    var findSchedule = Dc.Schedules.FirstOrDefault(a => a.UserID == m.UserID.Value && a.SessionID == m.SessionID);
-                    if (findSchedule == null)
-                    {
-                        findSchedule = new Schedule()
-                        {
-                            SessionID = m.SessionID,
-                            UserID = m.UserID.Value
-                        };
-                        Dc.Schedules.Add(findSchedule);
-                    }
-                }
-                Dc.SaveChanges();
-            }
-            return PartialView("_Attendee", m);
-        }
+        //        if (m.UserID.HasValue && m.UserID.Value>0)
+        //        {
+        //            var findSchedule = Dc.Schedules.FirstOrDefault(a => a.UserID == m.UserID.Value && a.SessionID == m.SessionID);
+        //            if (findSchedule == null)
+        //            {
+        //                findSchedule = new Schedule()
+        //                {
+        //                    SessionID = m.SessionID,
+        //                    UserID = m.UserID.Value
+        //                };
+        //                Dc.Schedules.Add(findSchedule);
+        //            }
+        //        }
+        //        Dc.SaveChanges();
+        //    }
+        //    return PartialView("_Attendee", m);
+        //}
 
 
         public ActionResult DeleteAttendee(int attendeeID)
@@ -222,12 +262,20 @@ namespace Alllive.Controllers
             var id= Request.QueryString["id"];
             var getMeeting = Dc.ScheduleMeetings.FirstOrDefault(a => a.SessionID.ToString() == id);
             ViewBag.Url = getMeeting.MeetingLink;
+            if (currentUser.UserId == getMeeting.HostUserID)
+            {
+                ViewBag.UserId = getMeeting.HostUserID;
+            }
+            else
+            {
+                ViewBag.UserId = 0;
+            }
       
             return View();
         }
 
        [HttpGet]
-        public ActionResult SubmitMeeting(string type)
+        public ActionResult SubmitMeeting(string type, string duration)
         {
             var getMeeting = Dc.ScheduleMeetings.FirstOrDefault(a => a.MeetingLink == type);
 

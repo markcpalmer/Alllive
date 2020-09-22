@@ -132,8 +132,7 @@
                 , new { @style = "width: 90%", @class = "form-control" })
         </div>
     </div>
-    @if (Model.SessionID > 0)
-    {
+    
         <h4>Attendees&nbsp;<a class="btn btn-success" onclick="Attendee_Add()" data-toggle="modal" data-target="#editAttendee"><i class="glyphicon glyphicon-plus"></i></a></h4>
         <div id="attendeeList">
             @foreach (var attendee in Model.Attendees)
@@ -141,7 +140,7 @@
                 @Html.Partial("_Attendee", attendee)
             }
         </div>
-    }
+    
 
     <div class="row">
         <div class="col-sm-2">

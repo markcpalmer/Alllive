@@ -22,5 +22,6 @@ namespace Alllive.Models
         public string Subject { get; set; }
         public string LessonReview { get; set; }
         public double HourlyRate { get; set; }
+        public double Duration { get; set; }
     }
 }

@@ -19,7 +19,7 @@
             </div>
             <div class="row">
                 <div class="col-md-2">
-                     @Html.LabelFor(x => x.StartTime)
+                    @Html.LabelFor(x => x.StartTime)
                 </div>
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.StartTime, new { @class = "form-control", @style = "display:inline-block;", required = "required" })
@@ -46,7 +46,7 @@
                     @Html.LabelFor(x => x.LessonReview)
                 </div>
                 <div class="col-md-4">
-                    @Html.TextAreaFor(x => x.LessonReview, new { @style ="width:360px" })
+                    @Html.TextAreaFor(x => x.LessonReview, new { @style = "width:360px" })
                 </div>
             </div>
             <div class="row">
@@ -57,6 +57,14 @@
                     @Html.DisplayFor(x => x.HourlyRate)
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.LabelFor(x => x.Duration)
+                </div>
+                <div class="col-md-4">
+                    @Html.DisplayFor(x => x.Duration)
+                </div>
+            </div>
 
-                <button class="btn btn-primary" type="submit">Submit</button>}
-      </div>
+            <button class="btn btn-primary" type="submit">Submit</button>}
+    </div>

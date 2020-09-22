@@ -204,6 +204,7 @@
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PaymentMethodViewModel.cs" />
+    <Compile Include="Models\SaveMeetingViewModel.cs" />
     <Compile Include="Models\Schedule.cs">
       <DependentUpon>AllLiveDb2.tt</DependentUpon>
     </Compile>
