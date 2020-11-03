@@ -2,206 +2,222 @@
 
 
     <div class="container">
-        @using (Ajax.BeginForm("SaveUserProfile", new AjaxOptions { OnSuccess = "SaveUserProfile_Success", HttpMethod = "POST" }))
-        {
-            @Html.HiddenFor(a => a.User.UserID)
-            @Html.HiddenFor(a => a.User.UserName)
-
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>First Name</label>
-
-                </div>
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(a => a.User.FirstName, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>Last Name</label>
-
-                </div>
-                <div class="col-sm-9">
-                    @Html.TextBoxFor(a => a.User.LastName, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>Time Zone</label>
-
-                </div>
-                <div class="col-sm-9">
-                    @Html.DropDownListFor(a => a.User.TimeZone, Utilities.GetTimeZones(), new { @class = "form-control", @placeholder = "Time Zone" })
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>UserName</label>
-                </div>
-                <div class="col-sm-9">
-                    <span>@Model.User.UserName</span>
-                </div>
-
+            <div class="col-sm">
+                <table class="table table-bordered" style="width:15%;max-width:30%">
+                    <thead><tr><th>Profile</th></tr></thead>
+                    <tbody>
+                        
+                        <tr> <td> Public Profile</td></tr>
+                        <tr><td>Payment Information</td></tr>
+                        <tr><td>Availability</td></tr>
+                    </tbody>
+                </table>
 
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Save Profile</button>
-                </div>
-            </div>
-        }
-    </div>
-    <div>
-        <div class="row">
-            <div class="col-md-3">
-                <h3>Credit Cards &nbsp; <a href="@Url.Action("AccountList","Billing")"><i class="fa fa-folder-open"></i></a></h3>
-            </div>
-            @if (Model.User.isTutor)
-            {
-            <div class="col-md-3">
-                <h3>Bank Accounts &nbsp; <a href="@Url.Action("ListTutorBankAccounts", "Billing")"><i class="fa fa-folder-open"></i></a></h3>
-            </div>
-            }
-         </div>
+            <div class="col-lg">
+                @using (Ajax.BeginForm("SaveUserProfile", new AjaxOptions { OnSuccess = "SaveUserProfile_Success", HttpMethod = "POST" }))
+                {
+                    @Html.HiddenFor(a => a.User.UserID)
+                    @Html.HiddenFor(a => a.User.UserName)
 
-    </div>
-<div class="container">
-    @if (Model.TutorProfile != null)
-    {
-        <p>
-            <img src="~/Images/silhoutte.png" />
-        </p>
-        <p>
-            @Model.TutorProfile.HeadLine
-        </p>
-        <p>
-            @Model.TutorProfile.Bio
-        </p>
-        <div class="row">
-            <div class="col-sm-1">
-                @Html.Label("Rate")
-            </div>
-            <div class="col-sm-1">
-                @Html.ValueFor(a => a.TutorProfile.Rate)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <h4>Availability</h4>
-            </div>
-            <div class="col-md-3">
-                <h4>Start Time</h4>
-            </div>
-            <div class="col-md-3">
-                <h4>End Time</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>
-                    @Html.CheckBoxFor(a => a.TutorProfile.Monday,new {@readonly=true })
-                    Monday
-                </label>
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.MondayStart)
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.MondayEnd)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>
-                    @Html.CheckBoxFor(a => a.TutorProfile.Tuesday)
-                    Tuesday
-                </label>
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.TuesdayStart)
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.TuesdayEnd)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>
-                    @Html.CheckBoxFor(a => a.TutorProfile.Wednesday)
-                    Wednesday
-                </label>
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.WednesdayStart)
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.WednesdayEnd)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>
-                    @Html.CheckBoxFor(a => a.TutorProfile.Thursday)
-                    Thursday
-                </label>
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.ThursdayStart)
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.ThursdayEnd)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>
-                    @Html.CheckBoxFor(a => a.TutorProfile.Friday)
-                    Friday
-                </label>
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.FridayStart)
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.FridayEnd)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>
-                    @Html.CheckBoxFor(a => a.TutorProfile.Saturday)
-                    Saturday
-                </label>
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.SaturdayStart)
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.SaturdayEnd)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>
-                    @Html.CheckBoxFor(a => a.TutorProfile.Sunday)
-                    Sunday
-                </label>
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.SundayStart)
-            </div>
-            <div class="col-md-3">
-                @Html.ValueFor(a => a.TutorProfile.SundayEnd)
-            </div>
-        </div>
+                    <div>
+                        <div class="col-sm-3">
+                            <label>First Name</label>
 
-        <a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfile.TutorProfileID })">Edit</a>
-    }
-    else
-    {
-        <a class="btn btn-primary" href="@Url.Action("TutorRegistration")">Add a Tutor Profile</a>
-    }
+                        </div>
+                        <div class="col-sm">
+                            @Html.TextBoxFor(a => a.User.FirstName, new { @class = "form-control",@style="width:100px" })
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-sm-3">
+                            <label>Last Name</label>
+
+                        </div>
+                        <div class="col-sm">
+                            @Html.TextBoxFor(a => a.User.LastName, new { @class = "form-control",@style="width:100px" })
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-sm">
+                            <label>Time Zone</label>
+
+                        </div>
+                        <div class="col-sm">
+                            @Html.DropDownListFor(a => a.User.TimeZone, Utilities.GetTimeZones(), new { @class = "form-control", @placeholder = "Time Zone",@style="width:100px" })
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="col-sm-3">
+                            <label>UserName</label>
+                        </div>
+                        <div class="col-sm">
+                            <span>@Model.User.UserName</span>
+                        </div>
+
+
+                    </div>
+                    <div>
+                        <div class="col-sm">
+                            <button type="submit" class="btn btn-primary">Save Profile</button>
+                        </div>
+                    </div>
+                }
+
+                @*<div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h3>Credit Cards &nbsp; <a href="@Url.Action("AccountList","Billing")"><i class="fa fa-folder-open"></i></a></h3>
+                        </div>
+                        @if (Model.User.isTutor)
+                        {
+                            <div class="col-md-3">
+                                <h3>Bank Accounts &nbsp; <a href="@Url.Action("ListTutorBankAccounts", "Billing")"><i class="fa fa-folder-open"></i></a></h3>
+                            </div>
+                        }
+                    </div>
+
+                </div>*@
+                @*<div class="container">
+                    @if (Model.TutorProfile != null)
+                    {
+                        <p>
+                            <img src="~/Images/silhoutte.png" />
+                        </p>
+                        <p>
+                            @Model.TutorProfile.HeadLine
+                        </p>
+                        <p>
+                            @Model.TutorProfile.Bio
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-1">
+                                @Html.Label("Rate")
+                            </div>
+                            <div class="col-sm-1">
+                                @Html.ValueFor(a => a.TutorProfile.Rate)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h4>Availability</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Start Time</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>End Time</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.TutorProfile.Monday, new { @readonly = true })
+                                    Monday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.MondayStart)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.MondayEnd)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.TutorProfile.Tuesday)
+                                    Tuesday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.TuesdayStart)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.TuesdayEnd)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.TutorProfile.Wednesday)
+                                    Wednesday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.WednesdayStart)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.WednesdayEnd)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.TutorProfile.Thursday)
+                                    Thursday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.ThursdayStart)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.ThursdayEnd)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.TutorProfile.Friday)
+                                    Friday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.FridayStart)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.FridayEnd)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.TutorProfile.Saturday)
+                                    Saturday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.SaturdayStart)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.SaturdayEnd)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    @Html.CheckBoxFor(a => a.TutorProfile.Sunday)
+                                    Sunday
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.SundayStart)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.ValueFor(a => a.TutorProfile.SundayEnd)
+                            </div>
+                        </div>
+
+                        <a class="btn btn-default" href="@Url.Action("TutorRegistration",new { tutorProfileId = Model.TutorProfile.TutorProfileID })">Edit</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" href="@Url.Action("TutorRegistration")">Add a Tutor Profile</a>
+                    }
+                </div>*@
+            </div>
+       
 </div>
 @section Scripts{
     <script>

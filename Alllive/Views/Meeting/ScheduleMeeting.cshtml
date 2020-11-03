@@ -60,7 +60,7 @@
                 @Html.Label("Start Time")
             </div>
             <div class="col-sm-4">
-                <div class="input-group date">
+                <div class="input-group date-local">
                     @Html.TextBoxFor(a => a.StartTime, new { @class = "form-control" })
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-time"></span>
@@ -93,50 +93,7 @@
                 @Html.Label("Time Zone")
             </div>
             <div class="col-sm-6">
-                @Html.DropDownListFor(a => a.TimeZone, Utilities.GetTimeZones()
-           //{
-           //   new SelectListItem{ Text="(GMT -12:00) Eniwetok, Kwajalein", Value = "-12:00" },
-           //   new SelectListItem{ Text="(GMT -11:00) Midway Island, Samoa", Value = "-11:00" },
-           //   new SelectListItem{ Text="(GMT -10:00) Hawaii", Value = "-10:00" },
-           //   new SelectListItem{ Text="(GMT -9:30) Taiohae", Value = "-9:50" },
-           //   new SelectListItem{ Text="(GMT -9:00) Alaska", Value = "-9:00" },
-           //   new SelectListItem{ Text="(GMT -8:00) Pacific Time (US &amp; Canada)", Value = "-8:00" },
-           //   new SelectListItem{ Text="(GMT -7:00) Mountain Time (US &amp; Canada)", Value = "-7:00" },
-           //   new SelectListItem{ Text="(GMT -6:00) Central Time (US &amp; Canada), Mexico City", Value = "-6:00" },
-           //   new SelectListItem{ Text="(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima", Value = "-5:00" },
-           //   new SelectListItem{ Text="(GMT -4:30) Caracas", Value = "-4:50" },
-           //   new SelectListItem{ Text="(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz", Value = "-4:00" },
-           //   new SelectListItem{ Text="(GMT -3:30) Newfoundland", Value = "-3:50" },
-           //   new SelectListItem{ Text="(GMT -3:00) Brazil, Buenos Aires, Georgetown", Value = "-3:00" },
-           //   new SelectListItem{ Text="(GMT -2:00) Mid-Atlantic", Value = "-2:00" },
-           //   new SelectListItem{ Text="(GMT -1:00) Azores, Cape Verde Islands", Value = "-1:00" },
-           //   new SelectListItem{ Text="(GMT) Western Europe Time, London, Lisbon, Casablanca", Value = "+00:00" },
-           //   new SelectListItem{ Text="(GMT +1:00) Brussels, Copenhagen, Madrid, Paris", Value = "+1:00" },
-           //   new SelectListItem{ Text="(GMT +2:00) Kaliningrad, South Africa", Value = "+2:00" },
-           //   new SelectListItem{ Text="(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg", Value = "+3:00" },
-           //   new SelectListItem{ Text="(GMT +3:30) Tehran", Value = "+3:50" },
-           //   new SelectListItem{ Text="(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi", Value = "+4:00" },
-           //   new SelectListItem{ Text="(GMT +4:30) Kabul", Value = "+4:50" },
-           //   new SelectListItem{ Text="(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent", Value = "+5:00" },
-           //   new SelectListItem{ Text="(GMT +5:30) Bombay, Calcutta, Madras, New Delhi", Value = "+5:50" },
-           //   new SelectListItem{ Text="(GMT +5:45) Kathmandu, Pokhara", Value = "+5:75" },
-           //   new SelectListItem{ Text="(GMT +6:00) Almaty, Dhaka, Colombo", Value = "+6:00" },
-           //   new SelectListItem{ Text="(GMT +6:30) Yangon, Mandalay", Value = "+6:50" },
-           //   new SelectListItem{ Text="(GMT +7:00) Bangkok, Hanoi, Jakarta", Value = "+7:00" },
-           //   new SelectListItem{ Text="(GMT +8:00) Beijing, Perth, Singapore, Hong Kong", Value = "+8:00" },
-           //   new SelectListItem{ Text="(GMT +8:45) Eucla", Value = "+8:75" },
-           //   new SelectListItem{ Text="(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk", Value = "+9:00" },
-           //   new SelectListItem{ Text="(GMT +9:30) Adelaide, Darwin", Value = "+9:50" },
-           //   new SelectListItem{ Text="(GMT +10:00) Eastern Australia, Guam, Vladivostok", Value = "+10:00" },
-           //   new SelectListItem{ Text="(GMT +10:30) Lord Howe Island", Value = "+10:50" },
-           //   new SelectListItem{ Text="(GMT +11:00) Magadan, Solomon Islands, New Caledonia", Value = "+11:00" },
-           //   new SelectListItem{ Text="(GMT +11:30) Norfolk Island", Value = "+11:50" },
-           //   new SelectListItem{ Text="(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka", Value = "+12:00" },
-           //   new SelectListItem{ Text="(GMT +12:45) Chatham Islands", Value = "+12:75" },
-           //   new SelectListItem{ Text="(GMT +13:00) Apia, Nukualofa", Value = "+13:00" },
-           //   new SelectListItem{ Text="(GMT +14:00) Line Islands, Tokelau", Value = "+14:00" }
-           //}
-                    , new { @style = "width: 90%", @class = "form-control" })
+                @Html.DropDownListFor(a => a.TimeZone, Utilities.GetTimeZones(), new { @style = "width: 90%", @class = "form-control", @disabled="disabled" })
             </div>
         </div>
         @if (Model.SessionID > 0)
@@ -423,7 +380,7 @@
                 @Html.ValidationMessageFor(a => a.DateTimeScheduledOut, "", new { @style = "color:red" })
             </p>*@
         <p>
-            @*@Html.ValidationSummary()*@
+            @Html.ValidationSummary()
         </p>
         @Html.ActionLink("Back to schedule", "Schedule", "User", null, new { @class = "btn btn-default" })
         <input type="submit" value="Save" class="btn btn-primary" />
@@ -449,7 +406,7 @@
             myToast.showToast();
         }
     function Attendee_Add(data) {
-        $("#SessionID").val(data);
+            $("#editSessionID").val(@ViewBag.SessionID);
             $("#editAttendeeID").val("");
             $("#editEmail").val("");
             $("#editName").val("");
@@ -457,14 +414,15 @@
             $("#editRate").val(@ViewBag.Rate);
 
         }
-        function Attendee_Save() {
+    function Attendee_Save() {
+            debugger;
             var m = {
                 AttendeeID: $("#editAttendeeID").val() || 0,
                 Name: $("#editName").val(),
                 Email: $("#editEmail").val(),
                 UserID: $("#editUserID").val() || null,
                 Rate: parseFloat($("#editRate").val()),
-                SessionID: parseInt($("#SessionID").val() || 0)
+                SessionID: parseInt($("#editSessionID").val() || 0)
             };
 
             $.ajax({
@@ -475,6 +433,7 @@
                  contentType: "application/json",
 
                 success: function (response) {
+                    debugger;
                     if (m.AttendeeID > 0) {
                         $("#attendee" + m.AttendeeID).replaceWith(response);
                     }
@@ -495,7 +454,8 @@
 
 
         }
-        function editAttendeeClick(attendeeID,email,name,userID,rate) {
+    function editAttendeeClick(attendeeID, email, name, userID, rate) {
+
             $("#editAttendeeID").val(attendeeID);
             $("#editEmail").val(email);
             $("#editName").val(name);
@@ -526,7 +486,8 @@
 
             }
         }
-        function datetimechange(e) {
+    function datetimechange(e) {
+        
             $("input", this).val(e.date); // sets input to selected date
         }
         $(document).ready(function () {

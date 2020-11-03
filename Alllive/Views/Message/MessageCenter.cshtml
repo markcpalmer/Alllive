@@ -7,9 +7,11 @@
                 {
                     <div class="message-user @(ViewBag.receiverID == messageUser.User.UserID?"highlighted":"")" onclick="messageUser_Click(@messageUser.User.UserID, this)">
                         <div>
+                            <a href="@Url.Action("ViewTutor","Search",new { tutorID = ViewBag.tutorID})">
                             <label>
                                 @messageUser.User.FirstName @messageUser.User.LastName
                             </label>
+                            </a>
                         </div>
                         <div>
                             <em>

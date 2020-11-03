@@ -1,92 +1,103 @@
 ﻿@model IEnumerable<Alllive.Models.ScheduleMeeting>
-    @{
+@{
     ViewBag.Title = "Schedule";
-    }
-    
-    <h2>Schedule&nbsp;<a class="btn btn-primary" href="@Url.Action("ScheduleMeeting","Meeting")"><i class="glyphicon glyphicon-plus"></i></a></h2>
-     @ViewBag.message
+}
 
-    @if (Model != null)
-    {
+<h2>Schedule&nbsp;<a class="btn btn-primary" href="@Url.Action("ScheduleMeeting","Meeting")"><i class="glyphicon glyphicon-plus"></i></a></h2>
+@ViewBag.message
+
+@if (Model != null)
+{
     foreach (var item in Model)
     {
-    <div class="container @(item.Active == "N" ?"cancelled":"")">
-        <table class="table table-bordered table-responsive">
-            <tr>
-                <th>
-                    Start Time
-                </th>
-                <th>
-                    Session Name
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Host
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    @if (item.Active == "N")
+<div class="container @(item.Active == "N" ?"cancelled":"")">
+    <table class="table table-bordered table-responsive">
+        <tr>
+            <th>
+                Start Time
+            </th>
+            <th>
+                Session Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Host
+            </th>
+            <th>Meeting Link</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>
+                @if (item.Active == "N")
+                {
+                    <em>Cancelled</em>
+                }
+                <!--<b>@item.SessionID</b>-->
+                @item.StartTime.ToString("MM/dd/yyyy")
+                <br />
+                @item.StartTime.ToString("hh:mm tt")
+            </td>
+            <td>
+                @item.SessionName
+            </td>
+            <td>
+                @item.Description
+
+            </td>
+            
+            <td>
+                @item.Host
+            </td>
+            <td>
+                <a href="/Meeting/Meeting/?id=@item.SessionID" target="_blank">Click to Join Meeting</a>
+            </td>
+            <td>
+                @if (item.HostUserID == ViewBag.myUserID)
+                {
+                    if (item.Active == "Y")
                     {
-                        <em>Cancelled</em>
+                        @Html.ActionLink("Cancel", "CancelMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Edit", "ScheduleMeeting", "Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
+
+
                     }
-                    <!--<b>@item.SessionID</b>-->
-                    @item.StartTime.ToString("MM/dd/yyyy")
-                    <br />
-                   @item.StartTime.ToString("hh:mm tt")
-                </td>
-                <td>
-                    @item.SessionName
-                </td>
-                <td>
-                    @item.Description
-
-                </td>
-                <td>
-                    @item.Host
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                   
-                    <b>Attendees:</b>
-                       @String.Join(", ", item.Attendees.Select(a => a.Name))
-
-                </td>
-            </tr>
-        </table> 
-        <table>
-            <tr>
-                <td>
-                    <a href="/Meeting/Meeting/?id=@item.SessionID" target="_blank">Click to Join Meeting</a>
-                    <br />
-                    @if (item.HostUserID == ViewBag.myUserID)
+                    else
                     {
-                       if (item.Active == "Y")
-                        {
-                            @Html.ActionLink("Cancel", "CancelMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-default" })
-                            @Html.ActionLink("Edit", "ScheduleMeeting", "Meeting", new { sessionID = item.SessionID }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Reactivate", "ReactivateMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-primary" })
 
-
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Reactivate", "ReactivateMeeting", "Meeting", new { ID = item.SessionID }, new { @class = "btn btn-primary" })
-
-                        }
                     }
-                </td>
-            </tr>
-        </table>
-        <div class="row">
-            <div class="col-sm-8">
-            </div>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+
+                <b>Attendees:</b>
+                @*@String.Join(", ", item.Attendees.Select(a => a.Name))*@
+                <div id="attendeeList">
+                    @foreach (var attendee in item.Attendees)
+                    {
+                        @Html.Partial("_Attendee", attendee)
+                    }
+                </div>
+
+            </td>
+            <td>
+                <a class="btn btn-success" onclick="Attendee_Add(@item.SessionID )" data-toggle="modal" data-target="#editAttendee"><i class="glyphicon glyphicon-plus" style="font-size:1rem"></i></a>
+            </td>
+        </tr>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-8">
         </div>
-       
     </div>
-    
+    @Html.Partial("_EditAttendee")
+
+</div>
+
     }
 }
 else
@@ -95,5 +106,84 @@ else
 
 
 }
+<script>
+    function Attendee_Add(data) {
+        
+            $("#editSessionID").val(data);
+            $("#editAttendeeID").val("");
+            $("#editEmail").val("");
+            $("#editName").val("");
+            $("#editUserID").val("");
+            $("#editRate").val(@ViewBag.Rate);
 
+    }
+     function Attendee_Save() {
+            var m = {
+                AttendeeID: $("#editAttendeeID").val() || 0,
+                Name: $("#editName").val(),
+                Email: $("#editEmail").val(),
+                UserID: $("#editUserID").val() || null,
+                Rate: parseFloat($("#editRate").val()),
+                SessionID: parseInt($("#editSessionID").val() || 0)
+            };
+
+            $.ajax({
+                 method: 'POST',
+                 url: '@Url.Action("SaveAttendee", "Meeting")',
+                 data: JSON.stringify(m),
+
+                 contentType: "application/json",
+
+                success: function (response) {
+                    if (m.AttendeeID > 0) {
+                        $("#attendee" + m.AttendeeID).replaceWith(response);
+                    }
+                    else {
+                        $("#attendeeList").append(response);
+                        Attendee_Add();
+                    }
+                    var myToast = Toastify({
+                        text: "The attendee has been saved",
+                        duration: 2000
+                    });
+                    myToast.showToast();
+
+                 }
+
+            })
+    }
+     function editAttendeeClick(attendeeID,SessionID, email, name, userID, rate) {
+
+            $("#editAttendeeID").val(attendeeID);
+            $("#editSessionID").val(SessionID);
+            $("#editEmail").val(email);
+            $("#editName").val(name);
+            $("#editUserID").val(userID);
+            $("#editRate").val(rate);
+
+    }
+      function DeleteAttendeeClick(attendeeID,btn) {
+
+            var result = confirm("Are you sure you want to delete this attendee?");
+            if (result === true) {
+                 $.ajax({
+                 method: 'GET',
+                 url: '@Url.Action("DeleteAttendee", "Meeting")?attendeeID='+attendeeID,
+                 success: function (response) {
+                     if (response.result === "ok") {
+                         var row = $(btn).closest(".row");
+                         $(row).remove();
+                         var myToast = Toastify({
+                             text: "The attendee has been deleted",
+                             duration: 2000
+                         });
+                         myToast.showToast();
+                     }
+                 }
+
+            })
+
+            }
+        }
+</script>
 

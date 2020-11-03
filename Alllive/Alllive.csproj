@@ -891,6 +891,8 @@
     <Content Include="Views\Meeting\MeetingReviewPage.cshtml" />
     <Content Include="Views\Billing\ListTutorBankAccounts.cshtml" />
     <Content Include="Views\Billing\AddBankAccount.cshtml" />
+    <Content Include="Views\User\_EditAttendee.cshtml" />
+    <Content Include="Views\User\_Attendee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

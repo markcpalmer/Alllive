@@ -241,7 +241,7 @@ namespace Alllive.Controllers
             int UserID = currentUser.UserId;
             //var DisplaySchedule = Dc.UserSchedule(ID);
             DateTime todaysDate = DateTime.Now;
-            todaysDate = todaysDate.AddDays(-30);
+            //todaysDate = todaysDate.AddDays(-30); use for tutor
             var DisplaySchedule = Dc.Schedules.Join(Dc.ScheduleMeetings,
                a => a.SessionID,
                b => b.SessionID,
@@ -262,6 +262,7 @@ namespace Alllive.Controllers
                 }
             }
                 
+           
             return View(DisplaySchedule);
         }
         

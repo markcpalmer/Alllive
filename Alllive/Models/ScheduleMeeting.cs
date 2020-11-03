@@ -11,8 +11,9 @@ namespace Alllive.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class ScheduleMeeting
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class ScheduleMeeting : IValidatableObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ScheduleMeeting()
@@ -53,5 +54,13 @@ namespace Alllive.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendee> Attendees { get; set; }
+
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            if (EndTime < StartTime)
+            {
+                yield return new ValidationResult("EndDate must be greater than StartDate");
+            }
+        }
     }
 }

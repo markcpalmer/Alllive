@@ -82,7 +82,9 @@ namespace Alllive.Controllers
                 messageUsers.Add(new MessageUserViewModel() { User = receiver, TimeStamp = DateTime.UtcNow });
             }
 
+            var tutorID = Dc.TutorProfiles.FirstOrDefault(a => a.UserID == userID).TutorProfileID;
             ViewBag.receiverID = userID;
+            ViewBag.tutorID = tutorID;
             return View(messageUsers);
 
 
