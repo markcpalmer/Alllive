@@ -365,6 +365,29 @@ namespace Alllive.Controllers
             return View(tutorVM);
 
         }
+
+        [Authorize]
+        public ActionResult PaymentProfile()
+        {
+            var tutorVM = Dc.Users.GroupJoin(Dc.TutorProfiles,
+                   u => u.UserID,
+                   tp => tp.UserID,
+                   (u, tp) => new { tp, u }
+               ).Where(a => a.u.UserID == currentUser.UserId
+
+               ).ToList().Select(a => new TutorViewModel(a.tp.FirstOrDefault(), a.u))
+               .FirstOrDefault();
+            if (tutorVM == null)
+            {
+                tutorVM = new TutorViewModel();
+            }
+            if (string.IsNullOrEmpty(tutorVM.User.TimeZone))
+            {
+                tutorVM.User.TimeZone = "Eastern Standard Time";
+            }
+
+            return View(tutorVM);
+        }
         [Authorize]
         [HttpPost]
         public ActionResult SaveUserProfile(User user)

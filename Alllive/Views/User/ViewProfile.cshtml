@@ -1,104 +1,87 @@
 ﻿@model Alllive.Models.TutorViewModel
 
 
-    <div class="container">
-            <div class="col-sm">
-                <table class="table table-bordered" style="width:15%;max-width:30%">
-                    <thead><tr><th>Profile</th></tr></thead>
-                    <tbody>
-                        
-                        <tr> <td> Public Profile</td></tr>
-                        <tr><td>Payment Information</td></tr>
-                        <tr><td>Availability</td></tr>
-                    </tbody>
-                </table>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-bordered" style="width:25rem;">
+            <thead><tr><th>Profile</th></tr></thead>
+            <tbody>
+
+                <tr> <td><a href="@Url.Action("ViewProfile","User")">Public Profile</a> </td></tr>
+                <tr><td><a href="#">Payment Information</a></td></tr>
+                <tr><td><a href="#">Availability</a></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        @using (Ajax.BeginForm("SaveUserProfile", new AjaxOptions { OnSuccess = "SaveUserProfile_Success", HttpMethod = "POST" }))
+        {
+            @Html.HiddenFor(a => a.User.UserID)
+            @Html.HiddenFor(a => a.User.UserName)
+
+            <div>
+
+                <div class="col-sm">
+                    @Html.DisplayFor(a => a.User.FirstName, new { @style = "width:100px" })
+                    @Html.DisplayFor(a => a.User.LastName, new { @style = "width:100px" })
+                </div>
+            </div>
+
+            <div>
+
+                <div class="col-sm">
+                    @Html.DisplayFor(a => a.User.TimeZone, new { @class = "form-control", @style = "width:100px" })
+                </div>
+            </div>
+
+            <div>
+
+                <div class="col-sm">
+                    <span>@Model.User.UserName</span>
+                </div>
+
 
             </div>
-            <div class="col-lg">
-                @using (Ajax.BeginForm("SaveUserProfile", new AjaxOptions { OnSuccess = "SaveUserProfile_Success", HttpMethod = "POST" }))
-                {
-                    @Html.HiddenFor(a => a.User.UserID)
-                    @Html.HiddenFor(a => a.User.UserName)
+            if (Model.TutorProfile != null)
+            {
+                <p>
+                    <img src="~/Images/silhoutte.png" />
+                </p>
 
-                    <div>
-                        <div class="col-sm-3">
-                            <label>First Name</label>
-
-                        </div>
-                        <div class="col-sm">
-                            @Html.TextBoxFor(a => a.User.FirstName, new { @class = "form-control",@style="width:100px" })
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col-sm-3">
-                            <label>Last Name</label>
-
-                        </div>
-                        <div class="col-sm">
-                            @Html.TextBoxFor(a => a.User.LastName, new { @class = "form-control",@style="width:100px" })
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col-sm">
-                            <label>Time Zone</label>
-
-                        </div>
-                        <div class="col-sm">
-                            @Html.DropDownListFor(a => a.User.TimeZone, Utilities.GetTimeZones(), new { @class = "form-control", @placeholder = "Time Zone",@style="width:100px" })
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="col-sm-3">
-                            <label>UserName</label>
-                        </div>
-                        <div class="col-sm">
-                            <span>@Model.User.UserName</span>
-                        </div>
-
-
-                    </div>
-                    <div>
-                        <div class="col-sm">
-                            <button type="submit" class="btn btn-primary">Save Profile</button>
-                        </div>
-                    </div>
-                }
-
-                @*<div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h3>Credit Cards &nbsp; <a href="@Url.Action("AccountList","Billing")"><i class="fa fa-folder-open"></i></a></h3>
-                        </div>
-                        @if (Model.User.isTutor)
-                        {
-                            <div class="col-md-3">
-                                <h3>Bank Accounts &nbsp; <a href="@Url.Action("ListTutorBankAccounts", "Billing")"><i class="fa fa-folder-open"></i></a></h3>
-                            </div>
-                        }
-                    </div>
-
-                </div>*@
-                @*<div class="container">
-                    @if (Model.TutorProfile != null)
-                    {
-                        <p>
-                            <img src="~/Images/silhoutte.png" />
-                        </p>
-                        <p>
+                <table>
+                    <tr>
+                        <td><hr />Headline</td>
+                        <td>
                             @Model.TutorProfile.HeadLine
-                        </p>
-                        <p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><hr />Bio</td>
+                        <td>
                             @Model.TutorProfile.Bio
-                        </p>
-                        <div class="row">
-                            <div class="col-sm-1">
-                                @Html.Label("Rate")
-                            </div>
-                            <div class="col-sm-1">
-                                @Html.ValueFor(a => a.TutorProfile.Rate)
-                            </div>
-                        </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-sm-1">
+                        @Html.Label("Rate")
+                    </div>
+                    <div class="col-sm-1">
+                        @Html.ValueFor(a => a.TutorProfile.Rate)
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+    @*<div class="container">
+                        <div>
+              
+
+                </div>
+                <div class="container">
+                 
                         <div class="row">
                             <div class="col-md-3">
                                 <h4>Availability</h4>
@@ -215,10 +198,10 @@
                     {
                         <a class="btn btn-primary" href="@Url.Action("TutorRegistration")">Add a Tutor Profile</a>
                     }
-                </div>*@
+                </div>
             </div>
        
-</div>
+</div>*@
 @section Scripts{
     <script>
         function accountDelete_Click(userAccountId) {

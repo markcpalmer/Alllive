@@ -893,6 +893,7 @@
     <Content Include="Views\Billing\AddBankAccount.cshtml" />
     <Content Include="Views\User\_EditAttendee.cshtml" />
     <Content Include="Views\User\_Attendee.cshtml" />
+    <Content Include="Views\User\PaymentProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
