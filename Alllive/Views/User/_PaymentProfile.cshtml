@@ -1,0 +1,19 @@
+﻿@model Alllive.Models.TutorViewModel
+
+@{
+    ViewBag.Title = "PaymentProfile";
+}
+
+<h2>PaymentProfile</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>Credit Cards &nbsp; <a href="@Url.Action("AccountList","Billing")"><i class="fa fa-folder-open"></i></a></h3>
+    </div>
+    @if (Model.User.isTutor)
+    {
+        <div class="col-md-3">
+            <h3>Bank Accounts &nbsp; <a href="@Url.Action("ListTutorBankAccounts", "Billing")"><i class="fa fa-folder-open"></i></a></h3>
+        </div>
+    }
+</div>

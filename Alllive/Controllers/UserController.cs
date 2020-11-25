@@ -361,32 +361,27 @@ namespace Alllive.Controllers
             {
                 tutorVM.User.TimeZone = "Eastern Standard Time";
             }
-
+            ViewBag.ViewProfile = true;
+            if (HttpContext.Request.QueryString["viewPage"] == "1")
+            {
+                ViewBag.Page = "1";
+            }
+            else if (HttpContext.Request.QueryString["viewPage"] == "2") { ViewBag.Page = "2"; }
+            else { ViewBag.Page = "3"; }
             return View(tutorVM);
 
         }
 
+        [HttpPost]
         [Authorize]
-        public ActionResult PaymentProfile()
+        public ActionResult ViewProfile(string viewPage)
         {
-            var tutorVM = Dc.Users.GroupJoin(Dc.TutorProfiles,
-                   u => u.UserID,
-                   tp => tp.UserID,
-                   (u, tp) => new { tp, u }
-               ).Where(a => a.u.UserID == currentUser.UserId
-
-               ).ToList().Select(a => new TutorViewModel(a.tp.FirstOrDefault(), a.u))
-               .FirstOrDefault();
-            if (tutorVM == null)
-            {
-                tutorVM = new TutorViewModel();
+            if (viewPage == "1") {
+                ViewBag.Page = "1";
             }
-            if (string.IsNullOrEmpty(tutorVM.User.TimeZone))
-            {
-                tutorVM.User.TimeZone = "Eastern Standard Time";
-            }
-
-            return View(tutorVM);
+            else if (viewPage == "2") { ViewBag.Page = "2"; }
+            else { ViewBag.Page = "3"; }
+            return View();
         }
         [Authorize]
         [HttpPost]

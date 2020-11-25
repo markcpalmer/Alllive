@@ -894,6 +894,8 @@
     <Content Include="Views\User\_EditAttendee.cshtml" />
     <Content Include="Views\User\_Attendee.cshtml" />
     <Content Include="Views\User\PaymentProfile.cshtml" />
+    <Content Include="Views\User\_PaymentProfile.cshtml" />
+    <Content Include="Views\User\_ViewProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
